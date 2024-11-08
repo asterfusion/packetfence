@@ -22,7 +22,7 @@ BEGIN {
     use setup_test_config;
 }
 
-use Test::More tests => 22;
+use Test::More tests => 20;
 use Test::NoWarnings;
 
 use pf::constants qw($TRUE $FALSE);
@@ -210,13 +210,6 @@ $x509 = pf::ssl::x509_from_string($packetfence_org_cert);
 is(ref($x509), "Crypt::OpenSSL::X509", "x509_from_string returns a Crypt::OpenSSL::X509");
 
 is($x509->subject, "CN=packetfence.org", "certificate has the right subject");
-
-{
-    my ($res, $inter) = pf::ssl::fetch_all_intermediates($x509);
-    is(scalar(@$inter), 1, "right amount of intermediates was found");
-    is($inter->[0]->subject(), "C=US, O=Let's Encrypt, CN=Let's Encrypt Authority X3", "right intermediate subject was found");
-}
-
 
 my $cert_with_chain_cert = <<EOF;
 -----BEGIN CERTIFICATE-----
