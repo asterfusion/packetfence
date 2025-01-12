@@ -1,4 +1,6 @@
 import datetime
+import log
+import utils
 
 _global_dict = {}
 
@@ -71,3 +73,62 @@ c_ad_reset_account_lockout_counter_after = None  # Default not set
 c_ad_old_password_allowed_period = None  # Windows 2003+, Default not set, if not set, 60
 
 c_max_allowed_password_attempts_per_device = None
+
+
+def _debug():
+    debug_basic_settings = f"""
+Domain profile settings:
+global_vars.c_server_name                   {c_server_name}
+global_vars.c_ad_server                     {c_ad_server}
+global_vars.c_realm                         {c_realm}
+global_vars.c_workgroup                     {c_workgroup}
+global_vars.c_username                      {c_username}
+global_vars.c_password                      {c_password}
+global_vars.c_additional_machine_accounts   {c_additional_machine_accounts}
+global_vars.c_netbios_name                  {c_netbios_name}
+global_vars.c_workstation                   {c_workstation}
+global_vars.c_server_string                 {c_server_string}
+global_vars.c_domain                        {c_domain}
+global_vars.c_dns_servers                   {c_dns_servers}
+----    
+"""
+
+    debug_nt_key_cache = f"""
+NT Key cache settings:
+global_vars.c_nt_key_cache_enabled  {c_nt_key_cache_enabled}
+global_vars.c_nt_key_cache_expire   {c_nt_key_cache_expire}    
+
+global_vars.c_ad_account_lockout_threshold              {c_ad_account_lockout_threshold}
+global_vars.c_ad_account_lockout_duration               {c_ad_account_lockout_duration}
+global_vars.c_ad_reset_account_lockout_counter_after    {c_ad_reset_account_lockout_counter_after}
+global_vars.c_ad_old_password_allowed_period            {c_ad_old_password_allowed_period}
+global_vars.c_max_allowed_password_attempts_per_device  {c_max_allowed_password_attempts_per_device}
+----
+"""
+
+    debug_db_settings = f"""
+Database settings:
+global_vars.c_db_host           {c_db_host}
+global_vars.c_db_port           {c_db_port}
+global_vars.c_db_user           {c_db_user}
+global_vars.c_db_pass           {utils.mask_password(c_db_pass)}
+global_vars.c_db                {c_db}
+global_vars.c_db_unix_socket    {c_db_unix_socket}
+----
+"""
+
+    debug_redis_settings = f"""
+Redis settings:
+f"global_vars.c_cache_host    {c_cache_host}"
+f"global_vars.c_cache_port    {c_cache_port}"
+----
+"""
+
+
+    debug_computer_account_base = f"""
+global_vars.s_computer_account_base     {s_computer_account_base}    
+"""
+
+
+
+
