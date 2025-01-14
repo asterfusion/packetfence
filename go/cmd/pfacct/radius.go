@@ -339,6 +339,10 @@ func (h *PfAcct) sendRadiusAccountingCall(r *radius.Request) {
 		if err := h.AAAClient.Notify(ctx, "radius_accounting", attr); err != nil {
 			logError(ctx, err.Error())
 		}
+	} else if !h.RateLimit {
+		if err := h.AAAClient.Notify(ctx, "radius_accounting", attr); err != nil {
+			logError(ctx, err.Error())
+		}
 	}
 }
 
