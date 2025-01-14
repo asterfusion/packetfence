@@ -377,11 +377,11 @@ def config_load():
 
     if nt_key_cache_enabled:
         log.debug("NT Key caching settings:")
-        log.debug(f"ad_account_lockout_threshold                         : {ad_account_lockout_threshold}")
-        log.debug(f"ad_account_lockout_duration (in minutes)             : {ad_account_lockout_duration}")
-        log.debug(f"ad_reset_account_lockout_counter_after (in minutes)  : {ad_reset_account_lockout_count_after}")
-        log.debug(f"ad_old_password_allowed_period (in minutes)          : {ad_old_password_allowed_period}")
-        log.debug(f"max_allowed_password_attempts_per_device             : {max_allowed_attempts_per_device}")
+        log.debug(f"ad_account_lockout_threshold                            {ad_account_lockout_threshold}")
+        log.debug(f"ad_account_lockout_duration (in minutes)                {ad_account_lockout_duration}")
+        log.debug(f"ad_reset_account_lockout_counter_after (in minutes)     {ad_reset_account_lockout_count_after}")
+        log.debug(f"ad_old_password_allowed_period (in minutes)             {ad_old_password_allowed_period}")
+        log.debug(f"max_allowed_password_attempts_per_device                {max_allowed_attempts_per_device}")
 
     global_vars.c_server_name = ad_fqdn
     global_vars.c_ad_server = ad_server
