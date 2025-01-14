@@ -325,6 +325,7 @@ sub generate_dpsk_attribute_value {
     return "0x00".$hash;
 }
 
+
 sub find_user_by_psk {
     my ($self, $radius_request, $args) = @_;
     my $pid;
@@ -337,7 +338,7 @@ sub find_user_by_psk {
     my $bssid = pack("H*", pf::util::wpa::strip_hex_prefix($radius_request->{"Ruckus-BSSID"}));
     my $username = pack("H*", $radius_request->{'User-Name'});
     my $anonce = pack('H*', pf::util::wpa::strip_hex_prefix($radius_request->{'Ruckus-DPSK-Anonce'}));
-    my $snonce = pf::util::wpa::snonce_from_eapol_key_frame(pack("H*",pf::util::wpa::strip_hex_prefix($radius_request->{"Ruckus-DPSK-EAPOL-Key-Frame"})));
+    my $snonce = pf::util::wpa::snonce_from_eapol_key_frame(pack("H*", pf::util::wpa::strip_hex_prefix($radius_request->{"Ruckus-DPSK-EAPOL-Key-Frame"})));
     my $eapol_key_frame = pack("H*", pf::util::wpa::strip_hex_prefix($radius_request->{"Ruckus-DPSK-EAPOL-Key-Frame"}));
     my $cache = $self->cache;
     # Try first the pid of the mac address
