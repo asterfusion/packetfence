@@ -174,10 +174,12 @@ func (pfAcct *PfAcct) SetupConfig(ctx context.Context) {
 	pfconfigdriver.FetchDecodeSocket(ctx, &RadiusConfiguration)
 	pfAcct.ProcessBandwidthAcct = sharedutils.IsEnabled(RadiusConfiguration.ProcessBandwidthAccounting)
 	pfAcct.RateLimit = sharedutils.IsEnabled(RadiusConfiguration.PfacctRateLimit)
-	pfAcct.PfacctRateLimitCacheTtl = RadiusConfiguration.PfacctRateLimitCacheTtl
-	pfAcct.RateLimitCache = cache.New(time.Duration(RadiusConfiguration.PfacctRateLimitCacheTtl)*time.Minute, 10*time.Minute)
-	pfAcct.MacNasCache = cache.New(time.Duration(RadiusConfiguration.PfacctRateLimitCacheTtl)*time.Minute, 10*time.Minute)
-
+	pfAcct.PfacctRateLimitCacheTtl = 5
+	if i, err := strconv.Atoi(RadiusConfiguration.PfacctRateLimitCacheTtl); err != nil {
+		pfAcct.PfacctRateLimitCacheTtl = i
+	}
+	pfAcct.RateLimitCache = cache.New(time.Duration(pfAcct.PfacctRateLimitCacheTtl)*time.Minute, 10*time.Minute)
+	pfAcct.MacNasCache = cache.New(time.Duration(pfAcct.PfacctRateLimitCacheTtl)*time.Minute, 10*time.Minute)
 	if !pfAcct.ProcessBandwidthAcct {
 		logInfo(ctx, "Not processing bandwidth accounting records. To enable set radius_configuration.process_bandwidth_accounting = enabled")
 	}
