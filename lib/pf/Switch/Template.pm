@@ -583,6 +583,12 @@ sub returnCliAuthorize {
     return [$RADIUS::RLM_MODULE_OK, %radius_reply];
 }
 
+sub _setVlan {
+    my ( $self, $ifIndex, $newVlan, $oldVlan, $switch_locker_ref ) = @_;
+    my $logger = $self->logger;
+    return $self->_setVlanByOnlyModifyingPvid( $ifIndex, $newVlan, $oldVlan, $switch_locker_ref );
+}
+
 =head1 AUTHOR
 
 Inverse inc. <info@inverse.ca>
