@@ -67,7 +67,7 @@ image::ruckus_unleashed_mac_auth.png[scaledwidth="100%",alt="Mac Auth"]
 * Enter a Name/SSID
 * Select *Standard* as the Type
 * Select *802.1X EAP* as the authentication method
-* Select *WAP2* as the encryption method
+* Select *WPA2* as the encryption method
 * Select the proper RADIUS server as the authentication server
 * Select the proper RADIUS server as the accounting server
 * In Advanced Options -> WLAN Priority check "Enable Dynamic VLAN"
