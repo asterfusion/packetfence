@@ -35,16 +35,16 @@ end
 
 # include PacketFence(s) from PacketFence Vagrantfile
 pfservers_vagrantfile = File.expand_path('pfservers/Vagrantfile')
-load pfservers_vagrantfile if File.exists?(pfservers_vagrantfile)
+load pfservers_vagrantfile if File.exist?(pfservers_vagrantfile)
 
 # include switch(s) and supplicant(s) from Cumulus Vagrantfile
 cumulus_vagrantfile = File.expand_path('cumulus/Vagrantfile')
-load cumulus_vagrantfile if File.exists?(cumulus_vagrantfile)
+load cumulus_vagrantfile if File.exist?(cumulus_vagrantfile)
 
 # include switch(s) and supplicant(s) from Wireless Vagrantfile
 wireless_vagrantfile = File.expand_path('wireless/Vagrantfile')
-load wireless_vagrantfile if File.exists?(wireless_vagrantfile)
+load wireless_vagrantfile if File.exist?(wireless_vagrantfile)
 
 # include linux servers from linux_servers Vagrantfile
 linux_servers_vagrantfile = File.expand_path('linux_servers/Vagrantfile')
-load linux_servers_vagrantfile if File.exists?(linux_servers_vagrantfile)
+load linux_servers_vagrantfile if File.exist?(linux_servers_vagrantfile)
