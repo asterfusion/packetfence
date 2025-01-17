@@ -1,6 +1,6 @@
 module github.com/inverse-inc/packetfence/go
 
-go 1.23.4
+go 1.23.5
 
 require (
 	github.com/Azure/azure-sdk-for-go v68.0.0+incompatible // indirect
@@ -61,7 +61,6 @@ require (
 	github.com/openzipkin-contrib/zipkin-go-opentracing v0.5.0 // indirect
 	github.com/openzipkin/zipkin-go v0.4.2 // indirect
 	github.com/patrickmn/go-cache v2.1.0+incompatible
-	github.com/phayes/freeport v0.0.0-20220201140144-74d24b5ae9f5
 	github.com/prometheus/client_golang v1.19.1
 	github.com/prometheus/client_model v0.5.0 // indirect
 	github.com/prometheus/common v0.48.0 // indirect
@@ -72,7 +71,7 @@ require (
 	golang.org/x/crypto v0.31.0
 	golang.org/x/net v0.28.0
 	golang.org/x/sync v0.10.0
-	golang.org/x/sys v0.28.0 // indirect
+	golang.org/x/sys v0.28.0
 	golang.org/x/text v0.21.0
 	google.golang.org/api v0.180.0 // indirect
 	google.golang.org/grpc v1.63.2 // indirect
