@@ -73,6 +73,14 @@ sub _handle_password_data {
             $data->{access_level} = join(",", @$access_level);
         }
     }
+
+    if (exists $data->{login_remaining}) {
+        my $login_remaining = $data->{login_remaining};
+        if (defined $login_remaining && $login_remaining eq '') {
+            $data->{login_remaining} = undef;
+        }
+    }
+
     return $data;
 }
 
