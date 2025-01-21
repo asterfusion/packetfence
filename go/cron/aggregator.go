@@ -3,6 +3,7 @@ package maint
 import (
 	"context"
 	"database/sql"
+	"fmt"
 	"math"
 	"net/netip"
 	"time"
@@ -88,16 +89,16 @@ SELECT
 
 func flowType(t uint16) string {
 	switch t {
-	default:
-		return "unknown"
 	case 5:
 		return "Netflow(5)"
 	case 9:
 		return "Netflow(9)"
 	case 10:
 		return "Netflow(10)"
-	case 65335:
+	case 65535:
 		return "Sflow"
+	default:
+		return fmt.Sprintf("unknown(%d)", t)
 	}
 }
 
