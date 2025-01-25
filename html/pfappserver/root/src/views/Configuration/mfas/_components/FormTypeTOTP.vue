@@ -40,7 +40,7 @@
       :text="$i18n.t('Define the period to rotate the token. (default is 30s)')"
     />
 
-    <form-group-post-mfa-validation-cache-duration namespace="PostMfaValidationCacheDuration"
+    <form-group-post-mfa-validation-cache-duration namespace="post_mfa_validation_cache_duration"
       :column-label="$i18n.t('Post MFA Validation Cache Duration')"
       :text="$i18n.t('The duration time to keep the information the user did validate the MFA authentication (represent the time between the portal validation and the next RADIUS request).')"
     />
