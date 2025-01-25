@@ -6,7 +6,7 @@
         <form action="/mfa" method="post">
             <div class="input-container">
                 <label for="otp">[% i18n("Authentication code") %]</label>
-                <input id="otp" name="otp" title="OTP" type="tel" inputmode="numeric" pattern="[0-9]*" minlength="4" maxlength="6" required autocorrect="off" autocapitalize="off" class="text-center letter-expand" />
+                <input id="otp" name="otp" title="OTP" type="tel" inputmode="numeric" pattern="[0-9]*" minlength="1" maxlength="10" required autocorrect="off" autocapitalize="off" class="text-center letter-expand" />
             </div>
             <button type="submit" name="submit" class="c-btn c-btn--primary u-1/1 u-margin-top" disabled>
                 [% i18n("Continue") %]
@@ -14,8 +14,17 @@
         </form>
         [% ELSE %]
         <p>[% i18n("Please scan the code below in your favorite authenticator app") %]</p>
-        <div id="qrcode" data-username="[% username %]" data-otp="[% otp %]"></div>
-        [% END %]
+        <div id="qrcode" data-username="[% username %]" data-otp="[% otp %]" data-digits="[% token_size %]" data-period="[% period %]" data-suffix="[% suffix %]"></div>
+        <form action="/mfa" method="post">
+            <div class="input-container">
+                <label for="otp">[% i18n("Verify authentication code") %]</label>
+                <input id="otp" name="otp" title="OTP" type="tel" inputmode="numeric" pattern="[0-9]*" minlength="1" maxlength="10" required autocorrect="off" autocapitalize="off" class="text-center letter-expand" />
+            </div>
+            <button type="submit" name="submit" class="c-btn c-btn--primary u-1/1 u-margin-top" disabled>
+                [% i18n("Continue") %]
+            </button>
+        </form>
+	[% END %]
   </div>
 </div>
 [% IF exist %]

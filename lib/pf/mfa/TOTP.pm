@@ -39,6 +39,31 @@ Character that split the username and otp
 
 has split_char => (is => 'rw' );
 
+=head2 token_size
+
+Size of the token
+
+=cut
+
+has token_size => (is => 'rw' );
+
+=head2 period
+
+Period of time to generate the token
+
+=cut
+
+has period => (is => 'rw' );
+
+
+=head2 suffix
+
+Suffix added to the username
+
+=cut
+
+has suffix => (is => 'rw' );
+
 sub module_description { 'Generic TOTP MFA' }
 
 =head2 check_user
@@ -52,7 +77,8 @@ sub check_user {
     my $logger = get_logger();
     my $message;
     if ($self->radius_mfa_method eq 'strip-otp' || $self->radius_mfa_method eq 'second-password') {
-        if ($otp =~ /^\d{6,6}$/) {
+        my $token_size = self->token_size;
+        if ($otp =~ /^\d{$token_size,$token_size}$/) {
             return $self->verify_otp($username, $otp);
         } else {
             $message = "Method not supported for user $username";
@@ -87,7 +113,7 @@ sub verify_otp {
 sub generateCurrentNumber {
     my ($self, $otp) = @_;
 
-    my $paddedTime = sprintf("%016x", int(time() / 30));
+    my $paddedTime = sprintf("%016x", int(time() / normalize_time($self->period)));
     my $data = pack('H*', $paddedTime);
     my $key = $self->decodeBase32($otp);
 
@@ -95,10 +121,10 @@ sub generateCurrentNumber {
 
     my $offset = hex(substr($hmac, -1));
     my $encrypted = hex(substr($hmac, $offset * 2, 8)) & 0x7fffffff;
-
-    my $token = $encrypted % 1000000;
-    return sprintf("%06d", $token);
-
+    my $div = '1'. '0' x $self->token_size;
+    my $token = $encrypted % $div;
+    my $token_size = '%0' . $self->token_size . 'd';
+    return sprintf($token_size, $token);
 }
 
 sub decodeBase32 {
@@ -130,7 +156,10 @@ sub redirect_info {
     return {
         exist => $exist,
         username => $username,
-        otp => $otp
+        otp => $otp,
+        period => normalize_time($self->period),
+        token_size => $self->token_size,
+        suffix => $self->suffix,
     };
 }
 

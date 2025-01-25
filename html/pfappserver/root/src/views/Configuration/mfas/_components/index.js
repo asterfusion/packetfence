@@ -24,6 +24,9 @@ export {
   BaseFormGroupInput                  as FormGroupHost,
   BaseFormGroupInput                  as FormGroupCallbackUrl,
   BaseFormGroupInput                  as FormGroupSplitChar,
+  BaseFormGroupInput                  as FormGroupSuffix,
+  BaseFormGroupChosenOne              as FormGroupTokenSize,
+  BaseFormGroupIntervalUnit           as FormGroupPeriod,
   BaseFormGroupIntervalUnit           as FormGroupCacheDuration,
   BaseFormGroupIntervalUnit           as FormGroupPostMfaValidationCacheDuration,
 

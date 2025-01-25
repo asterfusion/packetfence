@@ -15,6 +15,11 @@
       :text="$i18n.t('Define the method to be used in RADIUS to trigger OTP.')"
     />
 
+    <form-group-suffix namespace="suffix"
+      :column-label="$i18n.t('Suffix added to the username')"
+      :text="$i18n.t('The suffix added to the username. Thiw will appear in the MFA application (username.suffix).')"
+    />
+
     <form-group-split-char namespace="split_char"
       :column-label="$i18n.t('Character separator')"
       :text="$i18n.t('The char with which the password and the code are split during RADIUS authentication.')"
@@ -23,6 +28,16 @@
     <form-group-cache-duration namespace="cache_duration"
       :column-label="$i18n.t('Cache duration')"
       :text="$i18n.t('The duration that is used to cache the MFA information. This should approximately represent the time for the user to complete the authentication.')"
+    />
+
+    <form-group-token-size namespace="token_size"
+      :column-label="$i18n.t('Token size')"
+      :text="$i18n.t('Define the number of digits of the token. (default is 6)')"
+    />
+
+    <form-group-period namespace="period"
+      :column-label="$i18n.t('Token rotation period')"
+      :text="$i18n.t('Define the period to rotate the token. (default is 30s)')"
     />
 
     <form-group-post-mfa-validation-cache-duration namespace="PostMfaValidationCacheDuration"
@@ -37,7 +52,10 @@ import { BaseForm } from '@/components/new/'
 import {
   FormGroupIdentifier,
   FormGroupRadiusMfaMethod,
+  FormGroupSuffix,
   FormGroupSplitChar,
+  FormGroupTokenSize,
+  FormGroupPeriod,
   FormGroupCacheDuration,
   FormGroupPostMfaValidationCacheDuration,
 } from './'
@@ -47,7 +65,10 @@ const components = {
 
   FormGroupIdentifier,
   FormGroupRadiusMfaMethod,
+  FormGroupSuffix,
   FormGroupSplitChar,
+  FormGroupTokenSize,
+  FormGroupPeriod,
   FormGroupCacheDuration,
   FormGroupPostMfaValidationCacheDuration
 }

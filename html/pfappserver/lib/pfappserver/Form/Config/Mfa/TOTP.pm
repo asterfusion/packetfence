@@ -42,9 +42,36 @@ has_field 'radius_mfa_method' =>
    default => 'strip-otp',
   );
 
+has_field 'period' =>
+  (
+   type => 'Duration',
+   default => {
+    interval => 30,
+    unit => 's',
+   },
+  );
+
+has_field 'token_size' =>
+  (
+   type => 'IntRange',
+   label => 'Token size',
+   required => 1,
+   default => 6,
+   range_start => 1,
+   range_end => 10,
+  );
+
+has_field 'suffix' =>
+  (
+   type => 'Text',
+   required => 1,
+   default => 'packetfence',
+   messages => { required => 'Please specify the suffix that will be added to the username' },
+  );
+
 has_block definition =>
   (
-   render_list => [ qw(id radius_mfa_method) ],
+   render_list => [ qw(id radius_mfa_method period token_size suffix) ],
   );
 
 =over
