@@ -41,6 +41,8 @@ export {
   BaseFormGroupSwitch                 as FormGroupDpsk,
   BaseFormGroupInput                  as FormGroupDefaultPskKey,
   BaseFormGroupSwitch                 as FormGroupUnboundDpsk,
+  BaseFormGroupSwitch                 as FormGroupUnboundDpskTotp,
+  BaseFormGroupChosenOne              as FormGroupTotp,
   BaseFormGroupSwitch                 as FormGroupUnregOnAcctStop,
   BaseFormGroupChosenOne              as FormGroupVlanPoolTechnique,
   BaseFormGroupChosenOne              as FormGroupFilterMatchStyle,

@@ -25,6 +25,7 @@ use pf::ConfigStore::BillingTiers;
 use pf::ConfigStore::Scan;
 use pf::ConfigStore::SelfService;
 use pf::ConfigStore::PortalModule;
+use pf::ConfigStore::Mfa;
 use pf::web::constants;
 use pf::constants::Connection::Profile;
 use pf::constants::role qw( $POOL_USERNAMEHASH $POOL_RANDOM $POOL_ROUND_ROBBIN $POOL_PER_USER_VLAN);
@@ -43,7 +44,7 @@ The main definition block
 
 has_block 'definition' =>
   (
-    render_list => [qw(id description root_module preregistration autoregister reuse_dot1x_credentials dot1x_recompute_role_from_portal mac_auth_recompute_role_from_portal dot1x_unset_on_unmatch dpsk unbound_dpsk default_psk_key unreg_on_acct_stop vlan_pool_technique)],
+    render_list => [qw(id description root_module preregistration autoregister reuse_dot1x_credentials dot1x_recompute_role_from_portal mac_auth_recompute_role_from_portal dot1x_unset_on_unmatch dpsk unbound_dpsk unbound_dpsk_totp default_psk_key unreg_on_acct_stop vlan_pool_technique)],
   );
 
 =head2 captive_portal
@@ -211,6 +212,20 @@ Controls whether or not this connection profile to enabled Dynamic Unbound PSK
 =cut
 
 has_field 'unbound_dpsk' =>
+  (
+   type => 'Toggle',
+   checkbox_value => 'enabled',
+   unchecked_value => 'disabled',
+   default => 'disabled',
+  );
+
+=head2 unbound_dpsk_totp
+
+Controls whether or not this connection profile to enabled Dynamic Unbound PSK with TOTP
+
+=cut
+
+has_field 'unbound_dpsk_totp' =>
   (
    type => 'Toggle',
    checkbox_value => 'enabled',
@@ -519,6 +534,17 @@ has_field 'self_service' =>
     options_method => \&options_self_service,
   );
 
+=head2 totp
+
+The definition for TOTP field
+
+=cut
+
+has_field 'totp' =>
+  (
+    type => 'Select',
+    options_method => \&options_totp,
+  );
 
 =head2 network_logoff
 
@@ -647,6 +673,16 @@ sub options_self_service {
     return  map { { value => $_, label => $_ } } '',@{pf::ConfigStore::SelfService->new->readAllIds};
 }
 
+=head2 options_totp
+
+Returns the list of totp to be displayed
+
+=cut
+
+sub options_totp {
+    my $cs = pf::ConfigStore::Mfa->new;
+    return map { ($_->{type} eq "TOTP")  ? { value => $_->{id}, label => $_->{id} } : () } @{$cs->readAll("id")};
+}
 
 =head2 options_root_module
 

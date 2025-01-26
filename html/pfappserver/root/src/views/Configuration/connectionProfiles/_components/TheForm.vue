@@ -90,7 +90,15 @@
                                  enabled-value="enabled"
                                  disabled-value="disabled"
         />
-
+        <form-group-unbound-dpsk-totp namespace="unbound_dpsk_totp"
+                                 :column-label="$i18n.t('Enable Unbound DPSK with TOTP')"
+                                 :text="$i18n.t('This enable Dynamic Unbound PSK with TOTP.')"
+                                 enabled-value="enabled"
+                                 disabled-value="disabled"
+        />
+        <form-group-totp namespace="totp"
+                                 :column-label="$i18n.t('TOTP configuration to use for Unbound DPSK')"
+        />
         <form-group-unreg-on-acct-stop namespace="unreg_on_acct_stop"
                                        :column-label="$i18n.t('Automatically deregister devices on accounting stop')"
                                        :text="$i18n.t('This activates automatic deregistation of devices for the profile if PacketFence receives a RADIUS accounting stop. This option only makes sense in the context of an 802.1x authentication.')"
@@ -245,6 +253,8 @@ import {
   FormGroupDpsk,
   FormGroupDefaultPskKey,
   FormGroupUnboundDpsk,
+  FormGroupUnboundDpskTotp,
+  FormGroupTotp,
   FormGroupUnregOnAcctStop,
   FormGroupVlanPoolTechnique,
   FormGroupFilterMatchStyle,
@@ -287,6 +297,8 @@ const components = {
   FormGroupDpsk,
   FormGroupDefaultPskKey,
   FormGroupUnboundDpsk,
+  FormGroupUnboundDpskTotp,
+  FormGroupTotp,
   FormGroupUnregOnAcctStop,
   FormGroupVlanPoolTechnique,
   FormGroupFilterMatchStyle,
