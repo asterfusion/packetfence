@@ -438,7 +438,7 @@ sub find_user_by_psk {
     my $snonce = pf::util::wpa::snonce_from_eapol_key_frame(pack("H*",pf::util::wpa::strip_hex_prefix($radius_request->{"Eleven-EAPOL-Frame-2"})));
     my $eapol_key_frame = pack("H*", pf::util::wpa::strip_hex_prefix($radius_request->{"Eleven-EAPOL-Frame-2"}));
 
-    return $self->iterate_user_by_psk($radius_request, $ssid, $bssid, $username, $anonce, $snonce, $eapol_key_frame, $cache_key);
+    return $self->iterate_user_by_psk($args, $radius_request, $ssid, $bssid, $username, $anonce, $snonce, $eapol_key_frame, $cache_key);
 }
 
 

@@ -73,7 +73,7 @@ sub find_user_by_psk {
     my $eapol_key_frame = pack("H*", pf::util::wpa::strip_hex_prefix($radius_request->{"FreeRADIUS-802.1X-EAPoL-Key-Msg"}));
     $bssid =~ s/-//g;
 
-    return $self->iterate_user_by_psk($radius_request, $ssid, $bssid, $username, $anonce, $snonce, $eapol_key_frame, $cache_key);
+    return $self->iterate_user_by_psk($args, $radius_request, $ssid, $bssid, $username, $anonce, $snonce, $eapol_key_frame, $cache_key);
 }
 
 =back

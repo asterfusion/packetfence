@@ -4482,7 +4482,7 @@ sub populateAccessPointMACIP {
 }
 
 sub iterate_user_by_psk {
-    my ($self, $radius_request, $ssid, $bssid, $username, $anonce, $snonce, $eapol_key_frame, $cache_key) = @_;
+    my ($self, $args, $radius_request, $ssid, $bssid, $username, $anonce, $snonce, $eapol_key_frame, $cache_key) = @_;
 
     my $cache = $self->cache;
     # Try first the pid of the mac address
