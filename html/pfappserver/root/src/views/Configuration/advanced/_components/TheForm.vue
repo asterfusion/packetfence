@@ -95,6 +95,13 @@
                                              disabled-value="disabled"
     />
 
+    <form-group-update-iplog-with-authentication namespace="update_iplog_with_authentication"
+                                             :column-label="$i18n.t('Update the iplog using the authentication')"
+                                             :text="$i18n.t('Use the information included in the authentication to update the iplog.')"
+                                             enabled-value="enabled"
+                                             disabled-value="disabled"
+    />
+
     <form-group-update-iplog-with-external-portal-requests
       namespace="update_iplog_with_external_portal_requests"
       :column-label="$i18n.t('Update the iplog using the external portal requests')"
@@ -196,6 +203,7 @@ import {
   FormGroupSourceToSendSmsWhenCreatingUsers,
   FormGroupTimingStatsLevel,
   FormGroupUpdateIplogWithAccounting,
+  FormGroupUpdateIplogWithAuthentication,
   FormGroupUpdateIplogWithExternalPortalRequests
 } from './'
 import {computed, toRefs} from '@vue/composition-api'
@@ -227,6 +235,7 @@ const components = {
   FormGroupSourceToSendSmsWhenCreatingUsers,
   FormGroupTimingStatsLevel,
   FormGroupUpdateIplogWithAccounting,
+  FormGroupUpdateIplogWithAuthentication,
   FormGroupUpdateIplogWithExternalPortalRequests
 }
 

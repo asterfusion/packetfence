@@ -586,6 +586,7 @@ type PfConfAdvanced struct {
 	ScanOnAccounting                 string      `json:"scan_on_accounting"`
 	PffilterProcesses                string      `json:"pffilter_processes"`
 	UpdateIplogWithAccounting        string      `json:"update_iplog_with_accounting"`
+	UpdateIplogWithAuthentication    string      `json:"update_iplog_with_authentication"`
 	AdminCspSecurityHeaders          string      `json:"admin_csp_security_headers"`
 	Multihost                        string      `json:"multihost"`
 	SsoOnAccessReevaluation          string      `json:"sso_on_access_reevaluation"`
