@@ -146,7 +146,6 @@ sub authorize {
 
     Log::Log4perl::MDC->put( 'mac', $mac );
 
-    my $framed_ip = $radius_request->{"Framed-IP-Address"};
     if (exists $radius_request->{"Framed-IP-Address"} && valid_ip($radius_request->{"Framed-IP-Address"})) {
         if (isenabled($Config{advanced}{update_iplog_with_authentication})) {
             my $client = pf::client::getClient();
