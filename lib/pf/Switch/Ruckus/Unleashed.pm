@@ -268,7 +268,7 @@ sub find_user_by_psk {
         get_logger->error("Ruckus-DPSK-Cipher isn't for WPA2 that uses AES and HMAC-SHA1. This isn't supported by this module.");
         return $pid;
     }
-    my $cache_key =  "Ruckus::Unleashed::check_if_radius_request_psk_matches::PMK::"
+    my $cache_key =  "Ruckus::Unleashed::check_if_radius_request_psk_matches::PMK::";
     my $ssid = $radius_request->{'Ruckus-SSID'};
     my $bssid = pack("H*", pf::util::wpa::strip_hex_prefix($radius_request->{"Ruckus-BSSID"}));
     my $username = pack("H*", $radius_request->{'User-Name'});
