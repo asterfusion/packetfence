@@ -713,7 +713,12 @@ sub node_deregister {
     my ($mac, %info) = @_;
     my $logger = get_logger();
     $pf::StatsD::statsd->increment( called() . ".called" );
+    my $cleaned_mac = clean_mac($mac);
+    if (!$cleaned_mac) {
+        $logger->error("unable to de-register node $mac invalid mac");
+    }
 
+    $mac = $cleaned_mac;
     $info{'status'}    = 'unreg';
     $info{'regdate'}   = $ZERO_DATE;
     $info{'unregdate'} = $ZERO_DATE;
