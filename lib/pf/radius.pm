@@ -145,6 +145,15 @@ sub authorize {
     }
 
     Log::Log4perl::MDC->put( 'mac', $mac );
+
+    if (exists $radius_request->{"Framed-IP-Address"} && valid_ip($radius_request->{"Framed-IP-Address"})) {
+        if (isenabled($Config{advanced}{update_iplog_with_authentication})) {
+            my $client = pf::client::getClient();
+            $logger->debug("Updating iplog from authentication request");
+            $client->notify("update_ip4log", mac => $mac, ip => $radius_request->{"Framed-IP-Address"});
+        }
+    }
+
     my $connection = pf::Connection->new;
     $connection->identifyType($nas_port_type, $eap_type, $mac, $user_name, $switch, $radius_request);
     my $connection_type = $connection->attributesToBackwardCompatible;
