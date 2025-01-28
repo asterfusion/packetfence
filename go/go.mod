@@ -69,7 +69,7 @@ require (
 	github.com/sparrc/go-ping v0.0.0-20190613174326-4e5b6552494c
 	github.com/ti-mo/netfilter v0.2.0
 	golang.org/x/crypto v0.31.0
-	golang.org/x/net v0.28.0
+	golang.org/x/net v0.33.0
 	golang.org/x/sync v0.10.0
 	golang.org/x/sys v0.28.0
 	golang.org/x/text v0.21.0
