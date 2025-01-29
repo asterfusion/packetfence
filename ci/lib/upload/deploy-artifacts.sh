@@ -124,6 +124,36 @@ packetfence_release_deploy() {
 }
 
 # no deploy command because it's just a file
+packetfence_upgrade_deploy() {
+    # EL
+    for release_name in $(ls $RPM_RESULT_DIR); do
+        src_dir="$RPM_RESULT_DIR/${release_name}"
+        dst_repo="$PUBLIC_REPO_BASE_DIR/RHEL$release_name"
+        dst_dir="$DEPLOY_USER@$DEPLOY_HOST:$dst_repo"
+        pf_upgrade_rpm_file=$(basename $(ls $src_dir/packetfence-upgrade*))
+        pf_upgrade_rpm_dest_name=${PF_UPGRADE_RPM_DEST_NAME:-"packetfence-upgrade-${PF_MINOR_RELEASE}.el${release_name}.noarch.rpm"}
+        declare -p src_dir dst_dir pf_upgrade_rpm_file pf_upgrade_rpm_dest_name
+
+        echo "scp (on port $DEPLOY_PORT): ${src_dir}/${pf_upgrade_rpm_file} -> ${dst_dir}/${pf_upgrade_rpm_dest_name}"
+        scp -P $DEPLOY_PORT "${src_dir}/${pf_upgrade_rpm_file}" "${dst_dir}/${pf_upgrade_rpm_dest_name}" \
+            || die "scp failed"
+    done
+    # Deb
+    for release_name in $(ls $DEB_RESULT_DIR); do
+        src_dir="$DEB_RESULT_DIR/${release_name}"
+        dst_repo="$DEB_BASE_DIR/debian"
+        dst_dir="$DEPLOY_USER@$DEPLOY_HOST:$dst_repo"
+        pf_upgrade_deb_file=$(basename $(ls $src_dir/packetfence-upgrade*))
+        pf_upgrade_deb_dest_name=${PF_UPGRADE_DEB_DEST_NAME:-"packetfence-upgrade_${PF_MINOR_RELEASE}.deb"}
+        declare -p src_dir dst_dir pf_upgrade_deb_file pf_upgrade_deb_dest_name
+
+        echo "scp (on port $DEPLOY_PORT): ${src_dir}/${pf_upgrade_deb_file} -> ${dst_dir}/${pf_upgrade_deb_dest_name}"
+        scp -P $DEPLOY_PORT "${src_dir}/${pf_upgrade_deb_file}" "${dst_dir}/${pf_upgrade_deb_dest_name}" \
+            || die "scp failed"
+    done
+}
+
+# no deploy command because it's just a file
 packetfence_export_deploy() {
     # EL
     for release_name in $(ls $RPM_RESULT_DIR); do
@@ -205,6 +235,7 @@ case $1 in
     deb) deb_deploy ;;
     packetfence-release) packetfence_release_deploy ;;
     packetfence-export) packetfence_export_deploy ;;
+    packetfence-upgrade) packetfence_upgrade_deploy ;;
     packetfence-ci-lib) packetfence_ci_lib_deploy ;;
     ppa) ppa_deploy ;;
     website) website_deploy ;;
