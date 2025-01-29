@@ -1708,7 +1708,7 @@ to do.  Your export archive will contain your previous
 
 === Upgrade Standalone RedHat EL8
 
-Please follow these command line BEFORE starting the automation upgrade.
+Please follow these command line BEFORE starting the full automation upgrade.
 
 .RHEL / CentOS based systems **only**
 [source,bash]
