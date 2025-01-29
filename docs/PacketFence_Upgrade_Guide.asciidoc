@@ -779,7 +779,7 @@ If the previous installation was a cluster, some steps may not be required.  The
 
 === Pre-automation Upgrade Standalone RedHat EL8
 
-Please follow these command line BEFORE starting the automation upgrade.
+Please follow these command line BEFORE starting the full automation upgrade.
 
 .RHEL / CentOS based systems **only**
 [source,bash]
