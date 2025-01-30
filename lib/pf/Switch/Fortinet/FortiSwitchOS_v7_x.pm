@@ -42,6 +42,7 @@ use pf::SwitchSupports qw(
     WiredMacAuth
     WiredDot1x
     ~AccessListBasedEnforcement
+    RoleBasedEnforcement
 );
 
 =head2 wiredeauthTechniques
@@ -100,6 +101,18 @@ sub deauthenticateMacDefault {
     return $self->radiusDisconnect(
         $mac, { 'Acct-Session-Id' => $dynauth->{'acctsessionid'}, 'User-Name' => $dynauth->{'username'}, 'NAS-Identifier' => $dynauth->{'nasidentifier'}, 'Called-Station-Id' => $dynauth->{'calledstationid'} },
     );
+}
+
+=head2 returnRoleAttribute
+
+What RADIUS Attribute (usually VSA) should the role be returned into.
+
+=cut
+
+sub returnRoleAttribute {
+    my ($self) = @_;
+
+    return 'Filter-Id';
 }
 
 =head2 getVersion
