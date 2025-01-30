@@ -41,7 +41,7 @@ sub description { 'FortiSwitchOS v7.x' }
 use pf::SwitchSupports qw(
     WiredMacAuth
     WiredDot1x
-    ~AccessListBasedEnforcement
+    AccessListBasedEnforcement
     RoleBasedEnforcement
 );
 
@@ -101,6 +101,61 @@ sub deauthenticateMacDefault {
     return $self->radiusDisconnect(
         $mac, { 'Acct-Session-Id' => $dynauth->{'acctsessionid'}, 'User-Name' => $dynauth->{'username'}, 'NAS-Identifier' => $dynauth->{'nasidentifier'}, 'Called-Station-Id' => $dynauth->{'calledstationid'} },
     );
+}
+
+=head2 returnRadiusAccessAccept
+
+Prepares the RADIUS Access-Accept reponse for the network device.
+
+Overrides the default implementation to add the dynamic acls
+
+=cut
+
+sub returnRadiusAccessAccept {
+    my ($self, $args) = @_;
+    my $logger = $self->logger;
+    $args->{'unfiltered'} = $TRUE;
+    my @super_reply = @{$self->SUPER::returnRadiusAccessAccept($args)};
+    my $status = shift @super_reply;
+    my %radius_reply = @super_reply;
+    my $radius_reply_ref = \%radius_reply;
+    return [$status, %$radius_reply_ref] if($status == $RADIUS::RLM_MODULE_USERLOCK);
+    my @acls = defined($radius_reply_ref->{'NAS-Filter-Rule'}) ? @{$radius_reply_ref->{'NAS-Filter-Rule'}} : ();
+
+    if ( isenabled($self->{_AccessListMap}) && $self->supportsAccessListBasedEnforcement ){
+        if( defined($args->{'user_role'}) && $args->{'user_role'} ne "" && defined(my $access_list = $self->getAccessListByName($args->{'user_role'}, $args->{mac})) && !($self->usePushACLs && exists $ConfigRoles{$args->{'user_role'}} )){
+            if ($access_list) {
+                while($access_list =~ /([^\n]+)\n?/g){
+                    my ($test, $formated_acl) = $self->returnAccessListAttribute('',$1);
+                    if ($test) {
+                        push(@acls, $formated_acl);
+                        $logger->info("(".$self->{'_id'}.") Adding access list : $formated_acl to the RADIUS reply");
+                    }
+                }
+                $logger->info("(".$self->{'_id'}.") Added access lists to the RADIUS reply.");
+            } else {
+                $logger->info("(".$self->{'_id'}.") No access lists defined for this role ".$args->{'user_role'});
+            }
+        }
+    }
+
+    $radius_reply_ref->{'NAS-Filter-Rule'} = \@acls;
+
+    my $filter = pf::access_filter::radius->new;
+    my $rule = $filter->test('returnRadiusAccessAccept', $args);
+    ($radius_reply_ref, $status) = $filter->handleAnswerInRule($rule,$args,$radius_reply_ref);
+    return [$status, %$radius_reply_ref];
+}
+
+=head2 returnInAccessListAttribute
+
+Returns the attribute to use when pushing an input ACL using RADIUS
+
+=cut
+
+sub returnInAccessListAttribute {
+    my ($self) = @_;
+    return '';
 }
 
 =head2 returnRoleAttribute
