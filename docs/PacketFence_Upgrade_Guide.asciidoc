@@ -138,6 +138,11 @@ Follow instructions related to <<PacketFence_Upgrade_Guide.asciidoc#_automation_
 
 Please refer to the <<PacketFence_Clustering_Guide.asciidoc#,PacketFence Clustering Guide>>, more specifically the <<PacketFence_Clustering_Guide.asciidoc#_performing_an_upgrade_on_a_cluster,Performing an upgrade on a cluster>>.
 
+== Automation of upgrades
+
+include::upgrade-notes/automation_of_upgrades.asciidoc[]
+
+
 == Upgrading from a version prior to 10.0.0
 
 === Kernel development package
@@ -264,10 +269,6 @@ To upgrade the database schema, run the following command:
 ----
 mysql -u root -p pf -v < /usr/local/pf/db/upgrade-9.3.0-10.0.0.sql
 ----
-
-== Automation of upgrades
-
-include::upgrade-notes/automation_of_upgrades.asciidoc[]
 
 == Upgrading from a version prior to 10.1.0
 
