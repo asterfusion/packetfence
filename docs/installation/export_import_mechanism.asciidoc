@@ -120,7 +120,8 @@ the import script, you should ensure that Mariabackup is still installed at end 
 
 ==== Start the import process
 
-The import script will guide you through the restore of the database, the configuration files and will help adjust the PacketFence IP configuration if necessary.
+The import script will guide you through the restore of the database, the configuration
+files and will help adjust the PacketFence IP configuration if necessary.
 
 To start the import process using the export archive you made on the current installation:
 

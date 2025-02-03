@@ -39,7 +39,7 @@ The MariaDB root password that was provided during the initial configuration is 
 
 NOTE: Starting from PacketFence 11.0.0, this step is not necessary for
 doing an
-<<PacketFence_Installation_Guide.asciidoc#_automation_of_upgrades,automated
+<<PacketFence_Upgrade_Guide.asciidoc#_automation_of_upgrades,automated
 upgrade>>.
 
 Taking a complete backup of the current installation is strongly recommended.
@@ -61,7 +61,7 @@ Perform a backup using:
 
 NOTE: Starting from PacketFence 11.0.0, this step is not necessary for
 doing an
-<<PacketFence_Installation_Guide.asciidoc#_automation_of_upgrades,automated
+<<PacketFence_Upgrade_Guide.asciidoc#_automation_of_upgrades,automated
 upgrade>>.
 
 If `monit` is installed and running, stop and disable it with:
@@ -132,7 +132,7 @@ include::common/restart.asciidoc[]
 
 === For a standalone server
 
-Follow instructions related to <<PacketFence_Installation_Guide.asciidoc#_automation_of_upgrades,automation of upgrades>>.
+Follow instructions related to <<PacketFence_Upgrade_Guide.asciidoc#_automation_of_upgrades,automation of upgrades>>.
 
 === For a cluster
 
@@ -265,6 +265,10 @@ To upgrade the database schema, run the following command:
 mysql -u root -p pf -v < /usr/local/pf/db/upgrade-9.3.0-10.0.0.sql
 ----
 
+== Automation of upgrades
+
+include::upgrade-notes/automation_of_upgrades.asciidoc
+
 == Upgrading from a version prior to 10.1.0
 
 === RADIUS attributes in authentication sources
@@ -396,7 +400,6 @@ Rename PFMON actions to the PFCRON actions
 ----
 
 === Syslog parsers are now tenant aware
-
 
 Add the tenant_id to pfdetect
 
@@ -1146,7 +1149,7 @@ RADIUS -> TLS profiles_.
 
 Upgrades are now automated for standalone servers starting from PacketFence 11.0.0.
 Follow instructions related to
-<<PacketFence_Installation_Guide.asciidoc#_automation_of_upgrades,automation
+<<PacketFence_Upgrade_Guide.asciidoc#_automation_of_upgrades,automation
 of upgrades>>.
 
 === Support of custom rules in iptables.conf
@@ -1211,7 +1214,7 @@ mysql -u root -p pf -v < /usr/local/pf/db/upgrade-11.0-11.1.sql
 
 Upgrades are now automated for standalone servers starting from PacketFence 11.0.0.
 Follow instructions related to
-<<PacketFence_Installation_Guide.asciidoc#_automation_of_upgrades,automation
+<<PacketFence_Upgrade_Guide.asciidoc#_automation_of_upgrades,automation
 of upgrades>>.
 
 === Note for cluster upgrades
@@ -1589,11 +1592,11 @@ unless you specific individual machine account name for each of the node.
  . repeat the joining steps on all the nodes to make sure all the nodes are having the same domain profile.
 
 
-=== RedHat EL8
+=== Upgrade on RedHat EL8
 
 In place upgrades are supported for Redhat EL8. You can follow up the current <<PacketFence_Upgrade_Guide.asciidoc#_upgrade_to_another_version_major_or_minor,Upgrade to another version (major or minor)>>.
 
-=== Debian 12
+=== Pre-automation Upgrade on Debian 12
 
 PacketFence 14.0.0 has removed support for Debian 11 (bullseye) and added support for Debian 12 (bookworm). In place upgrades from Debian 11 to Debian 12 are not supported. A new operating system will need to be provisioned in order to migrate from either Debian 11 or RedHat EL8, to Debian 12.
 
@@ -1706,7 +1709,7 @@ to do.  Your export archive will contain your previous
 
 == Upgrading from a version prior to X.Y.Z
 
-=== Upgrade Standalone RedHat EL8
+=== Pre-automation Upgrade Standalone RedHat EL8
 
 Please follow these command lines in order to upgrade database.
 
@@ -1728,7 +1731,7 @@ mysql_upgrade -p
 addons/upgrade/do-upgrade.sh
 ----
 
-=== Upgrade Cluster RedHat EL8
+=== Pre-automation Upgrade Cluster RedHat EL8
 
 It is the same as <<PacketFence_Upgrade_Guide.asciidoc#_performing_an_upgrade_on_a_cluster>>
 but when you are at that this step <<PacketFence_Upgrade_Guide.asciidoc#_upgrade_node_c>> for node C,
