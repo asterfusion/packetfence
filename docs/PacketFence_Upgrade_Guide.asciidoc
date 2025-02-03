@@ -267,7 +267,7 @@ mysql -u root -p pf -v < /usr/local/pf/db/upgrade-9.3.0-10.0.0.sql
 
 == Automation of upgrades
 
-include::upgrade-notes/automation_of_upgrades.asciidoc
+include::upgrade-notes/automation_of_upgrades.asciidoc[]
 
 == Upgrading from a version prior to 10.1.0
 
