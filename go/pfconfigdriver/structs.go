@@ -607,8 +607,6 @@ type PfConfAdvanced struct {
 	ApiMaxExpiration                 int         `json:"api_max_expiration"`
 	NetFlowOnAllNetworks             string      `json:"netflow_on_all_networks"`
 	AccountingTimebucketSize         int         `json:"accounting_timebucket_size"`
-	ZeroTrustNetworkStartingIP       string      `json:"zero_trust_network_starting_ip"`
-	ZeroTrustNetworkNetmask          json.Number `json:"zero_trust_network_netmask"`
 }
 
 type PfConfDns struct {

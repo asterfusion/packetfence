@@ -5016,10 +5016,6 @@ msgstr ""
 msgid "The net_write_timeout MySQL configuration attribute. Only change if you know what you are doing. Will only affect a locally running MySQL server and the haproxy-db configuration."
 msgstr ""
 
-# conf/documentation.conf (advanced.zero_trust_network_netmask)
-msgid "The netmask (in numerical bits value) of the Zero Trust network. Only change if you know what you are doing. Changing this value requires to restart all the PacketFence services and requires all the clients of the Zero Trust network to be restarted"
-msgstr ""
-
 # conf/documentation.conf (radius_configuration.pfacct_workers)
 msgid "The number of workers proccessing accounting packets."
 msgstr ""
@@ -5195,10 +5191,6 @@ msgstr ""
 
 # conf/documentation.conf (advanced.source_to_send_sms_when_creating_users)
 msgid "The source to use to send an SMS when creating a user"
-msgstr ""
-
-# conf/documentation.conf (advanced.zero_trust_network_starting_ip)
-msgid "The starting IP address of the Zero Trust network. Only change if you know what you are doing. Changing this value requires to restart all the PacketFence services and requires all the clients of the Zero Trust network to be restarted"
 msgstr ""
 
 # html/pfappserver/lib/pfappserver/Form/Config/PortalModule/Survey.pm
@@ -6281,14 +6273,6 @@ msgstr "Update the iplog using the accounting"
 
 # conf/documentation.conf
 msgid "advanced.update_iplog_with_external_portal_requests"
-msgstr ""
-
-# conf/documentation.conf
-msgid "advanced.zero_trust_network_netmask"
-msgstr ""
-
-# conf/documentation.conf
-msgid "advanced.zero_trust_network_starting_ip"
 msgstr ""
 
 # pf::provisioner (Provisioners)

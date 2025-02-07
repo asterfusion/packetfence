@@ -5558,14 +5558,6 @@ msgid ""
 " haproxy-db configuration."
 msgstr "L'attribut de configuration MySQL net_write_timeout. Ne changez que si vous savez ce que vous faites. Cela n''affectera qu'un serveur MySQL exécuté localement et la configuration haproxy-db."
 
-# conf/documentation.conf (advanced.zero_trust_network_netmask)
-msgid ""
-"The netmask (in numerical bits value) of the Zero Trust network. Only change"
-" if you know what you are doing. Changing this value requires to restart all"
-" the PacketFence services and requires all the clients of the Zero Trust "
-"network to be restarted"
-msgstr "Le masque de réseau (CIDR) du réseau Zero Trust. Ne changez que si vous savez ce que vous faites. La modification de cette valeur nécessite de redémarrer tous les services PacketFence et nécessite le redémarrage de tous les clients du réseau Zero Trust"
-
 # conf/documentation.conf (radius_configuration.pfacct_workers)
 msgid "The number of workers proccessing accounting packets."
 msgstr "Le nombre de workers qui traitent les paquets d'accounting."
@@ -5760,14 +5752,6 @@ msgstr "La source Active Directory à utiliser par le cache NTLM."
 # conf/documentation.conf (advanced.source_to_send_sms_when_creating_users)
 msgid "The source to use to send an SMS when creating a user"
 msgstr "La source a utiliser pour envoyer un SMS quand on crée un utilisateur"
-
-# conf/documentation.conf (advanced.zero_trust_network_starting_ip)
-msgid ""
-"The starting IP address of the Zero Trust network. Only change if you know "
-"what you are doing. Changing this value requires to restart all the "
-"PacketFence services and requires all the clients of the Zero Trust network "
-"to be restarted"
-msgstr "L'adresse IP de départ du réseau Zero Trust. Ne changez que si vous savez ce que vous faites. La modification de cette valeur nécessite de redémarrer tous les services PacketFence et nécessite le redémarrage de tous les clients du réseau Zero Trust"
 
 # html/pfappserver/lib/pfappserver/Form/Config/PortalModule/Survey.pm
 msgid ""
@@ -7041,14 +7025,6 @@ msgstr "Mettre à jour l’Iplog en utilisant la comptabilisation"
 # conf/documentation.conf
 msgid "advanced.update_iplog_with_external_portal_requests"
 msgstr "advanced.update_iplog_with_external_portal_requests"
-
-# conf/documentation.conf
-msgid "advanced.zero_trust_network_netmask"
-msgstr "advanced.zero_trust_network_netmask"
-
-# conf/documentation.conf
-msgid "advanced.zero_trust_network_starting_ip"
-msgstr "advanced.zero_trust_network_starting_ip"
 
 # pf::provisioner (Provisioners)
 msgid "airwatch"
