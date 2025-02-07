@@ -60,6 +60,6 @@ func (fw *ContentKeeper) startRadiusPacket(ctx context.Context, info map[string]
 // Send an SSO stop to the ContentKeeper firewall
 // Returns an error unless there is a valid reply from the firewall
 func (fw *ContentKeeper) Stop(ctx context.Context, info map[string]string) (bool, error) {
-	log.LoggerWContext(ctx).Info("Not supported sending SSO to ContentKeeper using RADIUS")
+	log.LoggerWContext(ctx).Info("Not supported sending SSO to ContentKeeper using RADIUS for Stop")
 	return true, nil
 }
