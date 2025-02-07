@@ -50,6 +50,14 @@
                               :text="$i18n.t('The default realm to be used while formatting the username when no realm can be extracted from the username.')"
                               namespace="default_realm"
     />
+
+    <form-group-use-connector :column-label="$i18n.t('Use Connector')"
+                              :text="$i18n.t('Use the available PacketFence connectors to connect to this authentication source. By default, a local connector is hosted on this server. Using remote connectors is only supported on a standalone instance at the moment.')"
+                              disabled-value="0"
+                              enabled-value="1"
+                              namespace="use_connector"
+    />
+
   </base-form>
 </template>
 <script>
@@ -63,7 +71,8 @@ import {
   FormGroupNetworks,
   FormGroupPassword,
   FormGroupPort,
-  FormGroupUsernameFormat
+  FormGroupUsernameFormat,
+  FormGroupUseConnector
 } from './'
 import {useForm as setup, useFormProps as props} from '../_composables/useForm'
 
@@ -78,7 +87,8 @@ const components = {
   FormGroupNetworks,
   FormGroupPassword,
   FormGroupPort,
-  FormGroupUsernameFormat
+  FormGroupUsernameFormat,
+  FormGroupUseConnector
 }
 
 // @vue/component
