@@ -346,10 +346,6 @@ func ExecuteStop(ctx context.Context, fw FirewallSSOInt, info map[string]string)
 		return false, nil
 	}
 
-	if !fw.CheckStatus(ctx, info) {
-		return false, nil
-	}
-
 	if !fw.SendOnAcctStop(ctx) && info["source"] == "accounting" {
 		log.LoggerWContext(ctx).Debug(fmt.Sprintf("Not sending SSO for IP %s since it's coming from an accounting stop and it has been disabled", info["ip"]))
 		return false, nil
