@@ -132,18 +132,19 @@ func (h PfssoHandler) spawnSso(ctx context.Context, firewall firewallsso.Firewal
 		infoCopy[k] = v
 	}
 
+	ctxLog := log.TranferLogContext(ctx, context.Background())
 	go func() {
-		defer panichandler.Standard(ctx)
-		ctx = connector.WithConnectorsContainer(ctx, h.connectors)
-		sent, err := f(ctx, infoCopy)
+		defer panichandler.Standard(ctxLog)
+		goCtx := connector.WithConnectorsContainer(ctxLog, h.connectors)
+		sent, err := f(goCtx, infoCopy)
 		if err != nil {
-			log.LoggerWContext(ctx).Error(fmt.Sprintf("Error while sending SSO to %s: %s"+firewall.GetFirewallSSO(ctx).PfconfigHashNS, err))
+			log.LoggerWContext(goCtx).Error(fmt.Sprintf("Error while sending SSO to %s: %s"+firewall.GetFirewallSSO(goCtx).PfconfigHashNS, err))
 		}
 
 		if sent {
-			log.LoggerWContext(ctx).Debug("Sent SSO to " + firewall.GetFirewallSSO(ctx).PfconfigHashNS)
+			log.LoggerWContext(goCtx).Debug("Sent SSO to " + firewall.GetFirewallSSO(goCtx).PfconfigHashNS)
 		} else {
-			log.LoggerWContext(ctx).Debug("Didn't send SSO to " + firewall.GetFirewallSSO(ctx).PfconfigHashNS)
+			log.LoggerWContext(goCtx).Debug("Didn't send SSO to " + firewall.GetFirewallSSO(goCtx).PfconfigHashNS)
 		}
 	}()
 }
