@@ -35,7 +35,7 @@ jobs:
           regex: '^(maintenance\/1[1-9].[0-2]|devel)$'
 
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - uses: dorny/paths-filter@v2
         id: filters
