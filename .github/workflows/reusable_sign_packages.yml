@@ -49,7 +49,7 @@ jobs:
           dpkg-sig --list /mnt/${{ inputs._PACKAGE_NAME }}*.deb
 
       - name: Upload the package to artifactory ${{inputs._IMAGE_TYPE}}
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: ${{ env.ARTIFACTORY_NAME }}
           path:  /mnt/${{ env.PACKAGE_NAME }}
@@ -98,7 +98,7 @@ jobs:
           rpm --checksig /mnt/${{ inputs._PACKAGE_NAME }}**.rpm
 
       - name: Upload the package to artifactory ${{inputs._IMAGE_TYPE}}
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: ${{ env.ARTIFACTORY_NAME }}
           path:  /mnt/${{ env.PACKAGE_NAME }}

@@ -20,7 +20,7 @@ jobs:
     runs-on: package-build
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
   build_package:
     runs-on: package-build
