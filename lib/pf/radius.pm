@@ -1138,7 +1138,12 @@ sub mfa_pre_auth {
     if ($value) {
         my $mfa = pf::factory::mfa->new($value);
         my $cache = pf::mfa->cache;
-        if ($mfa->radius_mfa_method eq 'strip-otp' || $mfa->radius_mfa_method eq 'sms' || $mfa->radius_mfa_method eq 'phone') {
+        my $split_char = $mfa->split_char;
+        if ($$password =~ /^(.*)$split_char(sms|push|phone)(\d?)$/i) {
+            $$password = $1;
+            $$otp = $2;
+        }
+        if ($mfa->radius_mfa_method eq 'strip-otp' || $mfa->radius_mfa_method eq 'sms' || $mfa->radius_mfa_method eq 'phone' || $cache->get($args->{'radius_request'}->{'User-Name'})) {
             # Previously did a authentication request ?
             if (my $infos = $cache->get($args->{'radius_request'}->{'User-Name'})) {
                 my ($result, $message)= $mfa->check_user($args->{'radius_request'}->{'User-Name'}, $$password, $infos->{'device'});
