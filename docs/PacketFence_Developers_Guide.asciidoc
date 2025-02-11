@@ -11,7 +11,7 @@ include::includes/global-attributes.asciidoc[]
 
 == About this Guide
 
-This guide will help you modify PacketFence to your specific needs and contains information on how to add support for new switches.
+This guide will help modify PacketFence to your specific needs and contains information on how to add support for new switches.
 
 The latest version of this guide is available at https://packetfence.org/documentation/.
 
