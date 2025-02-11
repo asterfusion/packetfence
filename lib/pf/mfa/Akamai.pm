@@ -153,10 +153,12 @@ sub check_user {
         @default_device = $self->select_phone($devices->{'result'}->{'devices'}, $self->radius_mfa_method, undef);
     }
 
-    if ($self->radius_mfa_method eq 'push') {
-       if ( grep $_ eq 'push', @{$default_device[0]->{'methods'}}) {
-            return $ACTIONS{'push'}->($self,$default_device[0]->{'device'},$username);
-       }
+    if (defined $otp && $otp eq "") {
+        if ($self->radius_mfa_method eq 'push') {
+            if ( grep $_ eq 'push', @{$default_device[0]->{'methods'}}) {
+                return $ACTIONS{'push'}->($self,$default_device[0]->{'device'},$username);
+            }
+        }
     }
     else {
         if (defined $otp) {
