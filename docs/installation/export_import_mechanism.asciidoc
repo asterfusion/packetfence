@@ -27,7 +27,7 @@ It can be used to automate parts of upgrades or to restore PacketFence installat
 * With export from 10.3.0, you can import on any PacketFence version after 11.0.0 except if you are using mariadb-backup for mysql backup.
 * If you are using mariabd-backup and want to jump to Debian 12 (packetfence 14.0 or later), you will need to:
 ** be at least on Packetfence version 11.0.0
-** follow these steps in order to backup your database with the right 
+** follow these steps in order to backup your database with the right
   <<PacketFence_Installation_Guide.html#_export_db_with_mariadb-backup_installed_to_packetFence_14.0.0_on_debian_12,mariadb-backup version>>.
 * The import process needs to be done on a **standalone** server. Restoring directly to clusters is currently unsupported
 ** NOTE: Once you restored to your standalone server, you can make it a
@@ -120,8 +120,8 @@ the import script, you should ensure that Mariabackup is still installed at end 
 
 ==== Start the import process
 
-The import script will guide you through the restore of the database, the configuration
-files and will help adjust the PacketFence IP configuration if necessary.
+The import script will guide you through the restore of the database, if necessary it will assit with
+the configuration files and adjust the PacketFence IP configuration.
 
 To start the import process using the export archive you made on the current installation:
 

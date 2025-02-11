@@ -85,9 +85,9 @@ For all PacketFence versions prior to 11.0.0, follow the steps described in the 
 
 === Important note for cluster environments
 
-In cluster environments, you need to perform following steps on **one server
-at a time**. To avoid multiple moves of the virtual IP addresses, you can start with
-nodes which don't own any virtual IP addresses first. You must ensure all
+In cluster environments, perform following steps on **one server
+at a time**. To avoid multiple moves of the virtual IP addresses, start with
+nodes which don't own any virtual IP addresses first. Ensure all
 services have been restarted correctly before moving to the next node.
 
 === Disable monit alerts (only if monit is installed)
@@ -145,7 +145,7 @@ include::upgrade-notes/automation_of_upgrades.asciidoc[]
 == Upgrading from a version prior to 11.0.0
 
 Starting from PacketFence 11.0.0, Debian 9 and CentOS 7 support are dropped in benefit of Debian 11 and RHEL 8.
-In place upgrades are not supported. You will have to provision new operating system(s) in order to migrate.
+In place upgrades are not supported. Provision new operating system(s) in order to migrate.
 
 To simplify upgrade process to PacketFence 11.0.0 and future versions, we now
 rely on an export/import mechanism.
@@ -154,12 +154,12 @@ Before doing anything else, be sure to read <<PacketFence_Installation_Guide.asc
 
 === Export (on current installation)
 
-==== If you are running a PacketFence version before 10.3.0
+==== PacketFence version before 10.3.0
 
 . Follow upgrade path to PacketFence 10.3.0
 . Go to next section
 
-==== If you are running PacketFence version 10.3.0 or later
+==== PacketFence version 10.3.0 or later
 
 Follow instructions related to <<PacketFence_Installation_Guide.asciidoc#_export_on_current_installation,export process>>.
 
@@ -169,15 +169,14 @@ Follow instructions related to <<PacketFence_Installation_Guide.asciidoc#_import
 
 === Instructions for upgrades without import
 
-If you don't use import mechanism to upgrade your previous PacketFence
-installation, you will need to follow the instructions in this section to
-upgrade the configuration and database schema.
+If the import mechanism is not used to upgrade the previous PacketFence installation,
+follow the instructions in this section to upgrade the configuration and database schema.
 
 ==== Configuration upgrade
 
 [source,bash]
 ----
-# Only run this if you don't import your previous configuration
+# Only run if the previous configuration is not imported
 /usr/local/pf/addons/upgrade/to-11.0-firewall_sso-conf.pl
 /usr/local/pf/addons/upgrade/to-11.0-no-slash-32-switches.pl
 /usr/local/pf/addons/upgrade/to-11.0-openid-username_attribute.pl
@@ -185,33 +184,32 @@ upgrade the configuration and database schema.
 
 ==== Database schema
 
-Changes have been made to the database schema. You will need to update it accordingly.
-An SQL upgrade script has been provided to upgrade the database from the 10.3 schema to 11.0.
+Changes have been made to the database schema.
+An SQL upgrade script has been provided to upgrade the database schema from 10.3 to 11.0.
 
 To upgrade the database schema, run the following command:
 
 [source,bash]
 ----
-# Only run this if you don't import your previous configuration
+# Only run if the previous configuration is not imported
 mysql -u root -p pf -v < /usr/local/pf/db/upgrade-10.3-11.0.sql
 ----
 
 
 === NTLM cache background job deprecated in Active Directory Domains
 
-The option `NTLM cache background job` and its associated parameters have been deprecated. If you previously used this option on one of your domains, it will now automatically use the `NTLM cache on connection` method.
+The option `NTLM cache background job` and its associated parameters have been deprecated. If this option was previously used on at least one of the domains, it will automatically use the `NTLM cache on connection` method.
 
 === pf-maint.pl script deprecated
 
-The `pf-maint.pl` script used to get maintenance patches has been deprecated. You can now get maintenance patches using your package manager, see <<#_apply_maintenance_patches,Apply maintenance patches section>>.
+The `pf-maint.pl` script used to get maintenance patches has been deprecated. Get maintenance patches using the package manager, see <<#_apply_maintenance_patches,Apply maintenance patches section>>.
 
 
 === TLS 1.0 and 1.1 are disabled by default in FreeRADIUS
 
-TLS 1.0 and TLS 1.1 are now disabled by default. If you still have supplicants
-using theses protocols, you should move to TLS 1.2. If it's not possible, you
-can adjust `TLS Minimum version` in _Configuration -> System configuration ->
-RADIUS -> TLS profiles_.
+TLS 1.0 and TLS 1.1 are now disabled by default. If supplicants are currently
+using theses protocols, move to TLS 1.2. If TLS 1.2 is not possible adjust
+`TLS Minimum version` in _Configuration -> System configuration -> RADIUS -> TLS profiles_.
 
 
 == Upgrading from a version prior to 11.1.0
@@ -231,15 +229,15 @@ PacketFence now provides a way to add custom rules in [filename]`/usr/local/pf/c
 * [filename]`/usr/local/pf/conf/iptables-input.conf.inc` for all input traffic
 * [filename]`/usr/local/pf/conf/iptables-input-management.conf.inc` for all input traffic related to management interface
 
-If you previously added custom rules in `iptables.conf`, we recommend you to move these rules into these files.
+If custom rules in `iptables.conf` were previously created, we recommend moving these rules into these files.
 
 === Support of local authentication for 802.1X in web admin
 
 PacketFence now allow to enable or disable local authentication for 802.1X directly in web admin.
 
-If you previously enabled `packetfence-local-auth` feature in
-[filename]`/usr/local/pf/conf/radiusd/packetfence-tunnel`, we recommend you to
-enable this feature in PacketFence web admin (see
+If `packetfence-local-auth` has been previously enabled in
+[filename]`/usr/local/pf/conf/radiusd/packetfence-tunnel`, we recommend
+enabling this feature in PacketFence web admin (see
 <<PacketFence_Installation_Guide.asciidoc#_eap_local_user_authentication,EAP
 local user authentication>>).
 
@@ -254,7 +252,7 @@ upgrade process to automatically migrate existing Monit configuration into
 
 === Note for cluster upgrades
 
-If you use a cluster, their upgrade isn't yet automated so you will need to follow the instructions in this section to upgrade the configuration and database schema.
+Cluster upgrades are not automated, follow the instructions in this section to upgrade the configuration and database schema.
 
 ==== Configuration upgrade
 
@@ -269,7 +267,7 @@ If you use a cluster, their upgrade isn't yet automated so you will need to foll
 
 ==== Database schema
 
-Changes have been made to the database schema. You will need to update it accordingly.
+Changes have been made to the database schema.
 An SQL upgrade script has been provided to upgrade the database from the 11.0 schema to 11.1.
 
 To upgrade the database schema, run the following command:
@@ -291,7 +289,7 @@ of upgrades>>.
 
 === Note for cluster upgrades
 
-If you use a cluster, their upgrade isn't yet automated so you will need to follow the instructions in this section to upgrade the configuration and database schema.
+Cluster upgrades are not automated, follow the instructions in this section to upgrade the configuration and database schema.
 
 ==== Configuration upgrade
 
@@ -304,7 +302,7 @@ If you use a cluster, their upgrade isn't yet automated so you will need to foll
 
 ==== Database schema
 
-Changes have been made to the database schema. You will need to update it accordingly.
+Changes have been made to the database schema.
 An SQL upgrade script has been provided to upgrade the database from the 11.1 schema to 11.2.
 
 To upgrade the database schema, run the following command:
@@ -320,12 +318,12 @@ mysql -u root -p pf -v < /usr/local/pf/db/upgrade-11.1-11.2.sql
 If any condition for filters (VLAN, RADIUS, Switch, DNS, DHCP, and Profile) uses a ```not equals`` operator.
 Check if the logic is still ok if the value is null/undef.
 
-If the filter needs to ensure that the value is defined you would need to add an additional defined condition to that filter.
+If a filter must ensure a value is defined, add an additional defined condition to the filter.
 
 === Notification on certificates expiration in pfpki
 
-If you use `pfpki` and you created PKI templates without email attribute, we
-recommend you to set a value for this attribute.
+If `pfpki` is used, and PKI templates were created without email attribute, we
+recommend setting a value for this attribute.
 
 By doing this, `pfpki` will use email addresses defined in PKI templates to
 notify about next certificates expirations for certificates without emails.
@@ -334,20 +332,20 @@ notify about next certificates expirations for certificates without emails.
 
 === Tenant code deprecated
 
-The code used to manage tenants in PacketFence has been removed. If you previously used tenants in PacketFence, you should consider staying on a release prior to v12.
+The code used to manage tenants in PacketFence has been removed. If tenants are required, consider staying on any release prior to 12.0.
 
 === Clusters now use ProxySQL to load balance the DB connections
 
 PacketFence previously used haproxy (via the haproxy-db service) to load balance and failover database connections from the PacketFence services to the database servers. This is now performed by ProxySQL which allows for splitting reads and writes to different members which offers greater performance and scalability.
 
-If you suspect that using ProxySQL causes issues in your deployment, you can revert back to using haproxy-db by following <<PacketFence_Clustering_Guide.asciidoc#_database_via_proxysql_or_haproxy_db,these instructions>>
+If ProxySQL causes issues in the deployment, revert back to haproxy-db by following <<PacketFence_Clustering_Guide.asciidoc#_database_via_proxysql_or_haproxy_db,these instructions>>
 
 === Bandwidth accounting is now disabled by default.
 
 Tracking the bandwidth accounting information is now disabled by default.
-If you rely on bandwidth reports or security events then enable it by doing the following.
+If bandwidth reports or security events are required then enable it by following
 Go to _Configuration -> System Configuration -> RADIUS -> General_
-Then enable 'Process Bandwidth Accounting'. `pfacct` service needs to be restarted to apply changes.
+Then enable 'Process Bandwidth Accounting'. The `pfacct` service has to be restarted to apply any changes.
 
 === Fix permissions and checkups deprecated
 
@@ -358,13 +356,13 @@ However, it's still possible to perform these commands on a PacketFence server u
 
 === Change of behavior for the RADIUS source NAS-IP-Address
 
-NOTE: This applies to administrators that have a RADIUS authentication source configured in PacketFence. If you are using PacketFence as a RADIUS server but do not have any RADIUS authentication source configured, this section does not apply to you.
+NOTE: This applies to administrators that have a RADIUS authentication source configured in PacketFence. If PacketFence is used as a RADIUS server, but no RADIUS authentication source is configured, this section can be ignored.
 
-RADIUS authentication sources previously used the source IP of the packet in the NAS-IP-Address field when communicating with the RADIUS server. This behavior has been deprecated in favor of using the management IP address (or VIP in a cluster) in the NAS-IP-Address. If you do need to use another value in the NAS-IP-Address attribute, it is configurable in the RADIUS authentication source directly.
+RADIUS authentication sources previously used the source IP of the packet in the NAS-IP-Address field when communicating with the RADIUS server. This behavior has been deprecated in favor of using the management IP address (or VIP in a cluster) in the NAS-IP-Address. If another value in the NAS-IP-Address attribute is required, it is configurable in the RADIUS authentication source directly.
 
 === Log files names updated
 
-The name of some log files have changed. You can find a list below:
+The name of some log files have changed:
 
 .Mapping between old and new log files
 |===
@@ -407,14 +405,14 @@ The name of some log files have changed. You can find a list below:
 
 The ability to backup a remote database configured in PacketFence has been deprecated.
 From now on, a dedicated tool on the database server itself must be used to backup the external database.
-If your database is hosted on the PacketFence server (default behavior), then no adjustment is required for this.
+If the database is hosted on the PacketFence server (default behavior), then no adjustment is required.
 
 == Upgrading from a version prior to 12.1.0
 
 === configreload deprecated on pfcmd service pf restart
 
 configreload call has been deprecated on pfcmd service pf restart due to a file synchronisation issue on each restart.
-If you modify a config file directly from the filesystem then you have to do the configreload manually.
+If a config file is modified directly on the filesystem then a manual `configreload` is required.
 
 [source,bash]
 ----
@@ -425,20 +423,20 @@ If you modify a config file directly from the filesystem then you have to do the
 
 === Changed dynamic ACL attribute for Aruba modules
 
-The attribute used for dynamic ACLs on Aruba/HP switches has been changed to `Aruba-NAS-Filter-Rule`. Make sure you are running a recent firmware for these switches so that this attribute is honored.
+The attribute used for dynamic ACLs on Aruba/HP switches has been changed to `Aruba-NAS-Filter-Rule`. Ensure a recent firmware for the switches is used so that this attribute is honored.
 
 === Accounting requests sent by network devices
 
 Due to containerization of `pfacct` service, network devices must send a RADIUS `NAS-IP-Address` attribute in Accounting-Request packets.
 Value of this attribute needs to be an IP address, defined in _Switches_ menu (or part of a CIDR declaration).
 
-If this RADIUS attribute is not sent by your network devices, you need to declare them in _Switches_ menu using MAC Addresses (value of RADIUS `Called-Station-Id` attribute).
+If this RADIUS attribute is not sent by the network devices, declare them in _Switches_ menu using MAC Addresses (value of RADIUS `Called-Station-Id` attribute).
 
 === ZEN 12.1 installations only: manual patch to apply
 
 A link:https://github.com/inverse-inc/packetfence/issues/7568[bug] has been identified on ZEN 12.1 installations.
 
-If you perform a ZEN 12.1 installation, you need to patch your setup using following instructions:
+With a ZEN 12.1 installation, perform the following patch:
 
 [source,bash]
 ----
@@ -468,7 +466,7 @@ The following provisioners will be removed from Packetfence configuration IBM, S
 === Domain join
 
 Since v13.1, Packetfence moved from Samba to a new NTLM_AUTH_API service.
-In order to upgrade the domain join, make sure your domain controller is running Windows Server 2008 or later, then please, perform the following steps:
+In order to upgrade the domain join, ensure the domain controller is running Windows Server 2008 or later, then perform the following steps:
 
 First run the following script:
 
@@ -483,7 +481,7 @@ Running the previous script will extract the current Samba configuration and con
 
 ==== Cluster
 
-The script will detect if you are running PacketFence in a cluster environment and will compare the Samba machine name with the hostname:
+The script will detect if PacketFence is running in a cluster environment and will compare the Samba machine name with the hostname:
 
 1. If the Samba machine name matches the hostname - the script will migrate the configuration to the NTLM_AUTH_API format and replace the machine name with %h.
 
@@ -496,7 +494,7 @@ Depending of the action of the script, there may be a configuration change for t
 IMPORTANT: When creating or editing a Domain, specifying the Server Name as %h will use the hostname of the server. The hostname differs for each member of a cluster.
 
 Fill out the form and specify the _Machine account password_ (record it to reuse it again later) and the credentials of an AD admin account who is able to join a machine to the Domain.
-Click Save and you should be able to see the Machine account created in the Active Directory Domain.
+Click Save and check the Machine account was created in the Active Directory Domain.
 
 For each remaining server in the cluster:
 
@@ -531,7 +529,7 @@ Since 13.2 PacketFence is able to receive events from the AD to report password 
 
 === Switches
 
-Since 13.2 PacketFence has reworked the Cisco, Juniper and Meraki switch modules to use OS versions rather than hardware versions. To update your current switch configurations to the new OS versions perform the following tasks:
+Since 13.2 PacketFence has reworked the Cisco, Juniper and Meraki switch modules to use OS versions rather than hardware versions. To update the current switch configurations to the new OS versions perform the following:
 
 [source,bash]
 ----
@@ -588,15 +586,15 @@ dns_name=b.com
 ----
 
 For a standalone PacketFence, compared with the 2 versions of configuration file, the only change is the hostname prefix. +
-However, when it comes to a PacketFence cluster, you will notice that the content of `domain.conf` "duplicated" several times,
-depending on how many nodes there are in a cluster.
+However, when it comes to a PacketFence cluster, the content of `domain.conf` is "duplicated" several times,
+depending on how many nodes there are in the cluster.
 
 This structure change will allow each member to have its own configuration: Including individual machine account, password, etc.
 Now all the nodes will be able to join Windows AD using customized machine accounts and passwords without
 having to use %h as part of the machine account name.
 
 Here is an example of PacketFence cluster of 3 nodes, the hostnames of each node are: `pf-node1`, `pf-node2` and `pf-node3`, they all joined "a.com" +
-You will see 3 individual machine accounts on Windows Domain Controller, named `pf-node1`, `pf-node2` and `pf-node3` (assuming we are using %h as machine account name).
+There will be 3 individual machine accounts on Windows Domain Controller, named `pf-node1`, `pf-node2` and `pf-node3`,assuming %h was used as the machine account name and there are 3 nodes in the cluster.
 
 Now the `domain.conf` looks like the following:
 ----
@@ -628,19 +626,19 @@ During the upgrading process, the following script will be executed on each node
 /usr/local/pf/addons/upgrade/to-14.0-update-domain-config-section.pl
 ----
 
-If you are upgrading a PacketFence standalone installation prior to v14.0.0, you don't have to do anything else after the
-upgrading script is done.
+Upgrading a PacketFence standalone installation prior to v14.0.0, nothing more is required after the
+upgrade script has completed.
 
-However, if you are upgrading a PacketFence cluster, there are still several additional steps remaining:
+However, upgrading a PacketFence cluster, there are additional steps required:
 
-You *might* have to manually merge the domain configuration +
+The domain configuration *may* need to be manually changed +
 or +
-You *might* need to check the joining status and re-join some nodes.
+Some nodes *may* need to be re-joined.
 
 It's because PacketFence can convert its own `domain.conf` to the new structure, but not able to access other nodes's configuration.
-If you already did a force configuration sync before merging the `domain.conf` on master node, the configuration the nodes that being synced is lost.
+If a force configuration sync has already been done before merging the `domain.conf` on the master node, the configuration the node-sync is lost.
 
-We have 2 ways to do this:
+There are 2 ways to do this:
 
 ==== option 1: manually merge the domain.conf
  1. check the `domain.conf` on each of the node and make sure if all the nodes have both their own section and sections of other cluster members
@@ -649,16 +647,16 @@ We have 2 ways to do this:
 
 ==== option 2: check and rejoin nodes later
 Note:
-You'll still have to use `%h` or `%h` with prefix or suffix as hostnames as you are upgrading from a previous version
-unless you specific individual machine account name for each of the node.
+Hostnames using the `%h` prefix or suffix must still be used when upgrading from a previous version
+unless specifying individual machine account names for each node.
 
  . Do a configuration sync after upgrade - so all the slave nodes lost their domain config.
  . Open PacketFence Admin UI, go to "configuration" -> "Policies and Access Control" -> "Active Directory Domains"
- . Take a note of the configuration if you need, we'll need to replicate all the settings on the slave nodes after.
+ . Take a note of the configuration for later, the entire configuration will need to be replicated on the slave nodes.
  . Use "API redirect" to switch between nodes or directly access the API using node's IP.
-   .. Using API redirect: You can find API redirect from "Admin UI" -> "Status" -> "Services" -> "API redirect" and select the node to handle API request.
-   .. Directly access the node using IP address: you can use "https://node_ip:1443/" to select the node to handle API request.
-   .. After you select a specific node to handle API request, the "Domain Joining" operation will be performed on the node you selected only.
+   .. Using API redirect: Visit the API redirect in "Admin UI" -> "Status" -> "Services" -> "API redirect", then select the node to handle API request.
+   .. Directly access the node using IP address: use "https://node_ip:1443/" to select the node to handle API request.
+   .. Then select a specific node to handle the API requests, the "Domain Joining" operation will be only be performed on the selected node.
  . Using either API redirect or manually selection to switch across all the nodes
  . Fill the identical domain information on each API node, and click "Create", this will create the domain.conf file and join the corresponding machine on Windows AD.
  . repeat the joining steps on all the nodes to make sure all the nodes are having the same domain profile.
@@ -666,7 +664,7 @@ unless you specific individual machine account name for each of the node.
 
 === Upgrade on RedHat EL8
 
-In place upgrades are supported for Redhat EL8. You can follow up the current <<PacketFence_Upgrade_Guide.asciidoc#_upgrade_to_another_version_major_or_minor,Upgrade to another version (major or minor)>>.
+In place upgrades are supported for Redhat EL8. Follow up the current <<PacketFence_Upgrade_Guide.asciidoc#_upgrade_to_another_version_major_or_minor,Upgrade to another version (major or minor)>>.
 
 === Pre-automation Upgrade on Debian 12
 
@@ -767,16 +765,14 @@ Import only the configuration files, do not import the database.
 
 The configuration and database is now migrated to the new host.
 
-If all goes well, you can restart services using <<PacketFence_Upgrade_Guide.asciidoc#_restart_packetfence_services,following instructions>>.
+If all goes well, restart services using <<PacketFence_Upgrade_Guide.asciidoc#_restart_packetfence_services,following instructions>>.
 
 
 ===== Additional steps to build or rebuild a cluster
 
-If you want to build or rebuild a cluster, you need to follow instructions in <<PacketFence_Clustering_Guide.asciidoc#_cluster_setup,Cluster setup section>>.
+To build a new cluster or rebuild an existing cluster, follow instructions in <<PacketFence_Clustering_Guide.asciidoc#_cluster_setup,Cluster setup section>>.
 
-If your previous installation was a cluster, some steps may not be necessary
-to do.  Your export archive will contain your previous
-[filename]`cluster.conf` file.
+If the previous installation was a cluster, some steps may not be required.  The export archive will contain the previous [filename]`cluster.conf` file.
 
 
 == Upgrading from a version prior to X.Y.Z
@@ -806,8 +802,8 @@ addons/upgrade/do-upgrade.sh
 === Pre-automation Upgrade Cluster RedHat EL8
 
 It is the same as <<PacketFence_Upgrade_Guide.asciidoc#_performing_an_upgrade_on_a_cluster>>
-but when you are at that this step <<PacketFence_Upgrade_Guide.asciidoc#_upgrade_node_c>> for node C,
-please follow these upgrade instructions <<PacketFence_Upgrade_Guide.asciidoc#_upgrade_standalone_redhat_el8>>.
+when at the step <<PacketFence_Upgrade_Guide.asciidoc#_upgrade_node_c>> for node C,
+follow the upgrade instructions <<PacketFence_Upgrade_Guide.asciidoc#_upgrade_standalone_redhat_el8>>.
 
 == Archived upgrade notes
 

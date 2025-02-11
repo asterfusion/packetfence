@@ -18,31 +18,31 @@ endif::[]
 
 //== Automation of upgrades
 
-This section covers bases automation of upgrades available since PacketFence 11.0.0 on the same OS.
+This section covers base automation of upgrades on the same operating system available since PacketFence 11.0.0.
 
 Note that on Packetfence 14.0.0, we change the OS from Debian 11 to Debian 12.
-So, if you want to use PacketFence 14.0 on Debian 12, you will have to create a new Debian 12 VM
-and then <<PacketFence_Installation_Guide.html#_exportimport_mechanism,import/export>>
-from your previous setup to the new one.
+To use PacketFence 14.0 on Debian 12, a new Debian 12 VM will need to be created,
+then <<PacketFence_Installation_Guide.html#_exportimport_mechanism,import/export>>
+from the previous installation to the new one.
 
 === Assumptions and limitations
 
-* Automation can contain **pre-upgrade steps** defined in the following document.
-* You can perform automated upgrades on **standalone** servers only. Cluster
+* Automation may contain **pre-upgrade steps** defined in the following document.
+* Perform automated upgrades on **standalone** servers only. Cluster
   upgrades must use the procedure described in the
   <<PacketFence_Clustering_Guide.asciidoc#_performing_an_upgrade_on_a_cluster,Clustering
   Guide>>
-* You can perform automated upgrades starting:
+* Perform automated upgrades starting:
 ** from PacketFence 11.0.0 to PacketFence 13.2.0 on Debian 11
 ** after PacketFence 14.0.0 on Debian 12
 ** after PacketFence 11.0.0 on RedHat 8
-* An exportable backup of your configuration is performed before doing upgrade
+* An exportable backup of the configuration is performed before upgrading
 
 === Full upgrade (for PacketFence version 11.0.0 only - see next section for 11.1.0 and above)
 
 ==== Preliminary steps
 
-On PacketFence version 11.0.0, you need to install `packetfence-upgrade` package using following instructions:
+On PacketFence version 11.0.0, install the `packetfence-upgrade` package using following instructions:
 
 .RHEL / CentOS based systems **only**
 [source,bash]
@@ -57,7 +57,7 @@ apt update
 apt install packetfence-upgrade
 ----
 
-Then you can perform a full upgrade using following command:
+Then perform a full upgrade using following command:
 
 [source,bash]
 ----
