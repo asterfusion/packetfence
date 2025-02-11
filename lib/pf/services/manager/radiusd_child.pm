@@ -625,6 +625,7 @@ EOT
             }
             $tags{'config'} .= <<"EOT";
 client eduroam_tlrs_server_$i {
+        require_message_authenticator = no
         ipaddr = $radius_ip
         secret = '$radius_secret'
         shortname = eduroam_tlrs$i
@@ -1363,6 +1364,7 @@ EOT
         foreach my $radius_back (uniq(@radius_backend)) {
         $tags{'config'} .= <<"EOT";
 client $radius_back {
+        require_message_authenticator = no
         ipaddr = $radius_back
         secret = '$local_secret'
         port = $self->{eduroam_port}
@@ -1380,6 +1382,7 @@ EOT
         : $management_network->tag('ip');
         $tags{'config'} .= <<"EOT";
 client $management_ip {
+        require_message_authenticator = no
         ipaddr = $management_ip
         secret = '$local_secret'
         shortname = pf
