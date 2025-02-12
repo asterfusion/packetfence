@@ -28,6 +28,7 @@ use pf::accounting qw(node_accounting_dynauth_attr);
 use pf::config qw(
     $WIRED_802_1X
     $WIRED_MAC_AUTH
+    %ConfigRoles
 );
 
 use base ('pf::Switch::Fortinet');
