@@ -2308,6 +2308,34 @@ components:
           properties:
             id:
               $ref: '#/components/schemas/Meta'
+            innodb_buffer_pool_size:
+              $ref: '#/components/schemas/Meta'
+            key_buffer_size:
+              $ref: '#/components/schemas/Meta'
+            masterslave:
+              $ref: '#/components/schemas/Meta'
+            max_allowed_packet:
+              $ref: '#/components/schemas/Meta'
+            max_connect_errors:
+              $ref: '#/components/schemas/Meta'
+            max_connections:
+              $ref: '#/components/schemas/Meta'
+            net_read_timeout:
+              $ref: '#/components/schemas/Meta'
+            net_write_timeout:
+              $ref: '#/components/schemas/Meta'
+            other_members:
+              $ref: '#/components/schemas/Meta'
+            performance_schema:
+              $ref: '#/components/schemas/Meta'
+            query_cache_size:
+              $ref: '#/components/schemas/Meta'
+            table_cache:
+              $ref: '#/components/schemas/Meta'
+            thread_cache_size:
+              $ref: '#/components/schemas/Meta'
+            thread_concurrency:
+              $ref: '#/components/schemas/Meta'
           type: object
       type: object
     ConfigBaseWrapped:
@@ -3216,6 +3244,7 @@ components:
         mapping:
           dhcp: '#/components/schemas/ConfigEventHandlerMetaSubTypeDhcp'
           fortianalyser: '#/components/schemas/ConfigEventHandlerMetaSubTypeFortianalyser'
+          fortigate_dhcp: '#/components/schemas/ConfigEventHandlerMetaSubTypeFortigateDhcp'
           nexpose: '#/components/schemas/ConfigEventHandlerMetaSubTypeNexpose'
           regex: '#/components/schemas/ConfigEventHandlerMetaSubTypeRegex'
           security_onion: '#/components/schemas/ConfigEventHandlerMetaSubTypeSecurityOnion'
@@ -3224,14 +3253,15 @@ components:
           suricata_md5: '#/components/schemas/ConfigEventHandlerMetaSubTypeSuricataMd5'
         propertyName: type
       oneOf:
-      - $ref: '#/components/schemas/ConfigEventHandlerMetaSubTypeSuricata'
+      - $ref: '#/components/schemas/ConfigEventHandlerMetaSubTypeRegex'
+      - $ref: '#/components/schemas/ConfigEventHandlerMetaSubTypeFortigateDhcp'
+      - $ref: '#/components/schemas/ConfigEventHandlerMetaSubTypeSnort'
       - $ref: '#/components/schemas/ConfigEventHandlerMetaSubTypeSecurityOnion'
+      - $ref: '#/components/schemas/ConfigEventHandlerMetaSubTypeSuricataMd5'
       - $ref: '#/components/schemas/ConfigEventHandlerMetaSubTypeNexpose'
       - $ref: '#/components/schemas/ConfigEventHandlerMetaSubTypeDhcp'
-      - $ref: '#/components/schemas/ConfigEventHandlerMetaSubTypeSuricataMd5'
-      - $ref: '#/components/schemas/ConfigEventHandlerMetaSubTypeSnort'
       - $ref: '#/components/schemas/ConfigEventHandlerMetaSubTypeFortianalyser'
-      - $ref: '#/components/schemas/ConfigEventHandlerMetaSubTypeRegex'
+      - $ref: '#/components/schemas/ConfigEventHandlerMetaSubTypeSuricata'
     ConfigEventHandlerMetaSubTypeDhcp:
       properties:
         meta:
@@ -3249,6 +3279,22 @@ components:
           type: object
       type: object
     ConfigEventHandlerMetaSubTypeFortianalyser:
+      properties:
+        meta:
+          properties:
+            id:
+              $ref: '#/components/schemas/Meta'
+            path:
+              $ref: '#/components/schemas/Meta'
+            rate_limit:
+              $ref: '#/components/schemas/Meta'
+            status:
+              $ref: '#/components/schemas/Meta'
+            type:
+              $ref: '#/components/schemas/Meta'
+          type: object
+      type: object
+    ConfigEventHandlerMetaSubTypeFortigateDhcp:
       properties:
         meta:
           properties:
@@ -3416,6 +3462,36 @@ components:
         type:
           default: fortianalyser
           description: Discriminator `fortianalyser`
+          type: string
+      required:
+      - id
+      - path
+      - type
+      type: object
+    ConfigEventHandlerSubTypeFortigateDhcp:
+      properties:
+        id:
+          description: Detector
+          type: string
+        path:
+          description: Alert pipe
+          type: string
+        rate_limit:
+          description: Rate limit requests.
+          properties:
+            interval:
+              description: Interval
+              type: integer
+            unit:
+              description: Unit
+              type: string
+          type: object
+        status:
+          description: Enabled
+          type: string
+        type:
+          default: fortigate_dhcp
+          description: Discriminator `fortigate_dhcp`
           type: string
       required:
       - id
@@ -3944,20 +4020,20 @@ components:
           windows: '#/components/schemas/ConfigFilterEnginesProvisioningFilterMetaSubTypeWindows'
         propertyName: type
       oneOf:
-      - $ref: '#/components/schemas/ConfigFilterEnginesProvisioningFilterMetaSubTypeDeny'
       - $ref: '#/components/schemas/ConfigFilterEnginesProvisioningFilterMetaSubTypeWindows'
-      - $ref: '#/components/schemas/ConfigFilterEnginesProvisioningFilterMetaSubTypeLookup'
-      - $ref: '#/components/schemas/ConfigFilterEnginesProvisioningFilterMetaSubTypeAccept'
-      - $ref: '#/components/schemas/ConfigFilterEnginesProvisioningFilterMetaSubTypeDpsk'
-      - $ref: '#/components/schemas/ConfigFilterEnginesProvisioningFilterMetaSubTypeMobileiron'
-      - $ref: '#/components/schemas/ConfigFilterEnginesProvisioningFilterMetaSubTypeIntune'
-      - $ref: '#/components/schemas/ConfigFilterEnginesProvisioningFilterMetaSubTypeJamf'
-      - $ref: '#/components/schemas/ConfigFilterEnginesProvisioningFilterMetaSubTypeKandji'
       - $ref: '#/components/schemas/ConfigFilterEnginesProvisioningFilterMetaSubTypeAndroid'
-      - $ref: '#/components/schemas/ConfigFilterEnginesProvisioningFilterMetaSubTypeAirwatch'
-      - $ref: '#/components/schemas/ConfigFilterEnginesProvisioningFilterMetaSubTypeMobileconfig'
-      - $ref: '#/components/schemas/ConfigFilterEnginesProvisioningFilterMetaSubTypeGoogleWorkspaceChromebook'
+      - $ref: '#/components/schemas/ConfigFilterEnginesProvisioningFilterMetaSubTypeDeny'
       - $ref: '#/components/schemas/ConfigFilterEnginesProvisioningFilterMetaSubTypeSentinelone'
+      - $ref: '#/components/schemas/ConfigFilterEnginesProvisioningFilterMetaSubTypeGoogleWorkspaceChromebook'
+      - $ref: '#/components/schemas/ConfigFilterEnginesProvisioningFilterMetaSubTypeIntune'
+      - $ref: '#/components/schemas/ConfigFilterEnginesProvisioningFilterMetaSubTypeLookup'
+      - $ref: '#/components/schemas/ConfigFilterEnginesProvisioningFilterMetaSubTypeJamf'
+      - $ref: '#/components/schemas/ConfigFilterEnginesProvisioningFilterMetaSubTypeMobileconfig'
+      - $ref: '#/components/schemas/ConfigFilterEnginesProvisioningFilterMetaSubTypeMobileiron'
+      - $ref: '#/components/schemas/ConfigFilterEnginesProvisioningFilterMetaSubTypeDpsk'
+      - $ref: '#/components/schemas/ConfigFilterEnginesProvisioningFilterMetaSubTypeAccept'
+      - $ref: '#/components/schemas/ConfigFilterEnginesProvisioningFilterMetaSubTypeAirwatch'
+      - $ref: '#/components/schemas/ConfigFilterEnginesProvisioningFilterMetaSubTypeKandji'
     ConfigFilterEnginesProvisioningFilterMetaSubTypeAccept:
       properties:
         meta:
@@ -5652,17 +5728,17 @@ components:
         propertyName: type
       oneOf:
       - $ref: '#/components/schemas/ConfigFirewallMetaSubTypeJunipersrx'
-      - $ref: '#/components/schemas/ConfigFirewallMetaSubTypeJsonrpc'
-      - $ref: '#/components/schemas/ConfigFirewallMetaSubTypePaloalto'
-      - $ref: '#/components/schemas/ConfigFirewallMetaSubTypeContentkeeper'
-      - $ref: '#/components/schemas/ConfigFirewallMetaSubTypeSmoothwall'
+      - $ref: '#/components/schemas/ConfigFirewallMetaSubTypeFortigate'
       - $ref: '#/components/schemas/ConfigFirewallMetaSubTypeWatchguard'
+      - $ref: '#/components/schemas/ConfigFirewallMetaSubTypeContentkeeper'
+      - $ref: '#/components/schemas/ConfigFirewallMetaSubTypeCheckpoint'
+      - $ref: '#/components/schemas/ConfigFirewallMetaSubTypeBarracudang'
+      - $ref: '#/components/schemas/ConfigFirewallMetaSubTypeIboss'
       - $ref: '#/components/schemas/ConfigFirewallMetaSubTypeLightspeedrocket'
       - $ref: '#/components/schemas/ConfigFirewallMetaSubTypeFamilyzone'
-      - $ref: '#/components/schemas/ConfigFirewallMetaSubTypeBarracudang'
-      - $ref: '#/components/schemas/ConfigFirewallMetaSubTypeCheckpoint'
-      - $ref: '#/components/schemas/ConfigFirewallMetaSubTypeIboss'
-      - $ref: '#/components/schemas/ConfigFirewallMetaSubTypeFortigate'
+      - $ref: '#/components/schemas/ConfigFirewallMetaSubTypeSmoothwall'
+      - $ref: '#/components/schemas/ConfigFirewallMetaSubTypePaloalto'
+      - $ref: '#/components/schemas/ConfigFirewallMetaSubTypeJsonrpc'
     ConfigFirewallMeta:
       properties:
         meta:
@@ -7462,35 +7538,35 @@ components:
           ubiquiti_ap_mac_to_ip: '#/components/schemas/ConfigMaintenanceTaskMetaSubTypeUbiquitiApMacToIp'
         propertyName: type
       oneOf:
-      - $ref: '#/components/schemas/ConfigMaintenanceTaskMetaSubTypeNodesMaintenance'
-      - $ref: '#/components/schemas/ConfigMaintenanceTaskMetaSubTypeCleanupChiDatabaseCache'
-      - $ref: '#/components/schemas/ConfigMaintenanceTaskMetaSubTypePasswordOfTheDay'
-      - $ref: '#/components/schemas/ConfigMaintenanceTaskMetaSubTypeFingerbankDataUpdate'
-      - $ref: '#/components/schemas/ConfigMaintenanceTaskMetaSubTypeLocationlogCleanup'
-      - $ref: '#/components/schemas/ConfigMaintenanceTaskMetaSubTypeAdminApiAuditLogCleanup'
-      - $ref: '#/components/schemas/ConfigMaintenanceTaskMetaSubTypeClusterCheck'
-      - $ref: '#/components/schemas/ConfigMaintenanceTaskMetaSubTypeFlushRadiusAuditLog'
-      - $ref: '#/components/schemas/ConfigMaintenanceTaskMetaSubTypeNodeCleanup'
       - $ref: '#/components/schemas/ConfigMaintenanceTaskMetaSubTypeCertificatesCheck'
-      - $ref: '#/components/schemas/ConfigMaintenanceTaskMetaSubTypeIp6logCleanup'
-      - $ref: '#/components/schemas/ConfigMaintenanceTaskMetaSubTypePurgeBinaryLogs'
-      - $ref: '#/components/schemas/ConfigMaintenanceTaskMetaSubTypePersonCleanup'
-      - $ref: '#/components/schemas/ConfigMaintenanceTaskMetaSubTypeProvisioningCompliancePoll'
-      - $ref: '#/components/schemas/ConfigMaintenanceTaskMetaSubTypeAuthLogCleanup'
-      - $ref: '#/components/schemas/ConfigMaintenanceTaskMetaSubTypeRadiusAuditLogCleanup'
-      - $ref: '#/components/schemas/ConfigMaintenanceTaskMetaSubTypeIp4logCleanup'
-      - $ref: '#/components/schemas/ConfigMaintenanceTaskMetaSubTypeUbiquitiApMacToIp'
-      - $ref: '#/components/schemas/ConfigMaintenanceTaskMetaSubTypeAcctMaintenance'
-      - $ref: '#/components/schemas/ConfigMaintenanceTaskMetaSubTypeNodeCurrentSessionCleanup'
-      - $ref: '#/components/schemas/ConfigMaintenanceTaskMetaSubTypeBandwidthMaintenance'
-      - $ref: '#/components/schemas/ConfigMaintenanceTaskMetaSubTypeOption82Query'
-      - $ref: '#/components/schemas/ConfigMaintenanceTaskMetaSubTypeSwitchCacheLldplocalportDescription'
-      - $ref: '#/components/schemas/ConfigMaintenanceTaskMetaSubTypeSecurityEventMaintenance'
-      - $ref: '#/components/schemas/ConfigMaintenanceTaskMetaSubTypeFlushDnsAuditLog'
-      - $ref: '#/components/schemas/ConfigMaintenanceTaskMetaSubTypeDnsAuditLogCleanup'
-      - $ref: '#/components/schemas/ConfigMaintenanceTaskMetaSubTypePkiCertificatesCheck'
       - $ref: '#/components/schemas/ConfigMaintenanceTaskMetaSubTypePfflow'
+      - $ref: '#/components/schemas/ConfigMaintenanceTaskMetaSubTypeNodesMaintenance'
+      - $ref: '#/components/schemas/ConfigMaintenanceTaskMetaSubTypeNodeCleanup'
+      - $ref: '#/components/schemas/ConfigMaintenanceTaskMetaSubTypeNodeCurrentSessionCleanup'
+      - $ref: '#/components/schemas/ConfigMaintenanceTaskMetaSubTypeAcctMaintenance'
+      - $ref: '#/components/schemas/ConfigMaintenanceTaskMetaSubTypeBandwidthMaintenance'
+      - $ref: '#/components/schemas/ConfigMaintenanceTaskMetaSubTypeCleanupChiDatabaseCache'
+      - $ref: '#/components/schemas/ConfigMaintenanceTaskMetaSubTypeIp6logCleanup'
+      - $ref: '#/components/schemas/ConfigMaintenanceTaskMetaSubTypeFingerbankDataUpdate'
+      - $ref: '#/components/schemas/ConfigMaintenanceTaskMetaSubTypeAuthLogCleanup'
+      - $ref: '#/components/schemas/ConfigMaintenanceTaskMetaSubTypeFlushRadiusAuditLog'
+      - $ref: '#/components/schemas/ConfigMaintenanceTaskMetaSubTypePkiCertificatesCheck'
+      - $ref: '#/components/schemas/ConfigMaintenanceTaskMetaSubTypeDnsAuditLogCleanup'
+      - $ref: '#/components/schemas/ConfigMaintenanceTaskMetaSubTypeSecurityEventMaintenance'
+      - $ref: '#/components/schemas/ConfigMaintenanceTaskMetaSubTypeUbiquitiApMacToIp'
+      - $ref: '#/components/schemas/ConfigMaintenanceTaskMetaSubTypeClusterCheck'
+      - $ref: '#/components/schemas/ConfigMaintenanceTaskMetaSubTypeAdminApiAuditLogCleanup'
+      - $ref: '#/components/schemas/ConfigMaintenanceTaskMetaSubTypeIp4logCleanup'
       - $ref: '#/components/schemas/ConfigMaintenanceTaskMetaSubTypeAcctCleanup'
+      - $ref: '#/components/schemas/ConfigMaintenanceTaskMetaSubTypePasswordOfTheDay'
+      - $ref: '#/components/schemas/ConfigMaintenanceTaskMetaSubTypeFlushDnsAuditLog'
+      - $ref: '#/components/schemas/ConfigMaintenanceTaskMetaSubTypeOption82Query'
+      - $ref: '#/components/schemas/ConfigMaintenanceTaskMetaSubTypePersonCleanup'
+      - $ref: '#/components/schemas/ConfigMaintenanceTaskMetaSubTypeLocationlogCleanup'
+      - $ref: '#/components/schemas/ConfigMaintenanceTaskMetaSubTypeSwitchCacheLldplocalportDescription'
+      - $ref: '#/components/schemas/ConfigMaintenanceTaskMetaSubTypeRadiusAuditLogCleanup'
+      - $ref: '#/components/schemas/ConfigMaintenanceTaskMetaSubTypeProvisioningCompliancePoll'
+      - $ref: '#/components/schemas/ConfigMaintenanceTaskMetaSubTypePurgeBinaryLogs'
     ConfigMaintenanceTaskMetaSubTypeAcctCleanup:
       properties:
         meta:
@@ -9170,8 +9246,8 @@ components:
           TOTP: '#/components/schemas/ConfigMfaMetaSubTypeTotp'
         propertyName: type
       oneOf:
-      - $ref: '#/components/schemas/ConfigMfaMetaSubTypeAkamai'
       - $ref: '#/components/schemas/ConfigMfaMetaSubTypeTotp'
+      - $ref: '#/components/schemas/ConfigMfaMetaSubTypeAkamai'
     ConfigMfaMetaSubTypeAkamai:
       properties:
         meta:
@@ -9486,9 +9562,9 @@ components:
           scep: '#/components/schemas/ConfigPkiProviderMetaSubTypeScep'
         propertyName: type
       oneOf:
-      - $ref: '#/components/schemas/ConfigPkiProviderMetaSubTypePacketfencePki'
-      - $ref: '#/components/schemas/ConfigPkiProviderMetaSubTypePacketfenceLocal'
       - $ref: '#/components/schemas/ConfigPkiProviderMetaSubTypeScep'
+      - $ref: '#/components/schemas/ConfigPkiProviderMetaSubTypePacketfenceLocal'
+      - $ref: '#/components/schemas/ConfigPkiProviderMetaSubTypePacketfencePki'
     ConfigPkiProviderMetaSubTypePacketfenceLocal:
       properties:
         meta:
@@ -9522,6 +9598,8 @@ components:
             ca_cert_path:
               $ref: '#/components/schemas/Meta'
             ca_cert_path_upload:
+              $ref: '#/components/schemas/Meta'
+            certificate_validity_time_from_unreg_date:
               $ref: '#/components/schemas/Meta'
             cn_attribute:
               $ref: '#/components/schemas/Meta'
@@ -9647,6 +9725,10 @@ components:
         ca_cert_path_upload:
           description: Ca cert path upload
           type: file
+        certificate_validity_time_from_unreg_date:
+          description: Enable to apply the same expiration date of the certificate
+            as the unregistration date of the node.
+          type: string
         cn_attribute:
           description: Defines what attribute of the node to use as the common name
             during the certificate generation
@@ -9822,37 +9904,37 @@ components:
           URL: '#/components/schemas/ConfigPortalModuleMetaSubTypeUrl'
         propertyName: type
       oneOf:
-      - $ref: '#/components/schemas/ConfigPortalModuleMetaSubTypeAuthenticationOauthFacebook'
-      - $ref: '#/components/schemas/ConfigPortalModuleMetaSubTypeChained'
-      - $ref: '#/components/schemas/ConfigPortalModuleMetaSubTypeAuthenticationNull'
-      - $ref: '#/components/schemas/ConfigPortalModuleMetaSubTypeAuthenticationEmail'
-      - $ref: '#/components/schemas/ConfigPortalModuleMetaSubTypeAuthenticationChoice'
-      - $ref: '#/components/schemas/ConfigPortalModuleMetaSubTypeSurvey'
-      - $ref: '#/components/schemas/ConfigPortalModuleMetaSubTypeAuthenticationSponsor'
-      - $ref: '#/components/schemas/ConfigPortalModuleMetaSubTypeAuthenticationSms'
-      - $ref: '#/components/schemas/ConfigPortalModuleMetaSubTypeMfa'
-      - $ref: '#/components/schemas/ConfigPortalModuleMetaSubTypeRootsso'
-      - $ref: '#/components/schemas/ConfigPortalModuleMetaSubTypeShowlocalaccount'
-      - $ref: '#/components/schemas/ConfigPortalModuleMetaSubTypeAuthenticationOauthLinkedin'
-      - $ref: '#/components/schemas/ConfigPortalModuleMetaSubTypeUrl'
-      - $ref: '#/components/schemas/ConfigPortalModuleMetaSubTypeAuthenticationOauthGithub'
-      - $ref: '#/components/schemas/ConfigPortalModuleMetaSubTypeSelectrole'
-      - $ref: '#/components/schemas/ConfigPortalModuleMetaSubTypeAuthenticationSaml'
-      - $ref: '#/components/schemas/ConfigPortalModuleMetaSubTypeAuthenticationBlackhole'
-      - $ref: '#/components/schemas/ConfigPortalModuleMetaSubTypeRoot'
-      - $ref: '#/components/schemas/ConfigPortalModuleMetaSubTypeChoice'
-      - $ref: '#/components/schemas/ConfigPortalModuleMetaSubTypeAuthenticationPassword'
-      - $ref: '#/components/schemas/ConfigPortalModuleMetaSubTypeAuthenticationBilling'
-      - $ref: '#/components/schemas/ConfigPortalModuleMetaSubTypeAuthenticationOauthOpenid'
-      - $ref: '#/components/schemas/ConfigPortalModuleMetaSubTypeMessage'
       - $ref: '#/components/schemas/ConfigPortalModuleMetaSubTypeAuthenticationOauthGoogle'
-      - $ref: '#/components/schemas/ConfigPortalModuleMetaSubTypeAuthenticationOauth'
-      - $ref: '#/components/schemas/ConfigPortalModuleMetaSubTypeSslInspection'
-      - $ref: '#/components/schemas/ConfigPortalModuleMetaSubTypeFixedrole'
-      - $ref: '#/components/schemas/ConfigPortalModuleMetaSubTypeAuthenticationLogin'
       - $ref: '#/components/schemas/ConfigPortalModuleMetaSubTypeAuthenticationOauthWindowslive'
+      - $ref: '#/components/schemas/ConfigPortalModuleMetaSubTypeAuthenticationOauthLinkedin'
+      - $ref: '#/components/schemas/ConfigPortalModuleMetaSubTypeAuthenticationChoice'
+      - $ref: '#/components/schemas/ConfigPortalModuleMetaSubTypeAuthenticationBlackhole'
+      - $ref: '#/components/schemas/ConfigPortalModuleMetaSubTypeAuthenticationNull'
+      - $ref: '#/components/schemas/ConfigPortalModuleMetaSubTypeSelectrole'
+      - $ref: '#/components/schemas/ConfigPortalModuleMetaSubTypeSurvey'
+      - $ref: '#/components/schemas/ConfigPortalModuleMetaSubTypeFixedrole'
+      - $ref: '#/components/schemas/ConfigPortalModuleMetaSubTypeMfa'
+      - $ref: '#/components/schemas/ConfigPortalModuleMetaSubTypeChained'
+      - $ref: '#/components/schemas/ConfigPortalModuleMetaSubTypeAuthenticationSaml'
+      - $ref: '#/components/schemas/ConfigPortalModuleMetaSubTypeAuthenticationOauth'
+      - $ref: '#/components/schemas/ConfigPortalModuleMetaSubTypeAuthenticationSponsor'
+      - $ref: '#/components/schemas/ConfigPortalModuleMetaSubTypeUrl'
+      - $ref: '#/components/schemas/ConfigPortalModuleMetaSubTypeRootsso'
+      - $ref: '#/components/schemas/ConfigPortalModuleMetaSubTypeAuthenticationEmail'
+      - $ref: '#/components/schemas/ConfigPortalModuleMetaSubTypeChoice'
+      - $ref: '#/components/schemas/ConfigPortalModuleMetaSubTypeAuthenticationOauthOpenid'
+      - $ref: '#/components/schemas/ConfigPortalModuleMetaSubTypeAuthenticationLogin'
+      - $ref: '#/components/schemas/ConfigPortalModuleMetaSubTypeAuthenticationPassword'
+      - $ref: '#/components/schemas/ConfigPortalModuleMetaSubTypeAuthenticationOauthGithub'
+      - $ref: '#/components/schemas/ConfigPortalModuleMetaSubTypeAuthenticationSms'
       - $ref: '#/components/schemas/ConfigPortalModuleMetaSubTypeAuthentication'
+      - $ref: '#/components/schemas/ConfigPortalModuleMetaSubTypeAuthenticationOauthFacebook'
+      - $ref: '#/components/schemas/ConfigPortalModuleMetaSubTypeAuthenticationBilling'
+      - $ref: '#/components/schemas/ConfigPortalModuleMetaSubTypeMessage'
+      - $ref: '#/components/schemas/ConfigPortalModuleMetaSubTypeRoot'
+      - $ref: '#/components/schemas/ConfigPortalModuleMetaSubTypeShowlocalaccount'
       - $ref: '#/components/schemas/ConfigPortalModuleMetaSubTypeProvisioning'
+      - $ref: '#/components/schemas/ConfigPortalModuleMetaSubTypeSslInspection'
     ConfigPortalModuleMetaSubTypeAuthentication:
       properties:
         meta:
@@ -12154,19 +12236,19 @@ components:
           windows: '#/components/schemas/ConfigProvisioningMetaSubTypeWindows'
         propertyName: type
       oneOf:
-      - $ref: '#/components/schemas/ConfigProvisioningMetaSubTypeDeny'
-      - $ref: '#/components/schemas/ConfigProvisioningMetaSubTypeWindows'
+      - $ref: '#/components/schemas/ConfigProvisioningMetaSubTypeJamf'
       - $ref: '#/components/schemas/ConfigProvisioningMetaSubTypeMobileconfig'
+      - $ref: '#/components/schemas/ConfigProvisioningMetaSubTypeMobileiron'
+      - $ref: '#/components/schemas/ConfigProvisioningMetaSubTypeDpsk'
+      - $ref: '#/components/schemas/ConfigProvisioningMetaSubTypeJamfcloud'
+      - $ref: '#/components/schemas/ConfigProvisioningMetaSubTypeAccept'
       - $ref: '#/components/schemas/ConfigProvisioningMetaSubTypeAirwatch'
       - $ref: '#/components/schemas/ConfigProvisioningMetaSubTypeKandji'
+      - $ref: '#/components/schemas/ConfigProvisioningMetaSubTypeWindows'
       - $ref: '#/components/schemas/ConfigProvisioningMetaSubTypeAndroid'
-      - $ref: '#/components/schemas/ConfigProvisioningMetaSubTypeGoogleWorkspaceChromebook'
-      - $ref: '#/components/schemas/ConfigProvisioningMetaSubTypeJamfcloud'
+      - $ref: '#/components/schemas/ConfigProvisioningMetaSubTypeDeny'
       - $ref: '#/components/schemas/ConfigProvisioningMetaSubTypeSentinelone'
-      - $ref: '#/components/schemas/ConfigProvisioningMetaSubTypeAccept'
-      - $ref: '#/components/schemas/ConfigProvisioningMetaSubTypeDpsk'
-      - $ref: '#/components/schemas/ConfigProvisioningMetaSubTypeMobileiron'
-      - $ref: '#/components/schemas/ConfigProvisioningMetaSubTypeJamf'
+      - $ref: '#/components/schemas/ConfigProvisioningMetaSubTypeGoogleWorkspaceChromebook'
       - $ref: '#/components/schemas/ConfigProvisioningMetaSubTypeIntune'
     ConfigProvisioningMetaSubTypeAccept:
       properties:
@@ -14858,9 +14940,9 @@ components:
           pfappserver::Form::Config::Scan::Rapid7: '#/components/schemas/ConfigScanMetaSubTypePfappserverFormConfigScanRapid7'
         propertyName: type
       oneOf:
-      - $ref: '#/components/schemas/ConfigScanMetaSubTypePfappserverFormConfigScanOpenvas'
-      - $ref: '#/components/schemas/ConfigScanMetaSubTypePfappserverFormConfigScanNessus'
       - $ref: '#/components/schemas/ConfigScanMetaSubTypePfappserverFormConfigScanRapid7'
+      - $ref: '#/components/schemas/ConfigScanMetaSubTypePfappserverFormConfigScanNessus'
+      - $ref: '#/components/schemas/ConfigScanMetaSubTypePfappserverFormConfigScanOpenvas'
       - $ref: '#/components/schemas/ConfigScanMetaSubTypePfappserverFormConfigScanNessus6'
     ConfigScanMetaSubTypePfappserverFormConfigScanNessus:
       properties:
@@ -15645,38 +15727,38 @@ components:
           WindowsLive: '#/components/schemas/ConfigSourceMetaSubTypeWindowslive'
         propertyName: type
       oneOf:
-      - $ref: '#/components/schemas/ConfigSourceMetaSubTypeOpenid'
-      - $ref: '#/components/schemas/ConfigSourceMetaSubTypeStripe'
-      - $ref: '#/components/schemas/ConfigSourceMetaSubTypeAd'
-      - $ref: '#/components/schemas/ConfigSourceMetaSubTypeBlackhole'
-      - $ref: '#/components/schemas/ConfigSourceMetaSubTypeAzuread'
-      - $ref: '#/components/schemas/ConfigSourceMetaSubTypeWindowslive'
-      - $ref: '#/components/schemas/ConfigSourceMetaSubTypeKickbox'
-      - $ref: '#/components/schemas/ConfigSourceMetaSubTypeSms'
+      - $ref: '#/components/schemas/ConfigSourceMetaSubTypeGoogle'
       - $ref: '#/components/schemas/ConfigSourceMetaSubTypeSaml'
       - $ref: '#/components/schemas/ConfigSourceMetaSubTypeHtpasswd'
+      - $ref: '#/components/schemas/ConfigSourceMetaSubTypeWindowslive'
+      - $ref: '#/components/schemas/ConfigSourceMetaSubTypeKerberos'
+      - $ref: '#/components/schemas/ConfigSourceMetaSubTypeOpenid'
+      - $ref: '#/components/schemas/ConfigSourceMetaSubTypeFacebook'
+      - $ref: '#/components/schemas/ConfigSourceMetaSubTypeGoogleworkspaceldap'
+      - $ref: '#/components/schemas/ConfigSourceMetaSubTypeStripe'
+      - $ref: '#/components/schemas/ConfigSourceMetaSubTypeEduroam'
+      - $ref: '#/components/schemas/ConfigSourceMetaSubTypeNull'
+      - $ref: '#/components/schemas/ConfigSourceMetaSubTypeEmail'
+      - $ref: '#/components/schemas/ConfigSourceMetaSubTypeLdap'
+      - $ref: '#/components/schemas/ConfigSourceMetaSubTypeAd'
       - $ref: '#/components/schemas/ConfigSourceMetaSubTypeSponsoremail'
       - $ref: '#/components/schemas/ConfigSourceMetaSubTypeSql'
-      - $ref: '#/components/schemas/ConfigSourceMetaSubTypeNull'
-      - $ref: '#/components/schemas/ConfigSourceMetaSubTypeHttp'
-      - $ref: '#/components/schemas/ConfigSourceMetaSubTypeAdminproxy'
-      - $ref: '#/components/schemas/ConfigSourceMetaSubTypeEmail'
-      - $ref: '#/components/schemas/ConfigSourceMetaSubTypeEduroam'
-      - $ref: '#/components/schemas/ConfigSourceMetaSubTypePotd'
-      - $ref: '#/components/schemas/ConfigSourceMetaSubTypeRadius'
-      - $ref: '#/components/schemas/ConfigSourceMetaSubTypeGithub'
-      - $ref: '#/components/schemas/ConfigSourceMetaSubTypeGoogle'
-      - $ref: '#/components/schemas/ConfigSourceMetaSubTypePaypal'
-      - $ref: '#/components/schemas/ConfigSourceMetaSubTypeKerberos'
-      - $ref: '#/components/schemas/ConfigSourceMetaSubTypeAuthorization'
-      - $ref: '#/components/schemas/ConfigSourceMetaSubTypeEdir'
-      - $ref: '#/components/schemas/ConfigSourceMetaSubTypeFacebook'
-      - $ref: '#/components/schemas/ConfigSourceMetaSubTypeLdap'
-      - $ref: '#/components/schemas/ConfigSourceMetaSubTypeTwilio'
-      - $ref: '#/components/schemas/ConfigSourceMetaSubTypeClickatell'
-      - $ref: '#/components/schemas/ConfigSourceMetaSubTypeEaptls'
       - $ref: '#/components/schemas/ConfigSourceMetaSubTypeLinkedin'
-      - $ref: '#/components/schemas/ConfigSourceMetaSubTypeGoogleworkspaceldap'
+      - $ref: '#/components/schemas/ConfigSourceMetaSubTypePotd'
+      - $ref: '#/components/schemas/ConfigSourceMetaSubTypeAdminproxy'
+      - $ref: '#/components/schemas/ConfigSourceMetaSubTypeClickatell'
+      - $ref: '#/components/schemas/ConfigSourceMetaSubTypeRadius'
+      - $ref: '#/components/schemas/ConfigSourceMetaSubTypeKickbox'
+      - $ref: '#/components/schemas/ConfigSourceMetaSubTypeHttp'
+      - $ref: '#/components/schemas/ConfigSourceMetaSubTypeEdir'
+      - $ref: '#/components/schemas/ConfigSourceMetaSubTypeAzuread'
+      - $ref: '#/components/schemas/ConfigSourceMetaSubTypeGithub'
+      - $ref: '#/components/schemas/ConfigSourceMetaSubTypeSms'
+      - $ref: '#/components/schemas/ConfigSourceMetaSubTypeEaptls'
+      - $ref: '#/components/schemas/ConfigSourceMetaSubTypeAuthorization'
+      - $ref: '#/components/schemas/ConfigSourceMetaSubTypePaypal'
+      - $ref: '#/components/schemas/ConfigSourceMetaSubTypeBlackhole'
+      - $ref: '#/components/schemas/ConfigSourceMetaSubTypeTwilio'
     ConfigSourceMetaSubTypeAd:
       properties:
         meta:
@@ -22655,8 +22737,8 @@ components:
           server: '#/components/schemas/ConfigSyslogForwarderMetaSubTypeServer'
         propertyName: type
       oneOf:
-      - $ref: '#/components/schemas/ConfigSyslogForwarderMetaSubTypeFile'
       - $ref: '#/components/schemas/ConfigSyslogForwarderMetaSubTypeServer'
+      - $ref: '#/components/schemas/ConfigSyslogForwarderMetaSubTypeFile'
     ConfigSyslogForwarderMetaSubTypeFile:
       properties:
         meta:
@@ -29901,7 +29983,6 @@ paths:
           - inline
           - lets_encrypt
           - monit
-          - mse_tab
           - network
           - node_import
           - parking
@@ -29956,7 +30037,6 @@ paths:
           - inline
           - lets_encrypt
           - monit
-          - mse_tab
           - network
           - node_import
           - parking
@@ -30010,7 +30090,6 @@ paths:
           - inline
           - lets_encrypt
           - monit
-          - mse_tab
           - network
           - node_import
           - parking
@@ -30064,7 +30143,6 @@ paths:
           - inline
           - lets_encrypt
           - monit
-          - mse_tab
           - network
           - node_import
           - parking
@@ -30123,7 +30201,6 @@ paths:
           - inline
           - lets_encrypt
           - monit
-          - mse_tab
           - network
           - node_import
           - parking
@@ -46163,7 +46240,6 @@ paths:
           - inline
           - lets_encrypt
           - monit
-          - mse_tab
           - network
           - node_import
           - parking
@@ -46218,7 +46294,6 @@ paths:
           - inline
           - lets_encrypt
           - monit
-          - mse_tab
           - network
           - node_import
           - parking
@@ -46272,7 +46347,6 @@ paths:
           - inline
           - lets_encrypt
           - monit
-          - mse_tab
           - network
           - node_import
           - parking
@@ -46326,7 +46400,6 @@ paths:
           - inline
           - lets_encrypt
           - monit
-          - mse_tab
           - network
           - node_import
           - parking
@@ -46385,7 +46458,6 @@ paths:
           - inline
           - lets_encrypt
           - monit
-          - mse_tab
           - network
           - node_import
           - parking
@@ -54948,7 +55020,11 @@ paths:
           description: Item deleted.
       tags:
       - SecurityEvents
-    description: pf::UnifiedApi::Controller::SecurityEvents
+    description: |-
+      pf::UnifiedApi::Controller::SecurityEvents
+
+        pre_render_create
+          pre_render_create
     get:
       description: Get an item.
       operationId: api.v1.SecurityEvents.resource.get
@@ -55030,7 +55106,11 @@ paths:
       tags:
       - SecurityEvents
   /api/v1/security_events:
-    description: pf::UnifiedApi::Controller::SecurityEvents
+    description: |-
+      pf::UnifiedApi::Controller::SecurityEvents
+
+        pre_render_create
+          pre_render_create
     get:
       description: List all items.
       operationId: api.v1.SecurityEvents.list
