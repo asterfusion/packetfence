@@ -55,6 +55,10 @@ For a list of compatibility related changes see the <<PacketFence_Upgrade_Guide.
  * FortiGate syslog DHCP parser (#8459)
  * Improved regex for Forti-analyser (#8470)
  * Update documentation for node-specific domain configuration file (#8437)
+ * Add ProxySQL metrics to Netdata (#8502)
+ * Add Webauth, DPSK and unbound DPSK for Juniper Mist (#8495)
+ * Improve NTLM Auth API logging (#8516)
+ * Update ip4log on RADIUS authentication request with Framed-Ip-Address (#8521)
 
 === Bug Fixes
 
@@ -71,11 +75,13 @@ For a list of compatibility related changes see the <<PacketFence_Upgrade_Guide.
  * Fix Fingerbank profile overwrite (#8468)
  * Clear person lookup cache after deleting a person (#8460)
  * Fix pfconnector TCP/UDP port allocation (#8446)
- * PacketFence::SNMP cannot use SNMP to set vlan (unable to set VLAN on generic snmp switch #8486)
+ * Fix set VLAN on generic SNMP switch (#8486)
+ * Fix unbound DPSK in Ruckus and OpenWifi switch module (#8496)
+ * Fix machine account creation on cluster (#8512)
 
 === Security Fixes
 
- * Library updates (#8307, #8328, #8329, #8336, #8341, #8353, #8371, #8404, #8405, #8407, #8408, #8409, #8410, #8412, #8422, #8423, #8424, #8425, #8427)
+ * Library updates (#8307, #8328, #8329, #8336, #8341, #8353, #8371, #8404, #8405, #8407, #8408, #8409, #8410, #8412, #8422, #8423, #8424, #8425, #8427, #8524)
 
 == Version 14.0.0 released on 2024-09-06
 
