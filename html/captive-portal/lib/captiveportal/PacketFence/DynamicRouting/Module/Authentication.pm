@@ -260,6 +260,7 @@ sub auth_source_params {
     my ($self) = @_;
     my $locationlog_entry = locationlog_view_open_mac($self->current_mac);
     my $node_info = node_view($self->current_mac);
+    my ($strip_username, undef) = strip_username($self->username());
     my $switch = pf::SwitchFactory->instantiate({ switch_mac => $locationlog_entry->{'switch_mac'}, switch_ip => $locationlog_entry->{'switch_ip'}});
     return {
         username => $self->username(),
@@ -267,7 +268,7 @@ sub auth_source_params {
         connection_type => $locationlog_entry->{'connection_type'},
         SSID => $locationlog_entry->{'ssid'},
         realm => $locationlog_entry->{'realm'},
-        stripped_user_name => strip_username($self->username()),
+        stripped_user_name => $strip_username,
         switch_group => ( $switch eq "0" ? '' : $switch->{_group}),
         computer_name => $node_info->{'computername'},
         switch_id => $locationlog_entry->{'switch'},
