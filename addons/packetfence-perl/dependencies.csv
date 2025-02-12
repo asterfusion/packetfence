@@ -189,7 +189,7 @@ IO::Socket::INET6,2.72,SHLOMIF/IO-Socket-INET6-2.72.tar.gz,False,S/SH/SHLOMIF/IO
 Text::RecordParser,1.6.5,KCLARK/Text-RecordParser-1.6.5.tar.gz,True,K/KC/KCLARK/Text-RecordParser-1.6.5.tar.gz,2
 Class::Accessor::Fast::Contained,1.01,OLIVER/Class-Accessor-Fast-Contained-1.01.tar.gz,True,O/OL/OLIVER/Class-Accessor-Fast-Contained-1.01.tar.gz,2
 Catalyst::View::CSV,1.8,JMREIN/Catalyst-View-CSV-1.8.tar.gz,True,J/JM/JMREIN/Catalyst-View-CSV-1.8.tar.gz,2
-Authen::Radius,0.32,PORTAONE/Authen-Radius-0.32.tar.gz,True,P/PO/PORTAONE/Authen-Radius-0.32.tar.gz,2
+Authen::Radius,0.33,PORTAONE/Authen-Radius-0.33.tar.gz,True,P/PO/PORTAONE/Authen-Radius-0.33.tar.gz,2
 B::Keywords,1.22,RURBAN/B-Keywords-1.22.tar.gz,True,R/RU/RURBAN/B-Keywords-1.22.tar.gz,2
 IO::Interactive,1.023,BDFOY/IO-Interactive-1.023.tar.gz,True,B/BD/BDFOY/IO-Interactive-1.023.tar.gz,2
 Locale::Codes,3.67,SBECK/Locale-Codes-3.67.tar.gz,True,S/SB/SBECK/Locale-Codes-3.67.tar.gz,2
