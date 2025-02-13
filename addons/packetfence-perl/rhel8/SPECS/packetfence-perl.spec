@@ -1,5 +1,5 @@
 Name:           packetfence-perl
-Version:        1.2.4
+Version:        1.2.5
 Release:        1%{?dist}
 Summary:        All modules loaded with cpan
 BuildArch:      x86_64

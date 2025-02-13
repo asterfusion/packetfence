@@ -192,7 +192,7 @@ Requires: perl(Cache::Cache), perl(HTML::Parser)
 Requires: perl(URI::Escape::XS)
 # Used by Captive Portal authentication modules
 Requires: perl(Apache::Htpasswd)
-Requires: perl(Authen::Radius) >= 0.24
+Requires: perl(Authen::Radius) >= 0.33
 Requires: perl(Authen::Krb5::Simple)
 Requires: perl(WWW::Twilio::API)
 # Required for importation feature
