@@ -1,6 +1,7 @@
 package maint
 
 import (
+	"cmp"
 	"context"
 	"database/sql"
 	"fmt"
@@ -476,7 +477,7 @@ loop:
 					}
 				}
 
-				networkEvent.Count = int(connectionCount)
+				networkEvent.Count = cmp.Or(int(connectionCount), len(ports))
 				if startTime != 0 {
 					networkEvent.StartTime = uint64(startTime)
 				}
