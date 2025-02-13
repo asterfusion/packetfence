@@ -28,9 +28,9 @@ sub index : Path : Args(1) {
     my ( $self, $c, $mac ) = @_;
     my $node = node_view($mac);
     my $owner = lc($node->{pid});
-    my $stripped_owner = strip_username($owner);
+    my ($stripped_owner, undef) = strip_username($owner);
     my $username = lc($c->user_session->{username});
-    my $stripped_username = strip_username($username);
+    my ($stripped_username, undef) = strip_username($username);
 
     $c->stash(
         mac => $mac,
