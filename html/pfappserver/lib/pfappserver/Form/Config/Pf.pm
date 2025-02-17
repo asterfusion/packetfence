@@ -51,7 +51,8 @@ sub field_list {
         my $doc_section = $Doc_Config{$doc_section_name};
         my $defaults = $Default_Config{$section};
         $doc_section->{description} //= '';
-        $doc_section->{description} =~ s/\n//sg;
+        $doc_section->{description} =~ s/\n+$//sg;
+        $doc_section->{description} =~ s/\n/ /sg;
         my $doc_anchor = $doc_section->{guide_anchor};
         my $doc_anchor_html = defined($doc_anchor) ? " " . pf::web::util::generate_doc_link($doc_anchor) . " " : '';
         my $field =
