@@ -30,7 +30,7 @@ describe('Configurator', () => {
 
     // interceptors - Step 4
     cy.intercept('GET', '/api/**/config/base/advanced').as('getAdvanced')
-    cy.intercept('GET', '/api/**/service/pf/status').as('getPacketfenceStatus')
+    cy.intercept('PATCH', '/api/**/config/base/advanced').as('patchAdvanced')
 
     cy.visit('/')
    })
@@ -202,7 +202,7 @@ describe('Configurator', () => {
     cy.get('button[type="submit"]:contains(Start)').click()
 
     // wait for API
-    cy.wait('@getPacketfenceStatus', waitForPfqueuePolling).its('response.statusCode').should('be.oneOf', [200])
+    cy.wait('@patchAdvanced', waitForPfqueuePolling).its('response.statusCode').should('be.oneOf', [200])
 
 
     /**
