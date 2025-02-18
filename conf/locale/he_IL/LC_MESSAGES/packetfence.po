@@ -249,6 +249,14 @@ msgstr ""
 msgid "Building_number"
 msgstr ""
 
+# html/captive-portal/templates/emails/emails-fleetdm-cve.html
+msgid "CVE"
+msgstr ""
+
+# html/captive-portal/templates/emails/emails-fleetdm-cve.html
+msgid "CVSS score"
+msgstr ""
+
 # html/captive-portal/templates/status.html
 # html/captive-portal/templates/status/billing_cancel_subscription.html
 msgid "Cancel"
@@ -362,7 +370,7 @@ msgstr ""
 # html/captive-portal/templates/provisioner/dpsk.html
 # html/captive-portal/templates/provisioner/intune.html
 # html/captive-portal/templates/provisioner/jamf.html
-# html/captive-portal/templates/provisioner/jamfcloud.html
+# html/captive-portal/templates/provisioner/jamfCloud.html
 # html/captive-portal/templates/provisioner/kandji.html
 # html/captive-portal/templates/provisioner/mobileconfig.html
 # html/captive-portal/templates/provisioner/mobileiron.html
@@ -499,6 +507,10 @@ msgstr ""
 
 # html/captive-portal/templates/billing/tier.html
 msgid "Description"
+msgstr ""
+
+# html/captive-portal/templates/emails/emails-fleetdm-cve.html
+msgid "Detail link"
 msgstr ""
 
 # html/captive-portal/templates/device-registration/registration.html
@@ -675,6 +687,8 @@ msgstr ""
 # html/captive-portal/templates/emails/emails-billing_confirmation.html
 # html/captive-portal/templates/emails/emails-
 # billing_stripe_customer.subscription.deleted.html
+# html/captive-portal/templates/emails/emails-fleetdm-cve.html
+# html/captive-portal/templates/emails/emails-fleetdm-policy-violation.html
 # html/captive-portal/templates/emails/emails-guest_admin_pregistration.html
 # html/captive-portal/templates/emails/emails-guest_email_activation.html
 # html/captive-portal/templates/emails/emails-guest_email_preregistration.html
@@ -691,6 +705,8 @@ msgstr ""
 msgid "Hello"
 msgstr ""
 
+# html/captive-portal/templates/emails/emails-fleetdm-cve.html
+# html/captive-portal/templates/emails/emails-fleetdm-policy-violation.html
 # html/captive-portal/templates/emails/emails-security_event-triggered.html
 msgid "Here is the device information"
 msgstr ""
@@ -713,6 +729,8 @@ msgid ""
 "<i>Always Trust</i>."
 msgstr ""
 
+# html/captive-portal/templates/emails/emails-fleetdm-cve.html
+# html/captive-portal/templates/emails/emails-fleetdm-policy-violation.html
 # html/captive-portal/templates/emails/emails-security_event-triggered.html
 msgid "Hostname"
 msgstr ""
@@ -887,6 +905,8 @@ msgstr "התנתקות"
 msgid "MAC"
 msgstr "MAC"
 
+# html/captive-portal/templates/emails/emails-fleetdm-cve.html
+# html/captive-portal/templates/emails/emails-fleetdm-policy-violation.html
 # html/captive-portal/templates/emails/emails-security_event-triggered.html
 msgid "MAC Address"
 msgstr ""
@@ -1003,6 +1023,8 @@ msgstr ""
 msgid "OAuth login"
 msgstr ""
 
+# html/captive-portal/templates/emails/emails-fleetdm-cve.html
+# html/captive-portal/templates/emails/emails-fleetdm-policy-violation.html
 # html/captive-portal/templates/emails/emails-security_event-triggered.html
 msgid "OS"
 msgstr ""
@@ -1039,7 +1061,7 @@ msgstr ""
 # html/captive-portal/templates/provisioner/airwatch.html
 # html/captive-portal/templates/provisioner/intune.html
 # html/captive-portal/templates/provisioner/jamf.html
-# html/captive-portal/templates/provisioner/jamfcloud.html
+# html/captive-portal/templates/provisioner/jamfCloud.html
 # html/captive-portal/templates/provisioner/kandji.html
 # html/captive-portal/templates/provisioner/sentinelone.html
 msgid ""
@@ -1201,6 +1223,18 @@ msgstr ""
 msgid "Please select the account you would like to manage"
 msgstr ""
 
+# html/captive-portal/templates/emails/emails-fleetdm-policy-violation.html
+msgid "Policy ID"
+msgstr ""
+
+# html/captive-portal/templates/emails/emails-fleetdm-policy-violation.html
+msgid "Policy name"
+msgstr ""
+
+# html/captive-portal/templates/emails/emails-fleetdm-policy-violation.html
+msgid "Policy query"
+msgstr ""
+
 # pf::person::FIELDS
 msgid "Portal"
 msgstr ""
@@ -1290,10 +1324,14 @@ msgstr ""
 msgid "SSID: "
 msgstr ""
 
+# html/captive-portal/templates/emails/emails-fleetdm-cve.html
+# html/captive-portal/templates/emails/emails-fleetdm-policy-violation.html
 # html/captive-portal/templates/emails/emails-security_event-triggered.html
 msgid "Security Event %s was detected on your device."
 msgstr ""
 
+# html/captive-portal/templates/emails/emails-fleetdm-cve.html
+# html/captive-portal/templates/emails/emails-fleetdm-policy-violation.html
 # html/captive-portal/templates/emails/emails-security_event-triggered.html
 msgid "Security Event detected !"
 msgstr ""
@@ -1594,6 +1632,8 @@ msgstr ""
 # html/captive-portal/templates/emails/emails-billing_confirmation.html
 # html/captive-portal/templates/emails/emails-
 # billing_stripe_customer.subscription.deleted.html
+# html/captive-portal/templates/emails/emails-fleetdm-cve.html
+# html/captive-portal/templates/emails/emails-fleetdm-policy-violation.html
 # html/captive-portal/templates/emails/emails-guest_admin_pregistration.html
 # html/captive-portal/templates/emails/emails-guest_email_activation.html
 # html/captive-portal/templates/emails/emails-guest_email_preregistration.html
@@ -1667,7 +1707,7 @@ msgid ""
 msgstr ""
 
 # html/captive-portal/templates/provisioner/jamf.html
-# html/captive-portal/templates/provisioner/jamfcloud.html
+# html/captive-portal/templates/provisioner/jamfCloud.html
 msgid ""
 "To complete your network activation you need to install the JAMF client."
 msgstr ""
@@ -1857,6 +1897,8 @@ msgid ""
 "You do not own this device %s, you can not declare it as lost or stolen."
 msgstr ""
 
+# html/captive-portal/templates/emails/emails-fleetdm-cve.html
+# html/captive-portal/templates/emails/emails-fleetdm-policy-violation.html
 # html/captive-portal/templates/emails/emails-security_event-triggered.html
 msgid "You have been detected doing malicious activity on the network."
 msgstr ""

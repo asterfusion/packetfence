@@ -14,7 +14,7 @@
 # inverse <support@inverse.ca>, 2013-2014,2016,2018,2021
 # inverse <support@inverse.ca>, 2012-2013
 # jgoimard <jgoimard@inverse.ca>, 2021
-# jgoimard <jgoimard@inverse.ca>, 2022
+# jgoimard <jgoimard@inverse.ca>, 2022,2025
 # Louis Munro <git@louismunro.com>, 2016
 # lzammit <lzammit@inverse.ca>, 2014,2016,2018,2021
 # lzammit <lzammit@inverse.ca>, 2014,2016,2018
@@ -33,7 +33,7 @@ msgstr ""
 "Project-Id-Version: PacketFence\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "PO-Revision-Date: 2011-11-16 20:16+0000\n"
-"Last-Translator: jgoimard <jgoimard@inverse.ca>, 2022\n"
+"Last-Translator: jgoimard <jgoimard@inverse.ca>, 2022,2025\n"
 "Language-Team: French (http://app.transifex.com/inverse/packetfence/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -272,6 +272,14 @@ msgstr "Recherchez le fichier de certificat que vous avez téléchargé précéd
 msgid "Building_number"
 msgstr "Numéro de batiment"
 
+# html/captive-portal/templates/emails/emails-fleetdm-cve.html
+msgid "CVE"
+msgstr "CVE"
+
+# html/captive-portal/templates/emails/emails-fleetdm-cve.html
+msgid "CVSS score"
+msgstr "CVSS score"
+
 # html/captive-portal/templates/status.html
 # html/captive-portal/templates/status/billing_cancel_subscription.html
 msgid "Cancel"
@@ -385,7 +393,7 @@ msgstr "Confirmez votre mot de passe"
 # html/captive-portal/templates/provisioner/dpsk.html
 # html/captive-portal/templates/provisioner/intune.html
 # html/captive-portal/templates/provisioner/jamf.html
-# html/captive-portal/templates/provisioner/jamfcloud.html
+# html/captive-portal/templates/provisioner/jamfCloud.html
 # html/captive-portal/templates/provisioner/kandji.html
 # html/captive-portal/templates/provisioner/mobileconfig.html
 # html/captive-portal/templates/provisioner/mobileiron.html
@@ -523,6 +531,10 @@ msgstr "En fonction de votre appareil et de sa configuration, vous pouvez être 
 # html/captive-portal/templates/billing/tier.html
 msgid "Description"
 msgstr "Description"
+
+# html/captive-portal/templates/emails/emails-fleetdm-cve.html
+msgid "Detail link"
+msgstr "Lien détaillé"
 
 # html/captive-portal/templates/device-registration/registration.html
 msgid "Device MAC address"
@@ -698,6 +710,8 @@ msgstr "Possède un abonnement actif"
 # html/captive-portal/templates/emails/emails-billing_confirmation.html
 # html/captive-portal/templates/emails/emails-
 # billing_stripe_customer.subscription.deleted.html
+# html/captive-portal/templates/emails/emails-fleetdm-cve.html
+# html/captive-portal/templates/emails/emails-fleetdm-policy-violation.html
 # html/captive-portal/templates/emails/emails-guest_admin_pregistration.html
 # html/captive-portal/templates/emails/emails-guest_email_activation.html
 # html/captive-portal/templates/emails/emails-guest_email_preregistration.html
@@ -714,6 +728,8 @@ msgstr "Possède un abonnement actif"
 msgid "Hello"
 msgstr "Bonjour"
 
+# html/captive-portal/templates/emails/emails-fleetdm-cve.html
+# html/captive-portal/templates/emails/emails-fleetdm-policy-violation.html
 # html/captive-portal/templates/emails/emails-security_event-triggered.html
 msgid "Here is the device information"
 msgstr "Voici les informations sur l'appareil"
@@ -736,6 +752,8 @@ msgid ""
 "<i>Always Trust</i>."
 msgstr "Ici, il vous sera demandé si vous souhaitez toujours faire confiance aux certificats Securly. Cliquez sur Toujours faire confiance."
 
+# html/captive-portal/templates/emails/emails-fleetdm-cve.html
+# html/captive-portal/templates/emails/emails-fleetdm-policy-violation.html
 # html/captive-portal/templates/emails/emails-security_event-triggered.html
 msgid "Hostname"
 msgstr "Nom de la machine"
@@ -910,6 +928,8 @@ msgstr "Déconnecter"
 msgid "MAC"
 msgstr "MAC"
 
+# html/captive-portal/templates/emails/emails-fleetdm-cve.html
+# html/captive-portal/templates/emails/emails-fleetdm-policy-violation.html
 # html/captive-portal/templates/emails/emails-security_event-triggered.html
 msgid "MAC Address"
 msgstr "Adresse MAC"
@@ -1026,6 +1046,8 @@ msgstr "Source nulle"
 msgid "OAuth login"
 msgstr "Connexion OAuth"
 
+# html/captive-portal/templates/emails/emails-fleetdm-cve.html
+# html/captive-portal/templates/emails/emails-fleetdm-policy-violation.html
 # html/captive-portal/templates/emails/emails-security_event-triggered.html
 msgid "OS"
 msgstr "OS"
@@ -1062,7 +1084,7 @@ msgstr "Sur site, sélectionnez le portail invité et utilisez les identifiants 
 # html/captive-portal/templates/provisioner/airwatch.html
 # html/captive-portal/templates/provisioner/intune.html
 # html/captive-portal/templates/provisioner/jamf.html
-# html/captive-portal/templates/provisioner/jamfcloud.html
+# html/captive-portal/templates/provisioner/jamfCloud.html
 # html/captive-portal/templates/provisioner/kandji.html
 # html/captive-portal/templates/provisioner/sentinelone.html
 msgid ""
@@ -1224,6 +1246,18 @@ msgstr "Veuillez scanner le code ci-dessous dans votre application d'authentific
 msgid "Please select the account you would like to manage"
 msgstr "SVP, choisir le compte que vous souhaitez géré"
 
+# html/captive-portal/templates/emails/emails-fleetdm-policy-violation.html
+msgid "Policy ID"
+msgstr "Policy ID"
+
+# html/captive-portal/templates/emails/emails-fleetdm-policy-violation.html
+msgid "Policy name"
+msgstr "Policy Nom"
+
+# html/captive-portal/templates/emails/emails-fleetdm-policy-violation.html
+msgid "Policy query"
+msgstr "Policy requête"
+
 # pf::person::FIELDS
 msgid "Portal"
 msgstr "Portail"
@@ -1313,10 +1347,14 @@ msgstr "Enregistrement par SMS"
 msgid "SSID: "
 msgstr "SSID:"
 
+# html/captive-portal/templates/emails/emails-fleetdm-cve.html
+# html/captive-portal/templates/emails/emails-fleetdm-policy-violation.html
 # html/captive-portal/templates/emails/emails-security_event-triggered.html
 msgid "Security Event %s was detected on your device."
 msgstr "L'événement de sécurité %s a été détecté sur votre appareil."
 
+# html/captive-portal/templates/emails/emails-fleetdm-cve.html
+# html/captive-portal/templates/emails/emails-fleetdm-policy-violation.html
 # html/captive-portal/templates/emails/emails-security_event-triggered.html
 msgid "Security Event detected !"
 msgstr "Événement de sécurité détecté!"
@@ -1617,6 +1655,8 @@ msgstr "Ceci est votre appareil actuel."
 # html/captive-portal/templates/emails/emails-billing_confirmation.html
 # html/captive-portal/templates/emails/emails-
 # billing_stripe_customer.subscription.deleted.html
+# html/captive-portal/templates/emails/emails-fleetdm-cve.html
+# html/captive-portal/templates/emails/emails-fleetdm-policy-violation.html
 # html/captive-portal/templates/emails/emails-guest_admin_pregistration.html
 # html/captive-portal/templates/emails/emails-guest_email_activation.html
 # html/captive-portal/templates/emails/emails-guest_email_preregistration.html
@@ -1690,7 +1730,7 @@ msgid ""
 msgstr "Pour terminer votre activation réseau, vous devez installer le client Intune."
 
 # html/captive-portal/templates/provisioner/jamf.html
-# html/captive-portal/templates/provisioner/jamfcloud.html
+# html/captive-portal/templates/provisioner/jamfCloud.html
 msgid ""
 "To complete your network activation you need to install the JAMF client."
 msgstr "Pour finaliser votre accès au réseau, vous devez installer le client JAMF."
@@ -1880,6 +1920,8 @@ msgid ""
 "You do not own this device %s, you can not declare it as lost or stolen."
 msgstr "Cet appareil %s ne vous appartient pas, vous ne pouvez pas le déclarer perdu ou volé."
 
+# html/captive-portal/templates/emails/emails-fleetdm-cve.html
+# html/captive-portal/templates/emails/emails-fleetdm-policy-violation.html
 # html/captive-portal/templates/emails/emails-security_event-triggered.html
 msgid "You have been detected doing malicious activity on the network."
 msgstr "Des activités malveillantes sur le réseau provenant de votre appareil ont été détectées."

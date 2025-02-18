@@ -7,7 +7,7 @@
 # Christopher <chuguet@inverse.ca>, 2023
 # oeufdure <fdurand@inverse.ca>, 2014-2018,2021
 # inverse <support@inverse.ca>, 2014,2016,2018
-# jgoimard <jgoimard@inverse.ca>, 2022,2024
+# jgoimard <jgoimard@inverse.ca>, 2022,2024-2025
 # julsemaan <jsemaan@inverse.ca>, 2014,2019
 # Loick Pelet <lpelet.inverse@gmail.com>, 2013
 # Loick Pelet <lpelet.inverse@gmail.com>, 2013
@@ -21,7 +21,7 @@ msgstr ""
 "Project-Id-Version: PacketFence\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "PO-Revision-Date: 2013-04-01 18:48+0000\n"
-"Last-Translator: jgoimard <jgoimard@inverse.ca>, 2022,2024\n"
+"Last-Translator: jgoimard <jgoimard@inverse.ca>, 2022,2024-2025\n"
 "Language-Team: French (http://app.transifex.com/inverse/packetfence/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -262,7 +262,7 @@ msgid ""
 "reached. Defaults to none. email will send an email every hour if the "
 "limit's still reached. shut will shut the port on the switch and will also "
 "send an email even if email is not specified."
-msgstr "Action que PacketFence prendra si le seuil snmp_traps.trap_limit_est atteint. Par défaut, aucun. Email enverra un courrier électronique toutes les heures si la limite est toujours atteinte. Shut va fermer le port sur le commutateur et enverra un courrier électronique même si Email n’est pas spécifié."
+msgstr "Action que PacketFence fera si le seuil snmp_traps.trap_limit_threshold est atteint. La valeur par défaut est aucun. Un courriel sera envoyé toutes les heures si la limite est toujours atteinte. Shut fermera le port sur le commutateur et enverra un courriel même si celui-ci n’est pas spécifié."
 
 # html/pfappserver/lib/pfappserver/Form/Config/AdminRoles.pm
 # html/pfappserver/lib/pfappserver/Form/SecurityEvent.pm
@@ -308,6 +308,10 @@ msgstr "Variables d'environnement supplémentaires à configurer pour le collect
 msgid "Additional listening daemon(s)"
 msgstr "Ecoute de daemon(s) additionnel "
 
+# html/pfappserver/lib/pfappserver/Form/Config/Domain.pm
+msgid "Additional machine account for NTLM authentication"
+msgstr "Compte machine supplémentaire pour l'authentification NTLM"
+
 # html/pfappserver/lib/pfappserver/Form/SecurityEvent.pm
 msgid "Additionnal message for the user"
 msgstr "Message supplémentaire pour l’utilisateur"
@@ -322,9 +326,9 @@ msgstr "Adresse"
 msgid ""
 "Address ranges/CIDR blocks that PacketFence will monitor/detect/trap on.  "
 "Gateway, network, and broadcast addresses are ignored. Comma-delimited "
-"entries should be of the form "
-"<ul><li>a.b.c.0/24</li><li>a.b.c.0-255</li><li>a.b.c.0-a.b.c.255</li><li>a.b.c.d</li></ul>"
-msgstr "Les plages d’adresses / les blocs CIDR que Snort/Suricata surveillera/détectera/piègera. Les adresses de passerelle, de réseau et de diffusion sont ignorées. Les entrées doivent être séparées par des virgules tel que : <ul><li>a.b.c.0/24</li><li>a.b.c.0-255</li><li>a.b.c.0-a.b.c.255</li><li>a.b.c.d</li></ul>"
+"entries should be of the form <ul><li>a.b.c.0/24</li> <li>a.b.c.0-255</li> "
+"<li>a.b.c.0-a.b.c.255</li> <li>a.b.c.d</li></ul>"
+msgstr "Les plages d’adresses / les blocs CIDR que PacketFence va surveiller/détecter/intercepter. Les adresses de passerelle, de réseau et de diffusion sont ignorées. Les entrées délimitées par des virgules doivent être de la forme <ul><li>a.b.c.0/24</li> <li>a.b.c.0-255</li> <li>a.b.c.0-a.b.c.255</li> <li>a.b.c.d</li></ul>"
 
 # html/pfappserver/lib/pfappserver/Form/Config/Firewall_SSO.pm
 msgid ""
@@ -428,9 +432,9 @@ msgstr "Quantité de processus pfperl-api à démarrer"
 # conf/documentation.conf (captive_portal.rate_limiting_threshold)
 msgid ""
 "Amount of requests on invalid URLs after which the rate limiting will kick "
-"in for this device.Requires to restart haproxy-portal in order to apply the "
-"change."
-msgstr "Le montant de requêtes sur des URLs invalides à partir duquel la limite vas se déclencher pour cet appareil. Ce changement nécessite de redémarrer haproxy pour être appliqué."
+"in for this device. Requires to restart haproxy-portal in order to apply the"
+" change."
+msgstr "Nombre de requêtes sur des URL non valides après lequel la limitation de débit s'appliquera pour cet appareil. Nécessite de redémarrer haproxy-portal pour appliquer la modification."
 
 # html/pfappserver/lib/pfappserver/Form/SecurityEvent.pm
 msgid ""
@@ -979,8 +983,8 @@ msgstr "Virgule"
 # conf/documentation.conf (database_advanced.other_members)
 msgid ""
 "Comma delimited IPv4 address of other member mysql members - note that this "
-"is only to syncthe database."
-msgstr "Adresse IPv4 délimitée par des virgules des autres membres mysql - notez qu'il s'agit uniquement de synchroniser la base de données."
+"is only to sync the database."
+msgstr "Adresse IPv4 délimitée par des virgules des autres membres mysql - notez que ceci sert uniquement à synchroniser la base de données."
 
 # html/pfappserver/lib/pfappserver/Form/Config/Firewall_SSO.pm
 msgid ""
@@ -1015,36 +1019,36 @@ msgid ""
 "Comma-delimited list of MAC addresses that are immune to isolation. In "
 "inline Level 2 enforcement, the firewall is opened for them as if they were "
 "registered. This <i>feature</i> will probably be reworked in the future."
-msgstr "Liste séparée par des virgules des adresses MAC pour lequel l’isolement ne s’applique pas. En inline de Niveau 2, le coupe-feu est ouvert pour celle-ci. Cette <i>fonctionnalité</i> sera probablement retravaillée à l’avenir."
+msgstr "Liste délimitée par des virgules d'adresses MAC immunisées contre l'isolement. Dans le cadre de l'application de niveau 2 en ligne, le pare-feu est ouvert pour elles comme si elles étaient enregistrées. Cette <i> fonctionnalité</i> sera probablement retravaillée à l’avenir."
 
 # conf/documentation.conf (captive_portal.detection_mecanism_urls)
 msgid ""
 "Comma-delimited list of URLs known to be used by devices to detect the "
 "presence of a captive portal and trigger their captive portal mechanism."
-msgstr "Liste, délimitée par des virgules, des URLs connues à utiliser par les appareils pour détecter la présence d’un portail captif et lancer leur mécanisme de portail captif."
+msgstr "Liste séparée par des virgules des URLs connues à utiliser par les appareils pour détecter la présence d’un portail captif et lancer leur mécanisme de portail captif."
 
 # conf/documentation.conf (fencing.isolation_passthroughs)
 msgid ""
-"Comma-delimited list of domains to allow access from the isolation VLAN.If "
+"Comma-delimited list of domains to allow access from the isolation VLAN. If "
 "no port is specified for the domain (ex: example.com), it opens TCP 80 and "
-"443.You can specify a specific port to open (ex: example.com:tcp:25) which "
+"443. You can specify a specific port to open (ex: example.com:tcp:25) which "
 "opens port 25 in TCP. When no protocol is specified (ex: example.com:25), "
-"this opens the port for both the UDP and TCP protocol.You can specify the "
-"same domain with a different port multiple times and they will be "
-"combined.The configuration parameter <i>isolation_passthrough</i> must be "
-"enabled for passthroughs to be effective."
-msgstr "Liste de domaines délimités par des virgules pour autoriser l'accès à partir du VLAN d'isolation. Si aucun port n'est spécifié pour le domaine (ex : example.com), il ouvre TCP 80 et 443. Vous pouvez spécifier un port spécifique à ouvrir (ex : example. com:tcp:25) qui ouvre le port 25 en TCP. Lorsqu'aucun protocole n'est spécifié (ex : example.com:25), cela ouvre le port pour les protocoles UDP et TCP. Vous pouvez spécifier plusieurs fois le même domaine avec un port différent et ils seront combinés. Le paramètre de configuration <i>isolation_passthrough</i> doit être activé pour que les relais soient efficaces"
+"this opens the port for both the UDP and TCP protocol. You can specify the "
+"same domain with a different port multiple times and they will be combined. "
+"The configuration parameter <i>isolation_passthrough</i> must be enabled for"
+" passthroughs to be effective."
+msgstr "Liste de domaines délimités par des virgules pour autoriser l'accès à partir du VLAN d'isolation. Si aucun port n'est spécifié pour le domaine (ex : example.com), il ouvre TCP 80 et 443. Vous pouvez spécifier un port spécifique à ouvrir (ex : example. com:tcp:25) qui ouvre le port 25 en TCP. Lorsqu'aucun protocole n'est spécifié (ex : example.com:25), cela ouvre le port pour les protocoles UDP et TCP. Vous pouvez spécifier plusieurs fois le même domaine avec un port différent et ils seront combinés. Le paramètre de configuration <i>isolation_passthrough</i> doit être activé pour que les relais soient efficaces."
 
 # conf/documentation.conf (fencing.passthroughs)
 msgid ""
-"Comma-delimited list of domains to allow access from the registration "
-"VLAN.If no port is specified for the domain (ex: example.com), it opens TCP "
-"80 and 443.You can specify a specific port to open (ex: example.com:tcp:25) "
+"Comma-delimited list of domains to allow access from the registration VLAN. "
+"If no port is specified for the domain (ex: example.com), it opens TCP 80 "
+"and 443. You can specify a specific port to open (ex: example.com:tcp:25) "
 "which opens port 25 in TCP. When no protocol is specified (ex: "
-"example.com:25), this opens the port for both the UDP and TCP protocol.You "
+"example.com:25), this opens the port for both the UDP and TCP protocol. You "
 "can specify the same domain with a different port multiple times and they "
-"will be combined.The configuration parameter <i>passthrough</i> must be "
-"enabled for passthroughs to be effective.These passthroughs are only "
+"will be combined. The configuration parameter <i>passthrough</i> must be "
+"enabled for passthroughs to be effective. These passthroughs are only "
 "effective in registration networks, for passthroughs in isolation, use "
 "fencing.isolation_passthroughs."
 msgstr "Liste de domaines délimités par des virgules pour autoriser l'accès à partir du VLAN d'enregistrement. Si aucun port n'est spécifié pour le domaine (ex : example.com), il ouvre TCP 80 et 443. Vous pouvez spécifier un port spécifique à ouvrir (ex : example. com:tcp:25) qui ouvre le port 25 en TCP. Lorsqu'aucun protocole n'est spécifié (ex : example.com:25), cela ouvre le port pour les protocoles UDP et TCP. Vous pouvez spécifier plusieurs fois le même domaine avec un port différent et ils seront combinés. Le paramètre de configuration <i>passthrough</i> doit être activé pour que les relais soient efficaces. Ces relais ne sont efficaces que dans les réseaux d'enregistrement, pour les relais isolés, utilisez fencing.isolation_passthroughs."
@@ -1124,7 +1128,7 @@ msgid ""
 " sends too many traps to PacketFence causing it to be overloaded. Trap "
 "limiting is controlled by the trap limit threshold and trap limit action "
 "parameters. Default is enabled."
-msgstr "Contrôle si oui ou non la fonction de limite de trap snmp est activée. La limite de trap snmp est un moyen de limiter les dommages causés par des utilisateurs malveillants ou commutateur qui envoi trop de trap snmp à PacketFence l’amenant à être surchargé. La limite de trap snmp est contrôlée par les paramètres de la limite de seuil. Par défaut est activé."
+msgstr "Contrôle si oui ou non la fonction de limite de trap snmp est activée. La limite de trap snmp est un moyen de limiter les dommages causés par des utilisateurs malveillants ou commutateurs qui envoient trop de trap snmp à PacketFence l’amenant à être surchargé. La limite de trap snmp est contrôlée par les paramètres de la limite de seuil. Activé par défaut."
 
 # html/pfappserver/lib/pfappserver/Form/Config/PKI_Provider/packetfence_pki.pm
 # html/pfappserver/lib/pfappserver/Form/Config/PKI_Provider/scep.pm
@@ -1408,8 +1412,8 @@ msgstr "Définir le nom d'utilisateur MariaDB pour la réplication Galera"
 # conf/documentation.conf (active_active.conflict_resolution_threshold)
 msgid ""
 "Defines the amount of seconds after which pfcron attempts to resolve a "
-"configuration version conflict between cluster members.For example, if this "
-"is set to 5 minutes, then a resolution will be attempted when the members "
+"configuration version conflict between cluster members. For example, if this"
+" is set to 5 minutes, then a resolution will be attempted when the members "
 "will be detected running a different version for more than 5 minutes."
 msgstr "Définit le nombre de secondes après lesquelles pfcron essayera de résoudre un conflit de configuration entre les noeuds membres au sein d'un cluster. Par exemple, si la valeur est de 5 minutes, alors une résolution du conflit sera tentée par pfcron lorsque les membres seront détectés comme exécutant une version différente depuis plus de 5 minutes."
 
@@ -1460,28 +1464,27 @@ msgstr "Supprimer"
 
 # conf/documentation.conf (interface.enforcement)
 msgid ""
-"Describes the technique PacketFence will use to enforce network access.VLAN "
-"is the out-of-band VLAN-based device isolation requiring integration in your"
-" network environment and inline is a DHCP-based mode where PacketFence acts "
-"as a filtering gateway."
+"Describes the technique PacketFence will use to enforce network access. VLAN"
+" is the out-of-band VLAN-based device isolation requiring integration in "
+"your network environment and inline is a DHCP-based mode where PacketFence "
+"acts as a filtering gateway."
 msgstr "Définit la manière dont PacketFence va contrôler l’accès au réseau. VLAN est l’isolement du réseau en fonction des équipements qui supportent 802.1q et le mode Inline est basé sur le DHCP ou PacketFence agit comme la passerelle de filtrage."
 
 # conf/documentation.conf (interface.type)
 msgid ""
-"Describes type of the named interface.<ul><li><i>internal</i> describes "
-"interfaces where PacketFence will enforce network "
-"access.</li><li><i>management</i> (or managed) interfaces have the "
-"administrative GUI running on them, host SNMP trap receiver and RADIUS "
-"server.</li><li><i>monitor</i> is the interface that snort listens "
-"on.</li><li><i>dhcp-listener</i> is an interface where the DHCP traffic is "
-"coming in either via a network SPAN or IP-Helpers "
-"configuration.</li><li><i>high-availability</i> is for an interface between "
-"two PacketFence servers dedicated to high-availability (drbd, "
-"corosync).</li><li><i>portal</i> interface have the captive-portal running "
-"on them without the need of having any enforcement "
-"mechanism.</li><li><i>radius</i> interface have the radius running (auth, "
-"acct, cli)</li><li><i>dhcp</i> interface have the pfdhcp daemon "
-"running.</li><li><i>dns</i> interface have the pfdns daemon "
+"Describes type of the named interface. <ul><li><i>internal</i> describes "
+"interfaces where PacketFence will enforce network access.</li> "
+"<li><i>management</i> (or managed) interfaces have the administrative GUI "
+"running on them, host SNMP trap receiver and RADIUS server.</li> "
+"<li><i>monitor</i> is the interface that snort listens on.</li> <li><i>dhcp-"
+"listener</i> is an interface where the DHCP traffic is coming in either via "
+"a network SPAN or IP-Helpers configuration.</li> <li><i>high-"
+"availability</i> is for an interface between two PacketFence servers "
+"dedicated to high-availability (drbd, corosync).</li> <li><i>portal</i> "
+"interface have the captive-portal running on them without the need of having"
+" any enforcement mechanism.</li> <li><i>radius</i> interface have the radius"
+" running (auth, acct, cli)</li> <li><i>dhcp</i> interface have the pfdhcp "
+"daemon running.</li> <li><i>dns</i> interface have the pfdns daemon "
 "running</li></ul>"
 msgstr "Décrit le type de l'interface nommé.\n<ul><li><i>internal</i>décrit l'interface où PacketFence appliquera l'accès au réseau.</li><li><i>management</i> (ou géré) les interfaces qui ont le GUI d'administration en cours d'éxecution, héberge le récepteur de trap SNMP et serveur RADIUS.</li><li><i>monitor</i>est l'interface que snort écoute.</li><li><i>dhcp-listener</i> est une interface où le trafic DHCP arrive soit via une configuration réseau SPAN ou IP-Helpers.</li><li><i>hight-avaibility</i> est pour une interface entre deux serveurs PacketFence dédiés à la haute disponibilité (drbd, corosync).</li><li><i>portal</i>l'interface a le portail captif en cours d'éxecution sans le besoin d'avoir aucun mécanisme d'exécution.</li><li><i>radius</i> l'interface a radius en cours d'éxecution (auth, acct, cli)</li><li><i>dhcp</i>interface possède le daemon pfdhcp en cours<li></ul>"
 
@@ -1656,7 +1659,7 @@ msgstr "Délais d’activation courriel"
 msgid ""
 "Email address from which notifications of rogue DHCP servers, violations "
 "with an action of <i>email</i>, or any other PacketFence-related message are"
-" sent.Empty means <code>root@&lt;server-domain-name&gt;</code>."
+" sent. Empty means <code>root@&lt;server-domain-name&gt;</code>."
 msgstr "Adresse e-mail à partir de laquelle les notifications de serveurs DHCP non autorisés, les violations avec une action de <i>email</i>, ou tout autre message lié à PacketFence sont envoyés. Vide signifie <code>root@&lt;server-domain-name&gt</code>."
 
 # html/pfappserver/lib/pfappserver/Form/Config/Source/Potd.pm
@@ -1684,10 +1687,6 @@ msgstr "Activer DPSK"
 # html/pfappserver/lib/pfappserver/Form/Config/PortalModule/Message.pm
 msgid "Enable Layout"
 msgstr "Activer Layout"
-
-# conf/documentation.conf (mse_tab.enabled)
-msgid "Enable MSE"
-msgstr "Activer MSE"
 
 # html/pfappserver/lib/pfappserver/Form/Config/Network/Routed.pm
 # html/pfappserver/lib/pfappserver/Form/Interface.pm
@@ -1767,6 +1766,12 @@ msgid ""
 "informations stay the same."
 msgstr "Activez cette option pour éviter les requêtes de mises à jour au coupe-feu. <br/> Par défaut, PacketFence va envoyer une requête de SSO pour chaque requête DHCP. En activant ce paramètre cela va créer une période pour laquelle les mises à jour ne sont pas envoyées si les informations restent inchangées."
 
+# html/pfappserver/lib/pfappserver/Form/Config/PKI_Provider/packetfence_pki.pm
+msgid ""
+"Enable to apply the same expiration date of the certificate as the "
+"unregistration date of the node."
+msgstr "Permet d'appliquer la même date d'expiration du certificat que la date de désinscription du nœud."
+
 # conf/documentation.conf (advanced.active_directory_os_join_check_bypass)
 msgid "Enable to bypass the operating system domain join verification."
 msgstr "Activer pour contourner la vérification lors de la jointure au domaine du système d'exploitation."
@@ -1791,11 +1796,11 @@ msgstr "Activé Fingerban Dynamic AccessList"
 
 # conf/documentation.conf (radius_configuration.ntlm_redis_cache)
 msgid ""
-"Enables a Redis driven cache for NTLM authentication.In order for this to "
+"Enables a Redis driven cache for NTLM authentication. In order for this to "
 "work, you need to setup proper NT hash syncronization between your "
-"PacketFence server and your AD.Refer to the Administration guide for more "
-"details.Applying this requires a restart of radiusd."
-msgstr "Active le cache REDIS pour les authentifications NTLM. Pour que cela fonctionne vous devez configurer le synchronisation des hash NTLM entre PacketFence et votre Active Directory. Référez vous au guide d’administration pour plus de détails. Activer cette fonction requiert un redémarrage de radius."
+"PacketFence server and your AD. Refer to the Administration guide for more "
+"details. Applying this requires a restart of radiusd."
+msgstr "Activer le cache REDIS pour les authentifications NTLM. Pour que cela fonctionne vous devez configurer le synchronisation des hash NTLM entre PacketFence et votre Active Directory. Référer vous au guide d’administration pour plus de détails. Activer cette fonction requiert un redémarrage de radius."
 
 # html/pfappserver/lib/pfappserver/Form/Config/Source/HTTP.pm
 msgid "Encryption"
@@ -1904,6 +1909,14 @@ msgid "FIREWALL_SSO_UPDATE"
 msgstr "Coupe-feux SSO - Mise à jour"
 
 # pf::admin_roles (Actions groups)
+msgid "FLEETDM_EVENTS"
+msgstr "FLEETDM_EVENTS"
+
+# pf::admin_roles (Actions)
+msgid "FLEETDM_EVENTS_READ"
+msgstr "FLEETDM_EVENTS_READ"
+
+# pf::admin_roles (Actions groups)
 msgid "FLOATING_DEVICES"
 msgstr "Appareil itinérant"
 
@@ -1950,6 +1963,10 @@ msgstr "Champ"
 msgid "Field described in JS files"
 msgstr "Champ décrit dans les fichier JS"
 
+# html/pfappserver/lib/pfappserver/Form/Config/Pfcron/pfflow.pm
+msgid "Filter incoming events"
+msgstr "Filtrer les événements entrants"
+
 # html/pfappserver/lib/pfappserver/Form/Config/Profile.pm
 msgid "Filters"
 msgstr "Filtres"
@@ -1983,8 +2000,8 @@ msgstr "Forcer un sponsor à s'authentifier pour valider une requête d'invitati
 
 # conf/documentation.conf (captive_portal.secure_redirect)
 msgid ""
-"Force the captive portal to use HTTPS for all portal clients.Note that "
-"clients will be forced to use HTTPS on all URLs.This requires a restart of "
+"Force the captive portal to use HTTPS for all portal clients. Note that "
+"clients will be forced to use HTTPS on all URLs. This requires a restart of "
 "the httpd.portal process to be fully effective."
 msgstr "Forcer le portail a utiliser HTTPS pour tous les clients du portail. Notez  que chaque client sera forcé d’utiliser HTTPS pour toutes les URLs. Nécessite le redémarrage du processus httpd.portal pour que ce soit effectif."
 
@@ -2038,6 +2055,10 @@ msgstr "Gabarit HTML sur lequel l’appareil va être redirigé pour cet événe
 # pf::Authentication::Source::HTTPSource (name)
 msgid "HTTP"
 msgstr "HTTP"
+
+# html/pfappserver/lib/pfappserver/Form/Config/Pfcron/pfflow.pm
+msgid "Heuristics"
+msgstr "Heuristiques"
 
 # html/pfappserver/lib/pfappserver/Form/Config/Realm.pm
 msgid "Home server pool type"
@@ -2126,6 +2147,12 @@ msgid ""
 "How long will an account keep locked after hitting bad password threshold. "
 "In minutes"
 msgstr "Combien de temps un compte restera-t-il verrouillé après avoir atteint le seuil de mauvais mot de passe. En minutes"
+
+# html/pfappserver/lib/pfappserver/Form/Config/Domain.pm
+msgid ""
+"How many additional machine accounts should be created and used to parallel "
+"NTLM authentication"
+msgstr "Combien de comptes de machine supplémentaires doivent être créés et utilisés pour l'authentification NTLM en parallèle"
 
 # conf/documentation.conf (fencing.wait_for_redirect)
 msgid ""
@@ -2358,6 +2385,10 @@ msgstr "Hériter du Web Auth URL"
 msgid "Inline Layer 3"
 msgstr "Inline Layer 3"
 
+# html/pfappserver/lib/pfappserver/Form/Config/Switch.pm
+msgid "Interface to apply Role ACL"
+msgstr "Interface où appliquer l'ACL de ce rôle"
+
 # html/pfappserver/root/interface/index.tt
 msgid "Interfaces & Networks"
 msgstr "Interfaces & Réseaux"
@@ -2366,7 +2397,7 @@ msgstr "Interfaces & Réseaux"
 # (collector.cluster_resync_interval)
 msgid ""
 "Interval in seconds at which the collector will fully resynchronize with its"
-" peers when in cluster mode. The collector synchronizes in real-time, so "
+" peers when in cluster mode.  The collector synchronizes in real-time, so "
 "this only acts as a safety net when there is a communication error between "
 "the collectors. "
 msgstr "Intervalle en secondes pour lequel le collecteur se resynchronise avec ses pairs. Une resynchronisation complète est requise en cas de problématique de communication entre les collecteurs."
@@ -2383,6 +2414,14 @@ msgstr "Isolation"
 # html/pfappserver/lib/pfappserver/Form/Config/Pfcron/pfflow.pm
 msgid "Kafka Brokers"
 msgstr "Kafka Brokers"
+
+# html/pfappserver/lib/pfappserver/Form/Config/Pfcron/pfflow.pm
+msgid "Kafka Password"
+msgstr "Mot de passe Kafka"
+
+# html/pfappserver/lib/pfappserver/Form/Config/Pfcron/pfflow.pm
+msgid "Kafka Username"
+msgstr "Utilisateur Kafka."
 
 # pf::Authentication::Source::KerberosSource (name)
 msgid "Kerberos"
@@ -2483,7 +2522,7 @@ msgstr "Laissez ce champ vide si vous voulez vous authentifier de manière anony
 # conf/documentation.conf (advanced.timing_stats_level)
 msgid ""
 "Level of timing stats to keep - 0 is the lowest - 10 the highest amount to "
-"logDo not change unless you know what you are doing"
+"log Do not change unless you know what you are doing"
 msgstr "Niveau de synchronisation des stats à garder - 0 est le plus bas - 10 est le montant le plus élevé. Ne pas changer sauf si vous savez ce que vous faites"
 
 # html/pfappserver/lib/pfappserver/Form/Config/ProfileCommon.pm
@@ -2577,25 +2616,25 @@ msgstr "Adresse 2"
 msgid ""
 "Location of the RADIUS binary. Only necessary to change if you are not "
 "running the RPMed version."
-msgstr "Emplacement du binaire radiusd."
+msgstr "Emplacement du binaire radiusd. Seulement nécessaire si vous n'utilisez pas la version issue de l'installation de PacketFence."
 
 # conf/documentation.conf (services.httpd_binary)
 msgid ""
 "Location of the apache binary. Only necessary to change if you are not "
 "running the RPMed version."
-msgstr "Emplacement du binaire apache."
+msgstr "Emplacement du binaire apache. Seulement nécessaire si vous n'utilisez pas la version issue de l'installation de PacketFence."
 
 # conf/documentation.conf (services.arp_binary)
 msgid ""
 "Location of the arp binary. Only necessary to change if you are not running "
 "the RPMed version."
-msgstr "Emplacement du binaire arp."
+msgstr "Emplacement du binaire arp. Seulement nécessaire si vous n'utilisez pas la version issue de l'installation de PacketFence."
 
 # conf/documentation.conf (services.dhcpd_binary)
 msgid ""
 "Location of the dhcpd binary. Only necessary to change if you are not "
 "running the RPMed version."
-msgstr "Emplacement du binaire DHCPd."
+msgstr "Emplacement du binaire DHCPd. Seulement nécessaire si vous n'utilisez pas la version issue de l'installation de PacketFence."
 
 # conf/documentation.conf (services.fingerbank-collector_binary)
 msgid "Location of the fingerbank-collector binary."
@@ -2603,39 +2642,39 @@ msgstr "Emplacement du binaire fingerbank-collector."
 
 # conf/documentation.conf (services.haproxy-admin_binary)
 msgid ""
-"Location of the haproxy-admin binary. Only necessary to change if you arenot"
-" running the RPMed version."
-msgstr "Emplacement du binaire haproxy-admin. Seulement nécessaire de le changer si vous n'exécutez pas la version RPMed."
+"Location of the haproxy-admin binary. Only necessary to change if you are "
+"not running the RPMed version."
+msgstr "Emplacement du binaire haproxy-db. Seulement nécessaire si vous n'utilisez pas la version issue de l'installation de PacketFence."
 
 # conf/documentation.conf (services.haproxy-db_binary)
 msgid ""
-"Location of the haproxy-db binary. Only necessary to change if you arenot "
+"Location of the haproxy-db binary. Only necessary to change if you are not "
 "running the RPMed version."
-msgstr "Emplacement du binaire haproxy-db."
+msgstr "Emplacement du binaire haproxy-db. Seulement nécessaire si vous n'utilisez pas la version issue de l'installation de PacketFence."
 
 # conf/documentation.conf (services.haproxy-portal_binary)
 msgid ""
-"Location of the haproxy-portal binary. Only necessary to change if you "
-"arenot running the RPMed version."
-msgstr "Emplacement du binaire haproxy-portal."
+"Location of the haproxy-portal binary. Only necessary to change if you are "
+"not running the RPMed version."
+msgstr "Emplacement du binaire haproxy-portal. Seulement nécessaire si vous n'utilisez pas la version issue de l'installation de PacketFence."
 
 # conf/documentation.conf (services.ip6tables_binary)
 msgid ""
-"Location of the ip6tables binary. Only necessary to change if you arenot "
+"Location of the ip6tables binary. Only necessary to change if you are not "
 "running the official packaged version."
-msgstr "Emplacement du binaire ip6tables. Seulement nécessaire de le changer si vous n'exécutez pas la version packagée officielle."
+msgstr "Emplacement du binaire ip6tables. Seulement nécessaire si vous n'utilisez pas la version issue de l'installation de PacketFence."
 
 # conf/documentation.conf (services.iptables_binary)
 msgid ""
-"Location of the iptables binary. Only necessary to change if you arenot "
+"Location of the iptables binary. Only necessary to change if you are not "
 "running the RPMed version."
-msgstr "Emplacement du binaire iptables."
+msgstr "Emplacement du binaire iptables. Seulement nécessaire si vous n'utilisez pas la version issue de l'installation de PacketFence."
 
 # conf/documentation.conf (services.keepalived_binary)
 msgid ""
-"Location of the keepalived binary. Only necessary to change if you arenot "
+"Location of the keepalived binary. Only necessary to change if you are not "
 "running the RPMed version."
-msgstr "Emplacement du binaire keepalived."
+msgstr "Emplacement du binaire keepalived. Seulement nécessaire si vous n'utilisez pas la version issue de l'installation de PacketFence."
 
 # conf/documentation.conf (services.netdata_binary)
 msgid "Location of the netdata binary."
@@ -2643,15 +2682,15 @@ msgstr "Emplacement du binaire netdata,"
 
 # conf/documentation.conf (services.ntlm_auth_api_binary)
 msgid ""
-"Location of the ntlm_auth_api binary. Only necessary to change if you arenot"
-" running the RPMed version."
-msgstr "Location du binaire ntlm_auth_api. Seulement Modification nécessaire uniquement si vous n'exécutez pas la version des dépôts PF."
+"Location of the ntlm_auth_api binary. Only necessary to change if you are "
+"not running the RPMed version."
+msgstr "Location du binaire ntlm_auth_api. Seulement nécessaire si vous n'utilisez pas la version issue de l'installation de PacketFence."
 
 # conf/documentation.conf (services.openssl_binary)
 msgid ""
 "Location of the openssl binary. Only necessary to change if you are not "
 "running the RPMed version."
-msgstr "Emplacement du binaire openssl."
+msgstr "Emplacement du binaire openssl. Seulement nécessaire si vous n'utilisez pas la version issue de l'installation de PacketFence."
 
 # conf/documentation.conf (services.pfacct_binary)
 msgid "Location of the pfacct binary."
@@ -2688,14 +2727,14 @@ msgstr "Emplacement du binaire radsniff3."
 # conf/documentation.conf (services.redis_binary)
 msgid ""
 "Location of the redis binary. Only necessary to change if you are not "
-"running the packaged version. "
-msgstr "Emplacement du binaire redis."
+"running the packaged version."
+msgstr "Emplacement du binaire redis. Seulement nécessaire si vous n'utilisez pas la version issue de l'installation de PacketFence."
 
 # conf/documentation.conf (services.snmptrapd_binary)
 msgid ""
 "Location of the snmptrapd binary. Only necessary to change if you are not "
-"running the RPMed version. "
-msgstr "Emplacement du binaire snmptrapd."
+"running the RPMed version."
+msgstr "Emplacement du binaire snmptrapd. Seulement nécessaire si vous n'utilisez pas la version issue de l'installation de PacketFence."
 
 # conf/documentation.conf (services.tracking-config_binary)
 msgid "Location of the tracking-config binary."
@@ -2840,7 +2879,7 @@ msgstr "Nombre maximum d’adresse MAC retournées depuis un port."
 msgid ""
 "Maximum number of SNMP traps that a switchport can send to PacketFence "
 "within a minute without being flagged as DoS. Defaults to 100."
-msgstr "Le nombre maximum de trappes SNMP qu’un port de commutateur peut envoyer à PacketFence en moins d’une minute sans être marqué comme DoS. La valeur par défaut 100"
+msgstr "Le nombre maximum de trappes SNMP qu’un port de commutateur peut envoyer à PacketFence en moins d’une minute sans être marqué comme DoS. La valeur par défaut est 100."
 
 # html/pfappserver/lib/pfappserver/Form/Config/ProfileCommon.pm
 msgid ""
@@ -2933,6 +2972,7 @@ msgstr "Cache NTLM"
 # html/pfappserver/lib/pfappserver/Form/Config/Roles.pm
 # html/pfappserver/lib/pfappserver/Form/Config/Scan.pm
 # html/pfappserver/lib/pfappserver/Form/Config/Source/Potd.pm
+# html/pfappserver/lib/pfappserver/Form/Field/NameVal.pm
 # html/pfappserver/lib/pfappserver/Form/Field/PfdetectRegexRule.pm
 # html/pfappserver/lib/pfappserver/Form/Field/SourceRule.pm
 # html/pfappserver/lib/pfappserver/Form/Node.pm
@@ -2972,6 +3012,10 @@ msgstr "Nom de l’analyseur Nessus"
 # conf/documentation.conf (services.netflow_address)
 msgid "NetFlow Address"
 msgstr "Adresse NetFlow"
+
+# conf/documentation.conf (services.netdata)
+msgid "Netdata monitoring service."
+msgstr "Service de surveillance Netdata."
 
 # html/pfappserver/lib/pfappserver/Form/Config/Network.pm
 # html/pfappserver/root/interface/list.tt
@@ -3174,7 +3218,7 @@ msgstr "D'autres attributs peuvent être utilisés comme identifiant (nécessite
 
 # conf/documentation.conf (captive_portal.other_domain_names)
 msgid ""
-"Other domain names under which the captive portal responds.Requires to "
+"Other domain names under which the captive portal responds. Requires to "
 "restart haproxy-portal to be fully effective."
 msgstr "Autres noms de domaines pour lesquels le portail captif répond. Ceci nécessite un redémarrage de haproxy-portal."
 
@@ -3369,6 +3413,7 @@ msgstr "Appareil parent"
 # html/pfappserver/lib/pfappserver/Form/Config/Firewall_SSO/JuniperSRX.pm
 # html/pfappserver/lib/pfappserver/Form/Config/Scan.pm
 # html/pfappserver/lib/pfappserver/Form/Config/Switch.pm
+# html/pfappserver/lib/pfappserver/Form/Field/UserPass.pm
 # html/pfappserver/lib/pfappserver/Form/User/Create/Import.pm
 # html/pfappserver/lib/pfappserver/Form/User/Create/Single.pm
 msgid "Password"
@@ -3377,10 +3422,6 @@ msgstr "Mot de passe"
 # html/pfappserver/lib/pfappserver/Form/Config/Domain.pm
 msgid "Password / password hash of the machine account"
 msgstr "Mot de passe (hashé ou non) du compte machine"
-
-# conf/documentation.conf (mse_tab.pass)
-msgid "Password for MSE service"
-msgstr "Mot de passe pour le service MSE"
 
 # conf/documentation.conf (database.pass)
 msgid "Password for the MySQL database used by PacketFence."
@@ -3913,12 +3954,19 @@ msgstr "Protocole Ecriture Priv"
 msgid "Private Key Password"
 msgstr "Mot de passe de la clé privée"
 
+# conf/documentation.conf (active_active.firewall_sso_on_management)
+msgid ""
+"Process Firewall SSO only on the managemenr server (the current load "
+"balancer). Disabling it will allow each members of the cluster to send "
+"Firewall SSO request to firewalls."
+msgstr "Traitez le pare-feu SSO uniquement sur le serveur de gestion (l'équilibreur de charge actuel). Sa désactivation permettra à chaque membre du cluster d'envoyer une demande de pare-feu SSO aux pare-feux."
+
 # conf/documentation.conf (active_active.auth_on_management)
 msgid ""
 "Process RADIUS authentication requests on the management server (the current"
-" load balancer).Disabling it will make the management server only proxy "
-"requests to other servers.Useful if your load balancer cannot handle both "
-"tasks.Changing this requires to restart radiusd."
+" load balancer). Disabling it will make the management server only proxy "
+"requests to other servers. Useful if your load balancer cannot handle both "
+"tasks. Changing this requires to restart radiusd."
 msgstr "Traiter les demandes d’authentification RADIUS sur le serveur principal (l’actuel équilibreur de charge). En désactivant ce paramètre, il fera suivre les requêtes aux autres serveurs. Utile si votre équilibreur de charge ne peut pas gérer deux tâches. Un redémarrage de radiusd est nécessaire si vous changez ce paramètre."
 
 # conf/documentation.conf (radius_configuration.process_bandwidth_accounting)
@@ -3928,9 +3976,9 @@ msgstr "Traiter la bande passante de l'accounting."
 # conf/documentation.conf (active_active.portal_on_management)
 msgid ""
 "Process captive portal requests on the management server (the current load "
-"balancer).Disabling it will make the management server only proxy requests "
-"to other servers.Useful if your load balancer cannot handle both "
-"tasks.Changing this requires to restart the haproxy-portal service."
+"balancer). Disabling it will make the management server only proxy requests "
+"to other servers. Useful if your load balancer cannot handle both tasks. "
+"Changing this requires to restart the haproxy-portal service."
 msgstr "Traitez les requêtes du portail captif sur le serveur de gestion (l'équilibreur de charge actuel). Si vous le désactivez, le serveur de gestion ne fera que des requêtes proxy vers d'autres serveurs. Utile si votre équilibreur de charge ne peut pas gérer les deux tâches. La modification de cela nécessite de redémarrer le service haproxy-portal."
 
 # html/pfappserver/lib/pfappserver/Form/Config/ProfileCommon.pm
@@ -3973,8 +4021,8 @@ msgstr "Requête Proxy"
 
 # conf/documentation.conf (active_active.radius_proxy_with_vip)
 msgid ""
-"Proxy the RADIUS requests received on the RADIUS load balancer using the "
-"VIPWhen deploying in an environment where the virtual IP is a software load "
+"Proxy the RADIUS requests received on the RADIUS load balancer using the VIP"
+" When deploying in an environment where the virtual IP is a software load "
 "balancer, disable this so that servers proxy the requests using their own IP"
 " address"
 msgstr "Proxy les requêtes RADIUS reçues sur le RADIUS load balancer à l'aide de la VIP  lors du déploiement dans un environnement où l'adresse IP virtuelle est un logiciel de load balancer, désactivez cette option afin que les serveurs proxy les requêtes en utilisant leur propre adresse IP"
@@ -4127,9 +4175,9 @@ msgstr "Enregistrement requête DNS et réponse dans la table SQL"
 
 # conf/documentation.conf (radius_configuration.record_accounting_in_sql)
 msgid ""
-"Record the accounting data in the SQL tables.Requires a restart of radiusd "
+"Record the accounting data in the SQL tables. Requires a restart of radiusd "
 "to be effective."
-msgstr "Enregistrer les données de comptabilisation dans les tables SQL requiert un redémarrage de radiusd."
+msgstr "Enregistrer les données de comptabilisation dans les tables SQL. Cette action requiert un redémarrage de radiusd."
 
 # html/pfappserver/lib/pfappserver/Form/Config/ProfileCommon.pm
 # html/pfappserver/lib/pfappserver/Form/SecurityEvent.pm
@@ -4234,6 +4282,10 @@ msgstr "Role par URL pour l’authentification web"
 # html/pfappserver/lib/pfappserver/Form/Config/Switch.pm
 msgid "Role by access list"
 msgstr "Rôle par access list"
+
+# html/pfappserver/lib/pfappserver/Form/Config/Switch.pm
+msgid "Role by network"
+msgstr "Rôle par réseau"
 
 # html/pfappserver/lib/pfappserver/Form/Config/Provisioning.pm
 msgid "Role to apply"
@@ -4607,47 +4659,47 @@ msgstr "Envoyer la confirmation de facturation"
 # conf/documentation.conf (radius_configuration.forward_key_balanced)
 msgid ""
 "Send in the proxy request the attribute PacketFence-KeyBalanced to randomize"
-" the load balance in the next PacketFence RADIUS server.Useful when you have"
-" multiple radius servers chained like 1-2-2 the default modulo result will "
-"be the same on each server."
+" the load balance in the next PacketFence RADIUS server. Useful when you "
+"have multiple radius servers chained like 1-2-2 the default modulo result "
+"will be the same on each server."
 msgstr "Envoyez dans la demande de proxy l'attribut PacketFence-KeyBalanced pour randomiser l'équilibre de charge dans le prochain serveur PacketFence RADIUS. Utile lorsque vous avez plusieurs serveurs Radius enchaînés comme 1-2-2, le résultat modulo par défaut sera le même sur chaque serveur."
 
 # conf/documentation.conf (radius_configuration.filter_in_eduroam_authorize)
 msgid ""
 "Send the radius request in the radius filter from the radius "
-"eduroam.authorize section.Requires a restart of radiusd to be effective."
+"eduroam.authorize section. Requires a restart of radiusd to be effective."
 msgstr "Envoyez la demande radius dans le filtre radius de la section radius eduroam.authorize. Nécessite un redémarrage de radiusd pour être effectif."
 
 # conf/documentation.conf (radius_configuration.filter_in_eduroam_post_proxy)
 msgid ""
 "Send the radius request in the radius filter from the radius "
-"eduroam.post_proxy section.Requires a restart of radiusd to be effective."
+"eduroam.post_proxy section. Requires a restart of radiusd to be effective."
 msgstr "Envoyez la requête radius dans le filtre radius depuis la section radius eduroam.post_proxy. Nécessite un redémarrage de radiusd pour être effectif."
 
 # conf/documentation.conf (radius_configuration.filter_in_eduroam_pre_proxy)
 msgid ""
 "Send the radius request in the radius filter from the radius "
-"eduroam.pre_proxy section.Requires a restart of radiusd to be effective."
+"eduroam.pre_proxy section. Requires a restart of radiusd to be effective."
 msgstr "Envoyez la requête radius dans le filtre radius depuis la section radius eduroam.pre_proxy. Nécessite un redémarrage de radiusd pour être effectif."
 
 # conf/documentation.conf (radius_configuration.filter_in_eduroam_preacct)
 msgid ""
 "Send the radius request in the radius filter from the radius eduroam.preacct"
-" section.Requires a restart of radiusd to be effective."
+" section. Requires a restart of radiusd to be effective."
 msgstr "Envoyez la requête radius dans le filtre radius depuis la section radius eduroam.preacct. Nécessite un redémarrage de radiusd pour être effectif."
 
 # conf/documentation.conf (radius_configuration.filter_in_packetfence-
 # tunnel_authorize)
 msgid ""
 "Send the radius request in the radius filter from the radius packetfence-"
-"tunnel.authorize section.Requires a restart of radiusd to be effective."
+"tunnel.authorize section. Requires a restart of radiusd to be effective."
 msgstr "Envoyer la requête Radius dans les filtres Radius depuis la section Radius packetfence-tunnel.authorize. Nécessite un redémarrage de radiusd pour être appliqué."
 
 # conf/documentation.conf
 # (radius_configuration.filter_in_packetfence_accounting)
 msgid ""
 "Send the radius request in the radius filter from the radius "
-"packetfence.accounting section.Requires a restart of radiusd to be "
+"packetfence.accounting section. Requires a restart of radiusd to be "
 "effective."
 msgstr "Envoyer la requête Radius dans les filtres Radius depuis la section Radius packetfence.accounting. Nécessite un redémarrage de radiusd pour être appliqué."
 
@@ -4655,14 +4707,15 @@ msgstr "Envoyer la requête Radius dans les filtres Radius depuis la section Rad
 # (radius_configuration.filter_in_packetfence_authorize)
 msgid ""
 "Send the radius request in the radius filter from the radius "
-"packetfence.authorize section.Requires a restart of radiusd to be effective."
+"packetfence.authorize section. Requires a restart of radiusd to be "
+"effective."
 msgstr "Envoyer la requête Radius dans les filtres Radius depuis la section Radius packetfence.authorize. Nécessite un redémarrage de radiusd pour être appliqué."
 
 # conf/documentation.conf
 # (radius_configuration.filter_in_packetfence_post_proxy)
 msgid ""
 "Send the radius request in the radius filter from the radius "
-"packetfence.post_proxy section.Requires a restart of radiusd to be "
+"packetfence.post_proxy section. Requires a restart of radiusd to be "
 "effective."
 msgstr "Envoyer la requête Radius dans les filtres Radius depuis la section Radius packetfence.post_proxy. Nécessite un redémarrage de radiusd pour être appliqué."
 
@@ -4670,13 +4723,14 @@ msgstr "Envoyer la requête Radius dans les filtres Radius depuis la section Rad
 # (radius_configuration.filter_in_packetfence_pre_proxy)
 msgid ""
 "Send the radius request in the radius filter from the radius "
-"packetfence.pre_proxy section.Requires a restart of radiusd to be effective."
+"packetfence.pre_proxy section. Requires a restart of radiusd to be "
+"effective."
 msgstr "Envoyer la requête Radius dans les filtres Radius depuis la section Radius packetfence.pre_proxy. Nécessite un redémarrage de radiusd pour être appliqué."
 
 # conf/documentation.conf (radius_configuration.filter_in_packetfence_preacct)
 msgid ""
 "Send the radius request in the radius filter from the radius "
-"packetfence.preacct section.Requires a restart of radiusd to be effective."
+"packetfence.preacct section. Requires a restart of radiusd to be effective."
 msgstr "Envoyer la requête Radius dans les filtres Radius depuis la section Radius packetfence.preacct. Nécessite un redémarrage de radiusd pour être appliqué."
 
 # conf/documentation.conf (database.host)
@@ -4685,7 +4739,7 @@ msgstr "Serveur sur lequel MySQL server est exécuté."
 
 # conf/documentation.conf (alerting.smtpserver)
 msgid ""
-"Server through which to send messages. The default is localhost - besure "
+"Server through which to send messages. The default is localhost - be sure "
 "you're running an SMTP host locally if you don't change it."
 msgstr "Serveur par lequel envoyer des messages. La valeur par défaut est localhost - assurez-vous que vous exécutez un hôte SMTP localement si vous ne le modifiez pas."
 
@@ -4705,9 +4759,9 @@ msgstr "Définissez l'option de passerelle dans les réponses DHCP pour pointer 
 
 # conf/documentation.conf (services.pfdhcplistener_packet_size)
 msgid ""
-"Set the max size of DHCP packetsDo not change unless you know what you are "
+"Set the max size of DHCP packets Do not change unless you know what you are "
 "doing"
-msgstr "Défini la taille maximal du packet DHCP.  Ne pas changer sauf si vous savez ce que vous faites"
+msgstr "Défini la taille maximal du packet DHCP.  Ne pas le modifier sauf si vous savez ce que vous faites."
 
 # conf/documentation.conf (active_active.dns_on_vip_only)
 msgid ""
@@ -5182,7 +5236,7 @@ msgstr "Nom Syslog"
 # conf/documentation.conf (general.timezone)
 msgid ""
 "System's timezone in string format. List generated from Perl library "
-"DataTime::TimeZoneWhen left empty, it will use the timezone of the server"
+"DataTime::TimeZone When left empty, it will use the timezone of the server"
 msgstr "Fuseau horaire du système en tant que chaîne de caractères. Liste générée à partir de la librairie Perl DateTime::TimeZone"
 
 # html/pfappserver/lib/pfappserver/Form/Config/SwitchImport.pm
@@ -5217,8 +5271,8 @@ msgstr "Template d'email utilisé pour envoyer un évènement de sécurité par 
 # conf/documentation.conf (captive_portal.rate_limiting)
 msgid ""
 "Temporarily deny access to a user that performs too many requests on the "
-"captive portal on invalid URLsRequires to restart haproxy-portal in order to"
-" apply the change."
+"captive portal on invalid URLs Requires to restart haproxy-portal in order "
+"to apply the change."
 msgstr "Refuse temporairement l’accès à un utilisateur qui effectue trop de requêtes sur le portail captif avec des URLs invalides. Nécessite un redémarrage de haproxy-portal pour appliquer ce changement."
 
 # html/pfappserver/lib/pfappserver/Form/Config/Cloud/Intune.pm
@@ -5272,9 +5326,9 @@ msgstr "L'adresse IP de l'API d'authentification NTLM"
 
 # conf/documentation.conf (captive_portal.ip_address)
 msgid ""
-"The IP address the portal uses in the registration and isolation networks.Do"
-" not change unless you know what you are doing."
-msgstr "L'adresse IP du portail utilisé dans les réseaux d'enregistrement et d'isolation. Ne pas le modifier sauf si vous savez ce que vous faite."
+"The IP address the portal uses in the registration and isolation networks. "
+"Do not change unless you know what you are doing."
+msgstr "L'adresse IP du portail utilisé dans les réseaux d'enregistrement et d'isolation. Ne pas le modifier sauf si vous savez ce que vous faites."
 
 # html/pfappserver/lib/pfappserver/Form/Config/Domain.pm
 msgid ""
@@ -5357,7 +5411,7 @@ msgstr "La durée d'accès à assigner aux périphériques qui se sont enregistr
 
 # conf/documentation.conf (advanced.hash_passwords)
 msgid ""
-"The algorithm used to hash the passwords in the database.This will only "
+"The algorithm used to hash the passwords in the database. This will only "
 "affect newly created or reset passwords."
 msgstr "L’algorithme utilisé pour hacher les mots de passe dans la base de données. Cela affectera uniquement les nouveaux mots de passe ou ceux mis à jour."
 
@@ -5391,11 +5445,17 @@ msgstr "La durée entre les vérifications de détection de connectivité résea
 msgid "The certificate chain of the signer certificate in pem format"
 msgstr "La chaîne de certificat du certificat signant au format PEM"
 
+# conf/documentation.conf (fleetdm.password)
+msgid ""
+"The corresponding password used to login FleetDM and make API calls when "
+"token does not exist"
+msgstr "Le mot de passe utilisé pour se connecter à FleetDM et pour effectuer des appels API lorsque le jeton n'existe pas."
+
 # conf/documentation.conf (advanced.hashing_cost)
 msgid ""
-"The cost factor to apply to the password hashing if applicable.Currently "
+"The cost factor to apply to the password hashing if applicable. Currently "
 "only applies to bcrypt."
-msgstr "Le facteur coût à appliquer au hachage de mot de passe le cas échéant. Actuellement cela s’applique uniquement aux bcrypt."
+msgstr "Le facteur de coût à appliquer au hachage des mots de passe le cas échéant. Actuellement cela s’applique uniquement aux bcrypt."
 
 # html/pfappserver/lib/pfappserver/Form/Config/Firewall_SSO.pm
 msgid ""
@@ -5419,6 +5479,11 @@ msgstr "Le serveur eDirectory à utiliser pour EAP PEP authentification et autor
 # html/pfappserver/lib/pfappserver/Form/Config/Source/Paypal.pm
 msgid "The email address associated to your paypal account."
 msgstr "L’adresse e-mail associée à votre compte paypal."
+
+# conf/documentation.conf (fleetdm.email)
+msgid ""
+"The email used to login FleetDM and make API calls when token does not exist"
+msgstr "Le courriel utilisé pour se connecter à FleetDM et pour effectuer des appels API lorsque le jeton n'existe pas."
 
 # conf/documentation.conf (provisioning.ssid)
 msgid "The hidden SSID where the user should connect to after registration"
@@ -5450,6 +5515,12 @@ msgid ""
 "Configuration > Main Configuration > General Configuration."
 msgstr "Le nom d’hôte doit correspondre à vos paramètres de nom d’hôte et de domaine qui sont configurés dans Configuration du système > Configuration principale > Configuration générale "
 
+# conf/documentation.conf (fleetdm.host)
+msgid ""
+"The hostname of FleetDM service. Port also needs to be specified if FleetDM "
+"is not configured listening on a default HTTP or HTTPs port."
+msgstr "Le nom d'hôte du service FleetDM. Le port doit également être spécifié si FleetDM n'est pas configuré pour écouter sur un port HTTP ou HTTPS par défaut."
+
 # html/pfappserver/lib/pfappserver/Form/Config/Scan/Rapid7.pm
 msgid "The identifier of the scan engine to use when scanning the devices."
 msgstr "L'identifiant du scanner à utiliser quand un appareil est analysé."
@@ -5461,9 +5532,9 @@ msgstr "L'identifiant du site à analyser (Site où sont localisées les hôtes)
 
 # conf/documentation.conf (advanced.api_inactivity_timeout)
 msgid ""
-"The inactivity timeout of an API tokenRequires to restart the api-frontend "
+"The inactivity timeout of an API token Requires to restart the api-frontend "
 "service to be fully effective."
-msgstr "Le timeout d'inactivité d'un token API requière de redémarrer le service api-frontend pour être totalement effectif."
+msgstr "Délai d'inactivité d'un jeton d'API. Nécessite de redémarrer le service api-frontend  pour être pleinement opérationnel."
 
 # conf/documentation.conf (database_advanced.innodb_buffer_pool_size)
 msgid ""
@@ -5529,9 +5600,9 @@ msgstr "La date maximale de désenregistrement qui peut être affectée."
 
 # conf/documentation.conf (advanced.api_max_expiration)
 msgid ""
-"The maximum amount of time an API token can be validRequires to restart the "
-"api-frontend service to be fully effective."
-msgstr "La durée maximale pendant laquelle un jeton d'API peut être valide nécessite de redémarrer le service api-frontend pour être pleinement opérationnel."
+"The maximum amount of time an API token can be valid Requires to restart the"
+" api-frontend service to be fully effective."
+msgstr "La durée maximale pendant laquelle un jeton d'API peut être valide. Nécessite de redémarrer le service api-frontend pour être pleinement opérationnel."
 
 # html/pfappserver/lib/pfappserver/Form/Config/Roles.pm
 msgid ""
@@ -5603,6 +5674,12 @@ msgid ""
 "know what you are doing. Will only affect a locally running MySQL server."
 msgstr "L’attribut de configuration performance_schema de MySQL. Ne le changer uniquement si vous savez ce que vous faites. Ceci affectera uniquement une version local du serveur MySQL."
 
+# conf/documentation.conf (fleetdm.token)
+msgid ""
+"The permanent token used to perform FleetDM API calls. This will override "
+"the email and password when exists."
+msgstr "Le jeton permanent utilisé pour effectuer des appels API FleetDM. Il remplacera l'e-mail et le mot de passe s'ils existent."
+
 # html/pfappserver/lib/pfappserver/Form/Config/Source/Facebook.pm
 # html/pfappserver/lib/pfappserver/Form/Config/Source/Github.pm
 # html/pfappserver/lib/pfappserver/Form/Config/Source/Google.pm
@@ -5618,8 +5695,8 @@ msgstr "Doit être configuré comme un port Multi VLANs"
 
 # conf/documentation.conf (alerting.smtp_port)
 msgid ""
-"The port of the SMTP server. If the port is set to 0 then port is calculated"
-" by the encryption type. none: 25, ssl: 465, starttls: 587"
+"The port of the SMTP server.  If the port is set to 0 then port is "
+"calculated by the encryption type.  none: 25, ssl: 465, starttls: 587"
 msgstr "Le port du serveur SMTP. Si le port est mis à 0, alors le port est calculé par le type de chiffrement. none: 25, ssl: 465, starttls: 587"
 
 # /usr/local/fingerbank/conf/fingerbank.conf.doc (upstream.port)
@@ -5810,11 +5887,11 @@ msgstr "L’attribut de configuration thread_concurrency de MySQL. Le changer un
 
 # conf/documentation.conf (parking.threshold)
 msgid ""
-"The threshold (in seconds) after which a device will be placed in parking.A "
-"value of 0 deactivates the parking detection.The detection works by looking "
-"at the time in seconds a device has been in the registration role and "
-"comparing it with this threshold."
-msgstr "Le seuil (en secondes) après lequel un appareil sera mis en parking. Un 0 désactive la detection pour le parking. Le procédé fonctionne en regardant le temps en secondes qu’un appareil a été dans le rôle d’enregistrement et en le comparant à ce seuil."
+"The threshold (in seconds) after which a device will be placed in parking. A"
+" value of 0 deactivates the parking detection. The detection works by "
+"looking at the time in seconds a device has been in the registration role "
+"and comparing it with this threshold."
+msgstr "Le seuil (en secondes) après lequel un appareil sera mis en parking. Un 0 désactive la detection pour le parking. La détection fonctionne en comparant le temps en secondes qu’un appareil a été dans le rôle d’enregistrement avec ce seuil."
 
 # conf/documentation.conf (alerting.smtp_timeout)
 msgid "The timeout in seconds for sending an email"
@@ -5983,7 +6060,7 @@ msgstr "Ceci est la longueur de la clé PSK que vous voulez générer. La longue
 # conf/documentation.conf (captive_portal.image_path)
 msgid ""
 "This is the path where the gif is on the webserver to detect if the network "
-"accesshas been enabled."
+"access has been enabled."
 msgstr "Ceci est le chemin d’accès pour l’emplacement du gif sur le serveur. Cette option permet de détecter si l’accès réseau a été activé."
 
 # html/pfappserver/lib/pfappserver/Form/Config/Domain.pm
@@ -6011,14 +6088,6 @@ msgstr "Cette option émule le Single Sign On quand un appareil tape le portail 
 msgid "This server's name"
 msgstr "Veuillez indiquer le nom du serveur"
 
-# html/pfappserver/lib/pfappserver/Form/Config/Domain.pm
-msgid ""
-"This server's name (account name) in your Active Directory. '%h' is a "
-"placeholder for this server hostname. In a cluster, you must use %h and "
-"ensure your hostnames are less than 14 characters. You can mix '%h' with a "
-"prefix or suffix (ex: 'pf-%h') "
-msgstr "Le nom de ce serveur (nom du compte) dans votre Active Directory. '%h' est un espace réservé pour ce nom d'hôte de serveur. Dans un cluster, vous devez utiliser %h et vous assurer que vos noms d'hôtes comportent moins de 14 caractères. Vous pouvez mélanger '%h' avec un préfixe ou un suffixe (ex : 'pf-%h')"
-
 # conf/documentation.conf (network.staticroutes)
 msgid ""
 "This will add the static routes you defined here on the system (managed by "
@@ -6029,12 +6098,21 @@ msgstr "Cela ajoutera les routes statiques que vous avez définies ici sur le sy
 msgid "This will create a small network for each roles."
 msgstr "Ceci va créer un sous-réseau pour chaque rôle."
 
+# conf/documentation.conf (network.learn_network_cidr_by_role)
+msgid ""
+"This will enable the learning of the networks tied to each roles on each "
+"switches by using the dhcp traffic and radius accounting. To act on DHCP ACK"
+" (that contain the netmask) you need to enable force_listener_on_ack "
+"otherwise PacketFence will try to detect the cidr network based on the "
+"minumum address and the maximum address."
+msgstr "Cela permettra d'apprendre les réseaux liés à chaque rôle sur chaque commutateur en utilisant le trafic DHCP et la comptabilité radius. Pour agir sur DHCP ACK (qui contient le masque de réseau), vous devez activer force_listener_on_ack, sinon PacketFence essaiera de détecter le réseau cidr en fonction de l'adresse minimale et de l'adresse maximale."
+
 # conf/documentation.conf (network.force_listener_update_on_ack)
 msgid ""
-"This will only do the iplog update and other DHCP related task on a "
-"DHCPACK.You need to make sure the UDP reflector is in place so this works on"
-" the production network.This is implicitly activated on registration "
-"interfaces on which dhcpd runs."
+"This will only do the iplog update and other DHCP related task on a DHCPACK."
+" You need to make sure the UDP reflector is in place so this works on the "
+"production network. This is implicitly activated on registration interfaces "
+"on which dhcpd runs."
 msgstr "Ne fera la mise à jour de l’iplog et autres tâches liées au DHCP que sur un DHCPACK. Vous devez vous assurer que le réflecteur UDP est en place pour que cela fonctionne sur les réseaux de production et sera implicitement activé sur les interfaces d’enregistrement sur lequel fonctionne Dhcpd."
 
 # html/pfappserver/lib/pfappserver/Form/Config/Source/RADIUS.pm
@@ -6061,18 +6139,6 @@ msgid ""
 "one is found. This feature is only available if the dhcpdetector is "
 "activated."
 msgstr "Tente d'identifier les serveurs DHCP non autorisés et déclenche la violation 1100010 s'il en trouve un. Cette fonctionnalité n'est disponible que si le dhcpdetector est activé."
-
-# conf/documentation.conf (advanced.sso_on_access_reevaluation)
-msgid "Trigger Single-Sign-On (Firewall SSO) on access reevaluation"
-msgstr "Forcer le Single-Sign-On (Firewall SSO) lors de la réevaluation d’accès"
-
-# conf/documentation.conf (advanced.sso_on_accounting)
-msgid "Trigger Single-Sign-On (Firewall SSO) on accounting"
-msgstr "Déclencher de le Single-Sign-On (pare-feu SSO) sur le radius accounting"
-
-# conf/documentation.conf (advanced.sso_on_dhcp)
-msgid "Trigger Single-Sign-On (Firewall SSO) on dhcp"
-msgstr "Déclencher de le Single-Sign-On (pare-feu SSO) sur le DHCP"
 
 # conf/documentation.conf (advanced.scan_on_accounting)
 msgid "Trigger scan engines on accounting"
@@ -6111,10 +6177,6 @@ msgstr "Type de UID"
 # html/pfappserver/lib/pfappserver/Form/Config/PortalModule/URL.pm
 msgid "URL"
 msgstr "URL"
-
-# conf/documentation.conf (mse_tab.url)
-msgid "URL of MSE service"
-msgstr "L’URL du service MSE (http://192.168.0.1:8083)"
 
 # html/pfappserver/lib/pfappserver/Form/Config/PortalModule/SSL_Inspection.pm
 msgid "URL of an iOS mobileconfig profile to install the certificate."
@@ -6234,6 +6296,10 @@ msgstr "Sources utilisateurs - Mise à jour"
 msgid "USERS_UPDATE"
 msgstr "Utilisateurs - Mise à jour"
 
+# html/pfappserver/lib/pfappserver/Form/Config/Pfcron/pfflow.pm
+msgid "UUID  "
+msgstr "UUID."
+
 # html/pfappserver/lib/pfappserver/Form/Config/ProfileCommon.pm
 msgid ""
 "Under most circumstances we can redirect the user to the URL he originally "
@@ -6303,6 +6369,10 @@ msgstr "Utilisez Unified API pour interroger pfdhcp pour l’adresse MAC d’une
 msgid "Use the information included in the accounting to update the iplog"
 msgstr "Utiliser les informations présentes dans la comptabilisation pour mettre à jour l’Iplog"
 
+# conf/documentation.conf (advanced.update_iplog_with_authentication)
+msgid "Use the information included in the authentication to update the iplog"
+msgstr "Utilisez les informations incluses dans l'authentification pour mettre à jour l'iplog."
+
 # conf/documentation.conf
 # (advanced.update_iplog_with_external_portal_requests)
 msgid ""
@@ -6317,6 +6387,10 @@ msgstr "Utiliser l'adresse IP virtuelle comme adresse IP source lors de la désa
 # html/pfappserver/lib/pfappserver/Form/Config/BillingTiers.pm
 msgid "Use time balance"
 msgstr "Utilisez le temps restant"
+
+# html/pfappserver/lib/pfappserver/Form/Field/UserPass.pm
+msgid "User"
+msgstr "Utilisateur"
 
 # html/pfappserver/lib/pfappserver/Form/Config/Fingerbank/Combination.pm
 # html/pfappserver/lib/pfappserver/Form/Node.pm
@@ -6365,10 +6439,6 @@ msgstr "Écraser l’utilisateur (PID)"
 msgid "Username Prefix"
 msgstr "Préfixe du nom d’utilisateur"
 
-# conf/documentation.conf (mse_tab.user)
-msgid "Username for MSE service"
-msgstr "Utilisateur pour le service MSE"
-
 # html/pfappserver/lib/pfappserver/Form/Config/Firewall_SSO.pm
 msgid "Username format"
 msgstr "Format du nom d'utilisateur"
@@ -6401,6 +6471,7 @@ msgstr "VLAN ID dans lequel PacketFence doit mettre le port."
 # html/pfappserver/lib/pfappserver/Form/Config/Fingerbank/DHCP_Vendor.pm
 # html/pfappserver/lib/pfappserver/Form/Config/Fingerbank/User_Agent.pm
 # html/pfappserver/lib/pfappserver/Form/Field/FilterCondition.pm
+# html/pfappserver/lib/pfappserver/Form/Field/NameVal.pm
 msgid "Value"
 msgstr "Valeur"
 
@@ -6503,9 +6574,9 @@ msgstr "Lorsque \"Appliquer le rôle\" est activé, cela définit le rôle à ap
 
 # conf/documentation.conf (captive_portal.status_only_on_production)
 msgid ""
-"When enabled the /status page will only be available on theproduction "
+"When enabled the /status page will only be available on the production "
 "network. By default this is disabled"
-msgstr "Lorsqu’elle est activée la page /status ne sera disponible que sur le réseau de production. Par défaut cette option est désactivée"
+msgstr "Lorsqu’elle est activée, la page /status ne sera disponible que sur le réseau de production. Par défaut, cette option est désactivée."
 
 # conf/documentation.conf (fencing.isolation_passthrough)
 msgid ""
@@ -6689,10 +6760,10 @@ msgstr "S’il est possible ou pas, contourner la redirection."
 
 # conf/documentation.conf (radius_configuration.username_attributes)
 msgid ""
-"Which attributes to use to get the username from a RADIUS request.The order "
-"of the attributes are listed in this configuration parameter is followed "
+"Which attributes to use to get the username from a RADIUS request. The order"
+" of the attributes are listed in this configuration parameter is followed "
 "while performing the lookup."
-msgstr "Quels attributs utiliser pour obtenir le nom d'utilisateur à partir d'une demande RADIUS. L'ordre des attributs répertoriés dans ce paramètre de configuration est suivi lors de l'exécution de la recherche."
+msgstr "Quels attributs utiliser pour obtenir le nom d'utilisateur à partir d'une requête RADIUS? L'ordre des attributs est répertorié dans ce paramètre de configuration lors de la recherche."
 
 # conf/documentation.conf (fingerbank_device_change.triggers)
 msgid ""
@@ -6709,7 +6780,7 @@ msgstr "Quels changements (d'une classe d'appareil à une autre) doivent déclen
 # conf/documentation.conf (fingerbank_device_change.device_class_whitelist)
 msgid ""
 "Which device class changes are allowed in conjunction with "
-"trigger_on_device_class_changeComma delimited transitions using the "
+"trigger_on_device_class_change Comma delimited transitions using the "
 "following format: "
 "<code>$PREVIOUS_DEVICE_CLASS_ID-&gt;$NEW_DEVICE_CLASS_ID</code> where "
 "$PREVIOUS_DEVICE_CLASS_ID and $NEW_DEVICE_CLASS_ID are the IDs in the "
@@ -6718,7 +6789,7 @@ msgstr "Quels changements de classe d'appareils sont autorisés en combinaison a
 
 # conf/documentation.conf (network.dhcp_filter_by_message_types)
 msgid ""
-"Which dhcp message types are being listened by the pfdhcplistener.Do not "
+"Which dhcp message types are being listened by the pfdhcplistener. Do not "
 "change unless you know what you are doing"
 msgstr "Quel genre de messages dhcp sont écoutés par pfdhcplistener. Ne le changer pas sauf si vous savez ce que vous faites."
 
@@ -6748,23 +6819,23 @@ msgstr "Mettre en cache les résultats d’une règle qui match"
 
 # conf/documentation.conf (network.hostname_change_detection)
 msgid ""
-"Will identify hostname changes and send an e-mail with these changes.This "
+"Will identify hostname changes and send an e-mail with these changes. This "
 "can help detect MAC spoofing."
-msgstr "Identifiera les changements de nom d’hôte et enverra un e-mail avec ces changements. Cela peut aider à détecter l’usurpation d’adresse MAC."
+msgstr "Identifiera les changements de nom d’hôte et enverra un courriel avec ces changements. Cela peut aider à détecter l’usurpation d’adresse MAC."
 
 # conf/documentation.conf (network.connection_type_change_detection)
 msgid ""
 "Will identify if a device switches from wired to wireless (or the opposite) "
-"and send an e-mail with these changes.This can help detect MAC spoofing."
-msgstr "Identifiera si l'appareil bascule du filaire au sans-fil (ou l'inverse) et envoi un courriel avec ces changements. Cela peut aider à détecter le MAC spoofing."
+"and send an e-mail with these changes. This can help detect MAC spoofing."
+msgstr "Identifiera si un périphérique bascule de câblé à sans fil (ou l'inverse) et enverra un courriel avec ces modifications. Cela peut aider à détecter l'usurpation d'adresse MAC"
 
 # conf/documentation.conf (network.dhcp_rate_limiting)
 msgid ""
-"Will rate-limit DHCP packets that contain the same information.For example, "
-"a DHCPREQUEST for the same MAC/IP will only be processed once in the "
-"timeframe configured below.This is independant of the DHCP server/relay "
+"Will rate-limit DHCP packets that contain the same information. For example,"
+" a DHCPREQUEST for the same MAC/IP will only be processed once in the "
+"timeframe configured below. This is independant of the DHCP server/relay "
 "handling the packet and is only based on the IP, MAC Address and DHCP type "
-"inside the packet.A value of 0 will disable the rate limitation."
+"inside the packet. A value of 0 will disable the rate limitation."
 msgstr "Limitera le traitement de paquets DHCP contenant la même information. Par exemple une requête DHCPREQUEST contenant la même MAC/IP ne sera traité qu’une seule fois dans la tranche de temps configuré plus bas.Une valeur de 0 désactive cette limite."
 
 # html/pfappserver/lib/pfappserver/Form/SecurityEvent.pm
@@ -6844,6 +6915,10 @@ msgstr "Seuil de résolution de conflit"
 # conf/documentation.conf
 msgid "active_active.dns_on_vip_only"
 msgstr "pfdns uniquement sur la VIP"
+
+# conf/documentation.conf
+msgid "active_active.firewall_sso_on_management"
+msgstr "active_active.firewall_sso_on_management"
 
 # conf/documentation.conf
 msgid "active_active.galera_replication"
@@ -6995,18 +7070,6 @@ msgid "advanced.source_to_send_sms_when_creating_users"
 msgstr "Source SMS pour envoyer les messages de création d’utilisateur "
 
 # conf/documentation.conf
-msgid "advanced.sso_on_access_reevaluation"
-msgstr "Utiliser le SSO lors de la réévaluation d’accès"
-
-# conf/documentation.conf
-msgid "advanced.sso_on_accounting"
-msgstr "SSO sur le radius accounting"
-
-# conf/documentation.conf
-msgid "advanced.sso_on_dhcp"
-msgstr "SSO sur le DHCP"
-
-# conf/documentation.conf
 msgid "advanced.statsd_listen_host"
 msgstr "advanced.statsd_listen_host"
 
@@ -7021,6 +7084,10 @@ msgstr "Niveau de chronométrage des stats"
 # conf/documentation.conf
 msgid "advanced.update_iplog_with_accounting"
 msgstr "Mettre à jour l’Iplog en utilisant la comptabilisation"
+
+# conf/documentation.conf
+msgid "advanced.update_iplog_with_authentication"
+msgstr "advanced.update_iplog_with_authentication"
 
 # conf/documentation.conf
 msgid "advanced.update_iplog_with_external_portal_requests"
@@ -7521,6 +7588,7 @@ msgstr "dhcplistener"
 # conf/documentation.conf (active_active.centralize_vips options)
 # conf/documentation.conf (active_active.centralized_deauth options)
 # conf/documentation.conf (active_active.dns_on_vip_only options)
+# conf/documentation.conf (active_active.firewall_sso_on_management options)
 # conf/documentation.conf (active_active.galera_replication options)
 # conf/documentation.conf (active_active.gateway_on_vip_only options)
 # conf/documentation.conf (active_active.portal_on_management options)
@@ -7541,10 +7609,8 @@ msgstr "dhcplistener"
 # conf/documentation.conf (advanced.netflow_on_all_networks options)
 # conf/documentation.conf (advanced.portal_csp_security_headers options)
 # conf/documentation.conf (advanced.scan_on_accounting options)
-# conf/documentation.conf (advanced.sso_on_access_reevaluation options)
-# conf/documentation.conf (advanced.sso_on_accounting options)
-# conf/documentation.conf (advanced.sso_on_dhcp options)
 # conf/documentation.conf (advanced.update_iplog_with_accounting options)
+# conf/documentation.conf (advanced.update_iplog_with_authentication options)
 # conf/documentation.conf (advanced.update_iplog_with_external_portal_requests
 # options)
 # conf/documentation.conf (alerting.smtp_verifyssl options)
@@ -7570,13 +7636,13 @@ msgstr "dhcplistener"
 # conf/documentation.conf (lets_encrypt.live options)
 # conf/documentation.conf (lets_encrypt.radius options)
 # conf/documentation.conf (monit.status options)
-# conf/documentation.conf (mse_tab.enabled options)
 # conf/documentation.conf (network.connection_type_change_detection options)
 # conf/documentation.conf (network.dhcp_process_ipv6 options)
 # conf/documentation.conf (network.dhcpdetector options)
 # conf/documentation.conf (network.dhcpoption82logger options)
 # conf/documentation.conf (network.force_listener_update_on_ack options)
 # conf/documentation.conf (network.hostname_change_detection options)
+# conf/documentation.conf (network.learn_network_cidr_by_role options)
 # conf/documentation.conf (network.rogue_dhcp_detection options)
 # conf/documentation.conf (parking.place_in_dhcp_parking_group options)
 # conf/documentation.conf (parking.show_parking_portal options)
@@ -7745,6 +7811,7 @@ msgstr "en_US"
 # conf/documentation.conf (active_active.centralize_vips options)
 # conf/documentation.conf (active_active.centralized_deauth options)
 # conf/documentation.conf (active_active.dns_on_vip_only options)
+# conf/documentation.conf (active_active.firewall_sso_on_management options)
 # conf/documentation.conf (active_active.galera_replication options)
 # conf/documentation.conf (active_active.gateway_on_vip_only options)
 # conf/documentation.conf (active_active.portal_on_management options)
@@ -7765,10 +7832,8 @@ msgstr "en_US"
 # conf/documentation.conf (advanced.netflow_on_all_networks options)
 # conf/documentation.conf (advanced.portal_csp_security_headers options)
 # conf/documentation.conf (advanced.scan_on_accounting options)
-# conf/documentation.conf (advanced.sso_on_access_reevaluation options)
-# conf/documentation.conf (advanced.sso_on_accounting options)
-# conf/documentation.conf (advanced.sso_on_dhcp options)
 # conf/documentation.conf (advanced.update_iplog_with_accounting options)
+# conf/documentation.conf (advanced.update_iplog_with_authentication options)
 # conf/documentation.conf (advanced.update_iplog_with_external_portal_requests
 # options)
 # conf/documentation.conf (alerting.smtp_verifyssl options)
@@ -7794,13 +7859,13 @@ msgstr "en_US"
 # conf/documentation.conf (lets_encrypt.live options)
 # conf/documentation.conf (lets_encrypt.radius options)
 # conf/documentation.conf (monit.status options)
-# conf/documentation.conf (mse_tab.enabled options)
 # conf/documentation.conf (network.connection_type_change_detection options)
 # conf/documentation.conf (network.dhcp_process_ipv6 options)
 # conf/documentation.conf (network.dhcpdetector options)
 # conf/documentation.conf (network.dhcpoption82logger options)
 # conf/documentation.conf (network.force_listener_update_on_ack options)
 # conf/documentation.conf (network.hostname_change_detection options)
+# conf/documentation.conf (network.learn_network_cidr_by_role options)
 # conf/documentation.conf (network.rogue_dhcp_detection options)
 # conf/documentation.conf (parking.place_in_dhcp_parking_group options)
 # conf/documentation.conf (parking.show_parking_portal options)
@@ -7974,8 +8039,32 @@ msgid "fingerbank_device_change.triggers"
 msgstr "Déclenchements manuels du changement de classe d'appareil"
 
 # pf::api (Allowed actions)
+msgid "fingerbank_lookup"
+msgstr "fingerbank_lookup"
+
+# pf::api (Allowed actions)
 msgid "firewall_sso_call"
 msgstr "firewall_sso_call"
+
+# conf/documentation.conf
+msgid "fleetdm"
+msgstr "fleetdm"
+
+# conf/documentation.conf
+msgid "fleetdm.email"
+msgstr "fleetdm.email"
+
+# conf/documentation.conf
+msgid "fleetdm.host"
+msgstr "fleetdm.host"
+
+# conf/documentation.conf
+msgid "fleetdm.password"
+msgstr "fleetdm.password"
+
+# conf/documentation.conf
+msgid "fleetdm.token"
+msgstr "fleetdm.token"
 
 # conf/documentation.conf (advanced.language options)
 msgid "fr_FR"
@@ -8354,26 +8443,6 @@ msgstr "supervise"
 msgid "months"
 msgstr "mois"
 
-# conf/documentation.conf
-msgid "mse_tab"
-msgstr "Cisco Mobility Services Engine"
-
-# conf/documentation.conf
-msgid "mse_tab.enabled"
-msgstr "Activer MSE"
-
-# conf/documentation.conf
-msgid "mse_tab.pass"
-msgstr "Mot de passe"
-
-# conf/documentation.conf
-msgid "mse_tab.url"
-msgstr "URL du service MSE"
-
-# conf/documentation.conf
-msgid "mse_tab.user"
-msgstr "Nom d’utilisateur"
-
 # pf::radius_audit_log (RADIUS Audit Log)
 msgid "nas_identifier"
 msgstr "Identifiant NAS"
@@ -8437,6 +8506,10 @@ msgstr "Détecter les changements de nom d’hôte"
 # conf/documentation.conf
 msgid "network.interfaceSNAT"
 msgstr "Interface SNAT"
+
+# conf/documentation.conf
+msgid "network.learn_network_cidr_by_role"
+msgstr "network.learn_network_cidr_by_role"
 
 # conf/documentation.conf
 msgid "network.rogue_dhcp_detection"
@@ -8550,6 +8623,10 @@ msgstr "DHCP"
 # pf::factory::detect::parser (Detect Parsers)
 msgid "pfdetect_type_fortianalyser"
 msgstr "FortiAnalyzer"
+
+# pf::factory::detect::parser (Detect Parsers)
+msgid "pfdetect_type_fortigate_dhcp"
+msgstr "pfdetect_type_fortigate_dhcp"
 
 # pf::factory::detect::parser (Detect Parsers)
 msgid "pfdetect_type_nexpose"
@@ -9713,6 +9790,10 @@ msgstr "Mettre à jour ip6log par IP et MAC"
 # pf::api (Allowed actions)
 msgid "update_role_configuration"
 msgstr "Mettre à jour la configuration des rôles"
+
+# pf::api (Allowed actions)
+msgid "update_switch_role_network"
+msgstr "update_switch_role_network"
 
 # /usr/local/fingerbank/conf/fingerbank.conf.doc
 msgid "upstream"
