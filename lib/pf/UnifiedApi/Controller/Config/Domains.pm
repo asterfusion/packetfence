@@ -348,13 +348,13 @@ sub update {
                 return 0;
             }
 
-            $new_data->{machine_account_password} = md4_hex(encode("utf-16le", $new_data->{machine_account_password}));
             $new_data->{ou} = $new_item->{ou}
         }
         else {
             $new_data->{ou} = $old_item->{ou}
         }
     }
+    $new_data->{machine_account_password} = md4_hex(encode("utf-16le", $new_data->{machine_account_password}));
 
     $new_data->{server_name} = $computer_name;
     delete $new_data->{id};
