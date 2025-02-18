@@ -775,7 +775,7 @@ To build a new cluster or rebuild an existing cluster, follow instructions in <<
 If the previous installation was a cluster, some steps may not be required.  The export archive will contain the previous [filename]`cluster.conf` file.
 
 
-== Upgrading from a version prior to X.Y.Z
+== Upgrading from a version prior to 14.1.0
 
 === Pre-automation Upgrade Standalone RedHat EL8
 
