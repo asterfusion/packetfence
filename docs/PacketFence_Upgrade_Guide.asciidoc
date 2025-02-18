@@ -779,25 +779,15 @@ If the previous installation was a cluster, some steps may not be required.  The
 
 === Pre-automation Upgrade Standalone RedHat EL8
 
-Please follow these command lines in order to upgrade database.
+Please follow these command line BEFORE starting the full automation upgrade.
 
+.RHEL / CentOS based systems **only**
+[source,bash]
 ----
-yum clean all --enablerepo=packetfence
-yum update --enablerepo=packetfence
-systemctl stop monit
-systemctl disable monit
-/usr/local/pf/bin/pfcmd service pf stop
-systemctl stop packetfence-mariadb
-rpm -e --nodeps MariaDB-server
-rpm -e --nodeps MariaDB-client
-yum localinstall -y https://www.packetfence.org/downloads/PacketFence/RHEL8/14.1/x86_64/RPMS/MariaDB-client-10.11.6-1.el8.x86_64.rpm
-yum localinstall -y https://www.packetfence.org/downloads/PacketFence/RHEL8/14.1/x86_64/RPMS/galera-4-26.4.16-1.el8.x86_64.rpm
-yum localinstall -y https://www.packetfence.org/downloads/PacketFence/RHEL8/14.1/x86_64/RPMS/MariaDB-server-10.11.6-1.el8.x86_64.rpm
-yum localinstall -y https://www.packetfence.org/downloads/PacketFence/RHEL8/14.1/x86_64/RPMS/freeradius-mysql-3.2.6-1.el8.x86_64.rpm
-systemctl start packetfence-mariadb
-mysql_upgrade -p
-addons/upgrade/do-upgrade.sh
+yum localinstall https://www.packetfence.org/downloads/PacketFence/RHEL8/packetfence-upgrade-14.1.el8.noarch.rpm
 ----
+
+Then follow the standard <<PacketFence_Upgrade_Guide.asciidoc#_full_upgrade_for_packetfence_versions_11_1_0_and_later,Full upgrade>>.
 
 === Pre-automation Upgrade Cluster RedHat EL8
 
