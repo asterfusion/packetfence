@@ -27,6 +27,16 @@ For a list of compatibility related changes see the <<PacketFence_Upgrade_Guide.
 
 === New Features
 
+=== Enhancements
+
+=== Bug Fixes
+
+=== Security Fixes
+
+== Version 14.1.0 released on 2025-02-18
+
+=== New Features
+
  * Upgrade to FreeRADIUS 3.2.6 (#8290)
  * NTLM Auth multi-threaded machine-accounts (#8335)
  * OS based Cisco Switch Modules (#8365)
