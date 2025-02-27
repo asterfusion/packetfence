@@ -25,7 +25,7 @@ configure_and_check() {
         # all branches (maintenance included and devel)
         TAG_OR_BRANCH_NAME=${CI_COMMIT_REF_SLUG}
     else
-        TAG_OR_BRANCH_NAME=localdev
+        TAG_OR_BRANCH_NAME=maintenance-14-0
     fi
 
     declare -p TAG_OR_BRANCH_NAME
