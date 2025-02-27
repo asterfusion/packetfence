@@ -46,18 +46,20 @@ install: build
 	dh_installdirs
 
 	#copying example files without example extension (.conf.example -> .conf)
-	for i in `find * -name "*.example" ! -path 'conf/pfconfig.conf*' ! -path 'conf/redis_cache.conf*'`; do \
+	for i in `find . -name "*.example" ! -path './conf/pfconfig.conf*' ! -path './conf/redis_cache.conf*'`; do \
 		$(INSTALL) $$i "$(CURDIR)/debian/packetfence$(PREFIX)/$(NAME)/$$(dirname $$i)/$$(basename $$i .example)"; \
 	done
 
 	# Install all except debian and t directory
 	# dir* to exclude directory itself
-	for i in `find * ! -path 'debian/*' ! -path 'debian' ! -path 'docs/*' ! -path 'docs' ! -path 't/*' ! -path 't' ! -path 'lib/pfconfig/*' ! -path 'lib/pfconfig' ! -path 'sbin/pfconfig*' \
-	-not -path "addons/full-upgrade*" -not -path "html/parking*" -type d`; do \
+	for i in `find . ! -path './debian/*' ! -path './debian' ! -path './docs/*' ! -path './docs' ! -path './t/*' ! -path './t' ! -path './lib/pfconfig/*' ! -path './lib/pfconfig' ! -path './sbin/pfconfig*' \
+	! -path './.git/*' ! -path './.git' ! -path './result/*' ! -path './result' ! -path './lib_perl/*' ! -path './lib_perl' \
+	-not -path "./addons/full-upgrade*" -not -path "./html/parking*" -type d`; do \
 		install -d -m0700 $(CURDIR)/debian/packetfence$(PREFIX)/$(NAME)/$$i; \
 	done
-	for i in `find * ! -path 'debian/*' ! -path 'debian' ! -path 'docs/*' ! -path 'docs' ! -path 't/*' ! -path 't' ! -path 'lib/pfconfig/*' ! -path 'lib/pfconfig' ! -path 'sbin/pfconfig*' \
-	-not -path "addons/full-upgrade/*" -not -path "html/parking/*" ! -path 'conf/pfconfig.conf*' ! -path 'conf/redis_cache.conf*' ! -type d`; do \
+	for i in `find . ! -path './debian/*' ! -path './debian' ! -path './docs/*' ! -path './docs' ! -path './t/*' ! -path './t' ! -path './lib/pfconfig/*' ! -path './lib/pfconfig' ! -path './sbin/pfconfig*' \
+	! -path './.git/*' ! -path './.git' ! -path './result/*' ! -path './result' ! -path './lib_perl/*' ! -path './lib_perl' \
+	-not -path "./addons/full-upgrade/*" -not -path "./html/parking/*" ! -path './conf/pfconfig.conf*' ! -path './conf/redis_cache.conf*' ! -type d`; do \
 		$(INSTALL) $$i $(CURDIR)/debian/packetfence$(PREFIX)/$(NAME)/$$i; \
 	done
 
