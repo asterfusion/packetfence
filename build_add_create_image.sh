@@ -6,6 +6,7 @@ ISO_IN=${ISO_IN:-debian-live-12.9.0-amd64-gnome.iso}
 ISO_OUT=${ISO_OUT:-asterfusion-packetfence-installer-R001.iso}
 CHROOT_PATH=/usr/local/pf/pf-iso
 PF_PATH=/usr/local/pf
+FREE_RADIUS_VERSION=3.2.2
 
 cleanup() {
   umount -l $CHROOT_PATH/chroot/sys/fs/cgroup/devices
@@ -88,12 +89,6 @@ chroot $CHROOT_PATH/chroot/ apt-get install -y  --no-install-recommends \
 				libapache-session-perl \
 				libapache-ssllookup-perl  \
 				libapache2-mod-systemd  \
-				freeradius  \
-				freeradius-ldap \
-				freeradius-mysql  \
-				freeradius-utils  \
-				freeradius-rest  \
-				freeradius-redis \
 				eapoltest \
 				liblinux-systemd-daemon-perl  \
 				make  \
@@ -104,6 +99,35 @@ chroot $CHROOT_PATH/chroot/ apt-get install -y  --no-install-recommends \
 				python-is-python3 \
 				krb5-user \
 				iproute2 \
+				libpcre3 \
+				libct4 \
+				libmemcached11 \
+				libpq5 \
+				libiodbc2 \
+				libykclient3 \
+				libhiredis0.14 \
+				libyubikey0 \
+				libcollectdclient1
+
+echo "installing freeradius-*"
+chroot $CHROOT_PATH/chroot/ bash -c "dpkg -i /home/result/debian/bookworm/libfreeradius3_$FREE_RADIUS_VERSION+git-2_amd64.deb"
+chroot $CHROOT_PATH/chroot/ bash -c "dpkg -i /home/result/debian/bookworm/libfreeradius-dev_$FREE_RADIUS_VERSION+git-2_amd64.deb"
+chroot $CHROOT_PATH/chroot/ bash -c "dpkg -i /home/result/debian/bookworm/freeradius-common_$FREE_RADIUS_VERSION+git-2_all.deb"
+chroot $CHROOT_PATH/chroot/ bash -c "dpkg -i /home/result/debian/bookworm/freeradius-config_$FREE_RADIUS_VERSION+git-2_amd64.deb"
+chroot $CHROOT_PATH/chroot/ bash -c "dpkg -i /home/result/debian/bookworm/freeradius_$FREE_RADIUS_VERSION+git-2_amd64.deb"
+chroot $CHROOT_PATH/chroot/ bash -c "dpkg -i /home/result/debian/bookworm/freeradius-dhcp_$FREE_RADIUS_VERSION+git-2_amd64.deb"
+chroot $CHROOT_PATH/chroot/ bash -c "dpkg -i /home/result/debian/bookworm/freeradius-freetds_$FREE_RADIUS_VERSION+git-2_amd64.deb"
+chroot $CHROOT_PATH/chroot/ bash -c "dpkg -i /home/result/debian/bookworm/freeradius-krb5_$FREE_RADIUS_VERSION+git-2_amd64.deb"
+chroot $CHROOT_PATH/chroot/ bash -c "dpkg -i /home/result/debian/bookworm/freeradius-ldap_$FREE_RADIUS_VERSION+git-2_amd64.deb"
+chroot $CHROOT_PATH/chroot/ bash -c "dpkg -i /home/result/debian/bookworm/freeradius-memcached_$FREE_RADIUS_VERSION+git-2_amd64.deb"
+chroot $CHROOT_PATH/chroot/ bash -c "dpkg -i /home/result/debian/bookworm/freeradius-mysql_$FREE_RADIUS_VERSION+git-2_amd64.deb"
+chroot $CHROOT_PATH/chroot/ bash -c "dpkg -i /home/result/debian/bookworm/freeradius-perl-util_$FREE_RADIUS_VERSION+git-2_amd64.deb"
+chroot $CHROOT_PATH/chroot/ bash -c "dpkg -i /home/result/debian/bookworm/freeradius-postgresql_$FREE_RADIUS_VERSION+git-2_amd64.deb"
+chroot $CHROOT_PATH/chroot/ bash -c "dpkg -i /home/result/debian/bookworm/freeradius-redis_$FREE_RADIUS_VERSION+git-2_amd64.deb"
+chroot $CHROOT_PATH/chroot/ bash -c "dpkg -i /home/result/debian/bookworm/freeradius-rest_$FREE_RADIUS_VERSION+git-2_amd64.deb"
+chroot $CHROOT_PATH/chroot/ bash -c "dpkg -i /home/result/debian/bookworm/freeradius-iodbc_$FREE_RADIUS_VERSION+git-2_amd64.deb"
+chroot $CHROOT_PATH/chroot/ bash -c "dpkg -i /home/result/debian/bookworm/freeradius-utils_$FREE_RADIUS_VERSION+git-2_amd64.deb"
+chroot $CHROOT_PATH/chroot/ bash -c "dpkg -i /home/result/debian/bookworm/freeradius-yubikey_$FREE_RADIUS_VERSION+git-2_amd64.deb"
 
 chroot $CHROOT_PATH/chroot/ apt-get install -y --no-install-recommends \
 				acl \
