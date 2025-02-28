@@ -43,6 +43,7 @@ use pf::config qw(
 use Try::Tiny;
 use pf::util::radius qw(perform_coa perform_disconnect);
 use pf::constants;
+use NetAddr::IP;
 
 # CAPABILITIES
 # access technology supported
@@ -151,9 +152,9 @@ sub returnRadiusAccessAccept {
     my %radius_reply = @super_reply;
     my $radius_reply_ref = \%radius_reply;
     return [$status, %$radius_reply_ref] if($status == $RADIUS::RLM_MODULE_USERLOCK);
-    my @acls = defined($radius_reply_ref->{'Aruba-NAS-Filter-Rule'}) ? @{$radius_reply_ref->{'Aruba-NAS-Filter-Rule'}} : ();
+    my @acls = defined($radius_reply_ref->{'HP-NAS-Filter-Rule'}) ? @{$radius_reply_ref->{'HP-NAS-Filter-Rule'}} : ();
 
-    if ( isenabled($self->{_UrlMap}) ) {
+    if ( $args->{'compute_url'} && isenabled($self->{_UrlMap}) ) {
         if ( defined($args->{'user_role'}) && $args->{'user_role'} ne "" && defined($self->getUrlByName($args->{'user_role'}) ) ) {
             my $redirect_url = $self->getUrlByName($args->{'user_role'});
             $redirect_url .= '/' unless $redirect_url =~ m(\/$);
@@ -170,14 +171,13 @@ sub returnRadiusAccessAccept {
                     push(@acls, $1);
                     $logger->info("(".$self->{'_id'}.") Adding access list : $1 to the RADIUS reply");
                 }
+                $radius_reply_ref->{'HP-NAS-Filter-Rule'} = \@acls;
                 $logger->info("(".$self->{'_id'}.") Added access lists to the RADIUS reply.");
             } else {
                 $logger->info("(".$self->{'_id'}.") No access lists defined for this role ".$args->{'user_role'});
             }
         }
     }
-
-    $radius_reply_ref->{'Aruba-NAS-Filter-Rule'} = \@acls;
 
     my $filter = pf::access_filter::radius->new;
     my $rule = $filter->test('returnRadiusAccessAccept', $args);
@@ -402,6 +402,63 @@ sub returnRoleAttribute {
     my ($self) = @_;
 
     return 'HP-User-Role';
+}
+
+=head2 acl_chewer
+
+Format ACL to match with the expected switch format.
+
+=cut
+
+sub acl_chewer {
+    my ($self, $acl, $role) = @_;
+    my $logger = $self->logger;
+    my ($acl_ref , @direction) = $self->format_acl($acl);
+
+    my $i = 0;
+    my $acl_chewed;
+    foreach my $acl (@{$acl_ref->{'packetfence'}->{'entries'}}) {
+        #Bypass acl that contain tcp_flag, it doesnt apply correctly on the switch
+        next if (defined($acl->{'tcp_flags'}));
+        $acl->{'protocol'} =~ s/\(\d*\)//;
+        my $dest;
+        my $dest_port;
+        if (defined($acl->{'destination'}->{'port'})) {
+            $dest_port = $acl->{'destination'}->{'port'};
+            $dest_port =~ s/\w+\s+//;
+        }
+        if ($acl->{'destination'}->{'ipv4_addr'} eq '0.0.0.0') {
+            $dest = "any";
+        } elsif($acl->{'destination'}->{'ipv4_addr'} ne '0.0.0.0') {
+            if ($acl->{'destination'}->{'wildcard'} ne '0.0.0.0') {
+                my $net_addr = NetAddr::IP->new($acl->{'destination'}->{'ipv4_addr'}, norm_net_mask($acl->{'destination'}->{'wildcard'}));
+                my $cidr = $net_addr->cidr();
+                $dest = $cidr;
+            } else {
+                $dest = $acl->{'destination'}->{'ipv4_addr'};
+            }
+        }
+        my $src;
+        if ($acl->{'source'}->{'ipv4_addr'} eq '0.0.0.0') {
+            $src = "any";
+        } elsif($acl->{'source'}->{'ipv4_addr'} ne '0.0.0.0') {
+            if ($acl->{'source'}->{'wildcard'} ne '0.0.0.0') {
+                my $net_addr = NetAddr::IP->new($acl->{'source'}->{'ipv4_addr'}, norm_net_mask($acl->{'source'}->{'wildcard'}));
+                my $cidr = $net_addr->cidr();
+                $src = $cidr;
+            } else {
+                $src = $acl->{'source'}->{'ipv4_addr'};
+            }
+        }
+        my $j = $i + 1;
+        if ($self->usePushACLs && (whowasi() eq "pf::Switch::getRoleAccessListByName")) {
+            $acl_chewed .= ((defined($direction[$i]) && $direction[$i] ne "") ? $direction[$i]."|" : "").$j." ".$acl->{'action'}." ".$acl->{'protocol'}." ".(($self->usePushACLs) ? $src : "any")." $dest " . ( defined($acl->{'destination'}->{'port'}) ? $acl->{'destination'}->{'port'} : '' )."\n";
+        } else {
+            $acl_chewed .= ((defined($direction[$i]) && $direction[$i] ne "") ? $direction[$i]."|" : "").$acl->{'action'}." ".((defined($direction[$i]) && $direction[$i] ne "") ? $direction[$i] : "in")." ".$acl->{'protocol'}." from any to ".$dest." ".( defined($dest_port) ? $dest_port : '' )."\n";
+        }
+        $i++;
+    }
+    return $acl_chewed;
 }
 
 =head1 AUTHOR
