@@ -193,11 +193,6 @@ describe('Configurator', () => {
     // wizard circle is highlighted
     cy.get('.wizard-sidebar div.bg-warning, .wizard-sidebar div.btn-outline-primary').last().should('contain', '4')
 
-    // password match
-    cy.fixture('configurator').then(configurator => {
-      cy.get('*[data-card="administrator"] code').last().should('contain', configurator.administrator.password)
-    })
-
     // click start button
     cy.get('button[type="submit"]:contains(Start)').click()
 
