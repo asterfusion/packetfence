@@ -20,8 +20,6 @@ export const beforeEnter = (to, from, next = () => {}) => {
     next()
 }
 
-const can = () => !store.getters['system/isSaas']
-
 export default [
   {
     path: 'dashboard',
@@ -29,7 +27,7 @@ export default [
     component: TheView,
     beforeEnter,
     meta: {
-      can
+      can: 'read system'
     }
   }
 ]
