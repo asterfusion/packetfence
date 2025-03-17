@@ -296,7 +296,7 @@ has_field 'external_command' =>
 has_field 'rest_url' =>
   (
    type => 'Text',
-   label => 'rest notify URL',
+   label => 'REST Notify URL',
    element_class => ['input-large'],
    messages => { required => 'Please specify the url you want to notify' },
   );

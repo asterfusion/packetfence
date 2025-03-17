@@ -361,7 +361,7 @@ sub authorize {
         $vlan = $vlanpool->getVlanFromPool($args);
     }
     $vlan = $role->{vlan} || $vlan || 0;
-    if ($args->{'owner'}->{'pid'}) {
+    if ($args->{'owner'}->{'pid'} && $vlan) {
         # notify for limit max online device per user
         foreach my $info (@MAX_ONLINE_LIMIT_TRIGGERS) {
             # $logger->debug(sub { use Data::Dumper; "search MAX_ONLINE_LIMIT_TRIGGERS ".Dumper($info)});
