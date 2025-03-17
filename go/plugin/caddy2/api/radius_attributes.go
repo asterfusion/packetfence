@@ -49,7 +49,7 @@ type RadiusAttributesResults struct {
 func (h APIHandler) radiusAttributes(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 
 	w.WriteHeader(http.StatusOK)
-	fmt.Fprintf(w, radiusAttributesJson)
+	w.Write([]byte(radiusAttributesJson))
 }
 
 type searchRequest struct {
@@ -74,7 +74,7 @@ func (h APIHandler) searchRadiusAttributes(w http.ResponseWriter, r *http.Reques
 	}
 
 	out, _ = json.Marshal(&searchResults)
-	fmt.Fprintf(w, string(out))
+	w.Write(out)
 }
 
 func setupRadiusDictionary() {

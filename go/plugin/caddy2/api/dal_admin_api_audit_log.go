@@ -45,7 +45,7 @@ func outputResult(w http.ResponseWriter, body RespBody) {
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	w.WriteHeader(body.Status)
 	res, _ := json.Marshal(body)
-	fmt.Fprintf(w, string(res))
+	w.Write(res)
 }
 
 func (a *AdminApiAuditLog) List(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
