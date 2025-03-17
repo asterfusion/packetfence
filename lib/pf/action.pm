@@ -423,7 +423,7 @@ sub action_notify_by_rest {
             role   => $role_info->{name},
             causes => $causes
         };
-        $logger->info(sub { use Data::Dumper; "data ".Dumper($data)});
+        # $logger->info(sub { use Data::Dumper; "data ".Dumper($data)});
 
         my $response = $ua->post($rest_url,
             'Content-Type' => 'application/json',
