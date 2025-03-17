@@ -27,6 +27,10 @@ use pf::person;
 use pf::util;
 use pf::security_event_config;
 use pf::config qw(access_duration);
+use LWP::UserAgent;
+use JSON;
+use POSIX qw(strftime);
+use pf::config::security_event;
 
 use pf::provisioner;
 use pf::constants;
@@ -48,6 +52,7 @@ Readonly::Scalar our $EXTERNAL => 'external';
 Readonly::Scalar our $CLOSE => 'close';
 Readonly::Scalar our $ROLE => 'role';
 Readonly::Scalar our $ENFORCE_PROVISIONING => 'enforce_provisioning';
+Readonly::Scalar our $NOTIFY_BY_REST => 'notify_by_rest';
 
 Readonly::Array our @SECURITY_EVENT_ACTIONS =>
   (
@@ -62,6 +67,7 @@ Readonly::Array our @SECURITY_EVENT_ACTIONS =>
    $CLOSE,
    $ROLE,
    $ENFORCE_PROVISIONING,
+   $NOTIFY_BY_REST,
   );
 
 BEGIN {
@@ -206,6 +212,7 @@ our %ACTIONS = (
     $UNREG                => \&action_unreg,
     $ENFORCE_PROVISIONING => \&action_enforce_provisioning,
     $AUTOREG              => \&action_autoregister,
+    $NOTIFY_BY_REST      => \&action_notify_by_rest,
 );
 
 sub action_execute {
@@ -366,6 +373,70 @@ sub action_email_recipient {
     }
     else {
         get_logger->warn("Cannot send security_event email for $security_event_id as node we don't have the recipient e-mail address");
+    }
+}
+
+sub action_notify_by_rest {
+    my ($mac, $security_event_id, $notes) = @_;
+    my $class_info  = class_view($security_event_id);
+    my $rest_url = $class_info->{rest_url};
+    if ($rest_url ne "") {
+        my $node_info = node_attributes($mac);
+        my $role_info = pf::nodecategory::nodecategory_view($node_info->{category_id});
+        my $time_str = strftime("%Y-%m-%d %H:%M:%S", localtime);
+        my $ip = pf::ip4log::mac2ip($mac) || "";
+        my $location;
+        my $ua = LWP::UserAgent->new;
+        my $causes;
+
+        foreach my $info (@MAX_ONLINE_LIMIT_TRIGGERS) {
+            if ($info->{security_event} == $security_event_id) {
+                $causes = "Exceeded the maximum number of online sessions allowed per user. The maximum allowed is $info->{trigger}.";
+            }
+        }
+        foreach my $info (@DEVICE_ONLINE_TRIGGERS) {
+            if ($info->{security_event} == $security_event_id) {
+                $causes = "Device is online";
+            }
+        }
+
+        my ($status, $iter) = pf::dal::locationlog->search(
+            -where => {
+                mac => $mac,
+            },
+            -limit => 1,
+        );
+        if (is_success($status)) {
+            my $locationlog_info_ref = $iter->next(undef);
+            if ($locationlog_info_ref) {
+                $location = $locationlog_info_ref->{'switch'};
+            }
+        }
+
+        my $data = {
+            username  => $node_info->{pid},
+            mac   => $mac,
+            device_type => $node_info->{device_type},
+            date  => $time_str,
+            location   => $location,
+            ip  => $ip,
+            role   => $role_info->{name},
+            causes => $causes
+        };
+        $logger->info(sub { use Data::Dumper; "data ".Dumper($data)});
+
+        my $response = $ua->post($rest_url,
+            'Content-Type' => 'application/json',
+            Content        => encode_json($data)
+        );
+
+        if (!$response->is_success) {
+            get_logger->warn("Send rest notify for $security_event_id to $rest_url failed.");
+        }
+        # get_logger->debug("Send rest notify for $security_event_id to $rest_url");
+    }
+    else {
+        get_logger->warn("Cannot send rest notify for $security_event_id we don't have the url");
     }
 }
 

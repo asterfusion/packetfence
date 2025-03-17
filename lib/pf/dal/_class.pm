@@ -50,6 +50,7 @@ BEGIN {
         target_category
         delay_by
         external_command
+        rest_url
     );
 
     %DEFAULTS = (
@@ -70,6 +71,7 @@ BEGIN {
         target_category => undef,
         delay_by => '0',
         external_command => undef,
+        rest_url => undef,
     );
 
     @INSERTABLE_FIELDS = qw(
@@ -90,6 +92,7 @@ BEGIN {
         target_category
         delay_by
         external_command
+        rest_url
     );
 
     %FIELDS_META = (
@@ -195,6 +198,12 @@ BEGIN {
             is_primary_key => 0,
             is_nullable => 1,
         },
+        rest_url => {
+            type => 'VARCHAR',
+            is_auto_increment => 0,
+            is_primary_key => 0,
+            is_nullable => 1,
+        },
     );
 
     @PRIMARY_KEYS = qw(
@@ -219,6 +228,7 @@ BEGIN {
         class.target_category
         class.delay_by
         class.external_command
+        class.rest_url
     );
 
 }

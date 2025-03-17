@@ -24,11 +24,12 @@ use Readonly;
 use pf::authentication;
 use pf::Connection;
 use pf::constants;
-use pf::constants::trigger qw($TRIGGER_TYPE_ACCOUNTING);
+use pf::constants::trigger qw($TRIGGER_TYPE_ACCOUNTING $TRIGGER_TYPE_DEVICE_ONLINE $TRIGGER_TYPE_MAX_ONLINE);
+use pf::config::security_event;
 use pf::constants::role qw($VOICE_ROLE);
 use pf::constants::realm;
 use pf::constants::domain qw($NTLM_REDIS_CACHE_HOST $NTLM_REDIS_CACHE_PORT);
-use pf::error qw(is_error);
+use pf::error qw(is_error is_success);
 use pf::config qw(
     $ROLE_API_LEVEL
     $WIRELESS
@@ -51,6 +52,7 @@ use pf::config qw(
 use pf::client;
 use pf::locationlog;
 use pf::node;
+use pf::node_current_session;
 use pf::Switch;
 use pf::SwitchFactory;
 use pf::util;
@@ -78,6 +80,7 @@ use pf::constants::eap_type qw($EAP_TLS $MS_EAP_AUTHENTICATION $EAP_PSK);
 use pf::person;
 use pf::factory::mfa;
 use MIME::Base64;
+use Time::Piece;
 
 our $VERSION = 1.03;
 
@@ -358,6 +361,67 @@ sub authorize {
         $vlan = $vlanpool->getVlanFromPool($args);
     }
     $vlan = $role->{vlan} || $vlan || 0;
+    if ($args->{'owner'}->{'pid'}) {
+        # notify for limit max online device per user
+        foreach my $info (@MAX_ONLINE_LIMIT_TRIGGERS) {
+            # $logger->debug(sub { use Data::Dumper; "search MAX_ONLINE_LIMIT_TRIGGERS ".Dumper($info)});
+            my $max_online_num = $info->{trigger};
+            if ($max_online_num) {
+                my ($status, $iter) = pf::dal::node->search(-where => {pid => $args->{'owner'}->{'pid'}}, -columns => [qw(mac)]);
+                my $items = $iter->all(undef);
+                if ($items)
+                {
+                    my $online_count = 0;
+                    foreach my $node_item ( @$items ) {
+                        my ($status_code, $node_current_session_info) = pf::dal::node_current_session->find_or_create({"mac" => $node_item->{'mac'}});
+                        if (is_success($status_code)) {
+                            if ($node_current_session_info->{'is_online'} == 1) {
+                                $online_count++;
+                            }
+                        }
+                    }
+                    if ($online_count >= $max_online_num) {
+                        # exceed max online notify
+                        my $apiclient = pf::client::getClient;
+                        my %security_event = (
+                            'mac'   => $mac,
+                            'tid'   => $max_online_num,
+                            'type'  => $TRIGGER_TYPE_MAX_ONLINE,
+                        );
+                        $apiclient->notify('trigger_security_event', %security_event);
+
+                        $RAD_REPLY_REF = [ $RADIUS::RLM_MODULE_FAIL, ('Reply-Message' => "Exceeded the maximum number of online sessions allowed per user. The maximum allowed is $max_online_num.") ];
+                        goto AUDIT;
+                    }
+                }
+            }
+        }
+        # notify for online device
+        foreach my $info (@DEVICE_ONLINE_TRIGGERS) {
+            # $logger->debug(sub { use Data::Dumper; "search DEVICE_ONLINE_TRIGGERS ".Dumper($info)});
+            my $roaming_latency = $info->{trigger};
+            if ($roaming_latency) {
+                my ($status_code, $node_current_session_info) = pf::dal::node_current_session->find_or_create({"mac" => $mac});
+                my $diff = 0;
+                if (is_success($status_code)) {
+                    my $now = localtime;
+                    my $target_time = Time::Piece->strptime($node_current_session_info->{'updated'}, "%Y-%m-%d %H:%M:%S");
+                    $diff = abs($now->epoch - $target_time->epoch);
+                }
+                if ($diff > $roaming_latency)
+                {
+                # online notify
+                    my $apiclient = pf::client::getClient;
+                    my %security_event = (
+                        'mac'   => $mac,
+                        'tid'   => $roaming_latency,
+                        'type'  => $TRIGGER_TYPE_DEVICE_ONLINE,
+                    );
+                    $apiclient->notify('trigger_security_event', %security_event);
+                }
+            }
+        }
+    }
     $args->{'vlan'} = $vlan;
 
     #closes old locationlog entries and create a new one if required

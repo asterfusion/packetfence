@@ -35,6 +35,7 @@ CREATE TABLE class (
   `target_category` varchar(255),
   `delay_by` int(11) NOT NULL default 0,
   `external_command` varchar(255) DEFAULT NULL,
+  `rest_url` varchar(255) DEFAULT NULL,
   PRIMARY KEY (security_event_id),
   KEY password_target_category (target_category)
 ) ENGINE=InnoDB DEFAULT CHARACTER SET = 'utf8mb4' COLLATE = 'utf8mb4_general_ci';

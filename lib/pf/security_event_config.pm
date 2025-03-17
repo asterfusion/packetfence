@@ -89,6 +89,7 @@ sub _loadSecurityEventsIntoDb {
             $data->{'target_category'},
             $data->{'delay_by'},
             $data->{'external_command'},
+            $data->{'rest_url'},
             $data->{'whitelisted_roles'} || '',
             $data->{'actions'},
         );
