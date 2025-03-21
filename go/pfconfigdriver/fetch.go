@@ -133,7 +133,7 @@ func FetchSocket(ctx context.Context, payload string) []byte {
 	c := connectSocket(ctx)
 
 	// Send our query in the socket
-	fmt.Fprintf(c, payload)
+	io.WriteString(c, payload)
 
 	var buf bytes.Buffer
 	buf.ReadFrom(c)

@@ -2,10 +2,11 @@ package logging
 
 import (
 	"context"
-	log "github.com/inconshreveable/log15"
-	"github.com/nu7hatch/gouuid"
 	"os"
 	"strconv"
+
+	log "github.com/inconshreveable/log15"
+	uuid "github.com/nu7hatch/gouuid"
 )
 
 const requestUuidKey = "request-uuid"
@@ -54,6 +55,5 @@ func AddToLogContext(ctx context.Context, args ...interface{}) context.Context {
 			key = o
 		}
 	}
-	context.WithValue(ctx, additionnalLogElementsKey, additionnalLogElements)
-	return ctx
+	return context.WithValue(ctx, additionnalLogElementsKey, additionnalLogElements)
 }

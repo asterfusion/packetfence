@@ -12,7 +12,7 @@ go-env:
 .PHONY: test
 test:
 	/usr/local/pf/t/pfconfig-test ;\
-	PF_SYSTEM_INIT_KEY=$$(cat ../t/data/system_init_key) PFCONFIG_PROTO=unix PFCONFIG_TESTING=y $(GO) test -count=1 ./...
+	GODEBUG=randseednop=0 PF_SYSTEM_INIT_KEY=$$(cat ../t/data/system_init_key) PFCONFIG_PROTO=unix PFCONFIG_TESTING=y $(GO) test -count=1 ./...
 
 CMDS = $(wildcard cmd/*)
 ALL_BINARIES = $(patsubst cmd/%, %, $(CMDS))

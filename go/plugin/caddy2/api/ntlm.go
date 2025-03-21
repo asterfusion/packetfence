@@ -4,11 +4,11 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
-	"fmt"
-	"github.com/inverse-inc/packetfence/go/ntlm"
-	"github.com/julienschmidt/httprouter"
 	"net/http"
 	"os"
+
+	"github.com/inverse-inc/packetfence/go/ntlm"
+	"github.com/julienschmidt/httprouter"
 )
 
 type PasswordChangeEvent struct {
@@ -42,7 +42,7 @@ func (h APIHandler) eventReport(w http.ResponseWriter, r *http.Request, p httpro
 			Message: "Unable to connect to pfconfig service",
 		}
 		j, _ := json.Marshal(res)
-		fmt.Fprintf(w, string(j))
+		w.Write(j)
 		return
 	}
 
@@ -57,7 +57,7 @@ func (h APIHandler) eventReport(w http.ResponseWriter, r *http.Request, p httpro
 			Message: "Unknown payload format, expected Domain and Events JSON",
 		}
 		j, _ := json.Marshal(res)
-		fmt.Fprintf(w, string(j))
+		w.Write(j)
 		return
 	}
 
@@ -76,7 +76,7 @@ func (h APIHandler) eventReport(w http.ResponseWriter, r *http.Request, p httpro
 			Message: "Unknown domain " + req.Domain + ", record not found",
 		}
 		j, _ := json.Marshal(res)
-		fmt.Fprintf(w, string(j))
+		w.Write(j)
 		return
 	}
 
@@ -88,7 +88,7 @@ func (h APIHandler) eventReport(w http.ResponseWriter, r *http.Request, p httpro
 			Message: "Unable to find listening port for domain " + req.Domain,
 		}
 		j, _ := json.Marshal(res)
-		fmt.Fprintf(w, string(j))
+		w.Write(j)
 		return
 	}
 
@@ -100,7 +100,7 @@ func (h APIHandler) eventReport(w http.ResponseWriter, r *http.Request, p httpro
 			Message: err.Error(),
 		}
 		j, _ := json.Marshal(res)
-		fmt.Fprintf(w, string(j))
+		w.Write(j)
 		return
 	}
 
@@ -110,8 +110,7 @@ func (h APIHandler) eventReport(w http.ResponseWriter, r *http.Request, p httpro
 		Message: "Event reported",
 	}
 	j, _ := json.Marshal(res)
-	fmt.Fprintf(w, string(j))
-
+	w.Write(j)
 }
 
 func (h APIHandler) ntlmTest(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
@@ -134,7 +133,7 @@ func (h APIHandler) ntlmTest(w http.ResponseWriter, r *http.Request, p httproute
 			Message: "Unable to connect to pfconfig service",
 		}
 		j, _ := json.Marshal(res)
-		fmt.Fprintf(w, string(j))
+		w.Write(j)
 		return
 	}
 
@@ -149,7 +148,7 @@ func (h APIHandler) ntlmTest(w http.ResponseWriter, r *http.Request, p httproute
 			Message: "Unknown payload format, expected JSON format with id and password",
 		}
 		j, _ := json.Marshal(res)
-		fmt.Fprintf(w, string(j))
+		w.Write(j)
 		return
 	}
 
@@ -168,7 +167,7 @@ func (h APIHandler) ntlmTest(w http.ResponseWriter, r *http.Request, p httproute
 			Message: "Unknown domain " + req.Id + ", record not found",
 		}
 		j, _ := json.Marshal(res)
-		fmt.Fprintf(w, string(j))
+		w.Write(j)
 		return
 	}
 
@@ -180,7 +179,7 @@ func (h APIHandler) ntlmTest(w http.ResponseWriter, r *http.Request, p httproute
 			Message: "Unable to find listening port for domain " + req.Id,
 		}
 		j, _ := json.Marshal(res)
-		fmt.Fprintf(w, string(j))
+		w.Write(j)
 		return
 	}
 
@@ -192,7 +191,7 @@ func (h APIHandler) ntlmTest(w http.ResponseWriter, r *http.Request, p httproute
 			Message: err.Error(),
 		}
 		j, _ := json.Marshal(res)
-		fmt.Fprintf(w, string(j))
+		w.Write(j)
 		return
 	}
 
@@ -203,7 +202,7 @@ func (h APIHandler) ntlmTest(w http.ResponseWriter, r *http.Request, p httproute
 			Message: "Machine account check failed",
 		}
 		j, _ := json.Marshal(res)
-		fmt.Fprintf(w, string(j))
+		w.Write(j)
 		return
 	}
 
@@ -213,6 +212,5 @@ func (h APIHandler) ntlmTest(w http.ResponseWriter, r *http.Request, p httproute
 		Message: "Machine account test OK",
 	}
 	j, _ := json.Marshal(res)
-	fmt.Fprintf(w, string(j))
-
+	w.Write(j)
 }
