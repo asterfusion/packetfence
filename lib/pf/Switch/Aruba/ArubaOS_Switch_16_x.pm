@@ -50,6 +50,9 @@ sub returnRadiusAccessAccept {
     my ($self, $args) = @_;
     my $logger = $self->logger;
     $args->{'unfiltered'} = $TRUE;
+    $args->{'compute_acl'} = $FALSE;
+    $args->{'compute_url'} = $FALSE;
+    $self->compute_action(\$args);
     my @super_reply = @{$self->SUPER::returnRadiusAccessAccept($args)};
     my $status = shift @super_reply;
     my %radius_reply = @super_reply;
@@ -74,14 +77,13 @@ sub returnRadiusAccessAccept {
                     push(@acls, $1);
                     $logger->info("(".$self->{'_id'}.") Adding access list : $1 to the RADIUS reply");
                 }
+		$radius_reply_ref->{'Aruba-NAS-Filter-Rule'} = \@acls;
                 $logger->info("(".$self->{'_id'}.") Added access lists to the RADIUS reply.");
             } else {
                 $logger->info("(".$self->{'_id'}.") No access lists defined for this role ".$args->{'user_role'});
             }
         }
     }
-
-    $radius_reply_ref->{'Aruba-NAS-Filter-Rule'} = \@acls;
 
     my $filter = pf::access_filter::radius->new;
     my $rule = $filter->test('returnRadiusAccessAccept', $args);
