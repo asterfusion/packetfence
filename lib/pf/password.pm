@@ -53,6 +53,7 @@ Readonly our $AUTH_FAILED_NOT_YET_VALID => 3;
 Readonly our $PLAINTEXT                 => 'plaintext';
 Readonly our $BCRYPT                    => 'bcrypt';
 Readonly our $NTLM                      => 'ntlm';
+Readonly our $BCRYPT_CT                 => 'bcrypt_ct';
 
 # Expiration time in seconds
 Readonly::Scalar our $EXPIRATION => 31*24*60*60; # defaults to 31 days
@@ -404,10 +405,13 @@ sub _check_password {
     # We need to quotemeta the regex because it contains { and }
     my $bcrypt_re = quotemeta('{bcrypt}');
     my $ntlm_re = quotemeta('{ntlm}');
+    my $bcrypt_ct_re = quotemeta('{bcrypt_ct}');
     if ($hash_string =~ /^$bcrypt_re/) {
         return _check_bcrypt(@_);
     } elsif ($hash_string =~ /^$ntlm_re/) {
         return _check_ntlm(@_);
+    } elsif ($hash_string =~ /^$bcrypt_ct_re/) {
+        return _check_bcrypt(@_);
     } else {
         # I am leaving room for additional cases (NT hashes, md5 etc.)
         return $plaintext eq $hash_string ? $TRUE : $FALSE;
@@ -445,12 +449,14 @@ sub _hash_password {
     my ($plaintext, %params) = @_;
     my $logger = pf::log::get_logger;
     my $algorithm = $params{"algorithm"};
-    if ($algorithm =~ /$PLAINTEXT/) {
+    if ($algorithm =~ /^$PLAINTEXT$/) {
         return $plaintext;
-    } elsif ($algorithm =~ /$BCRYPT/) {
+    } elsif ($algorithm =~ /^$BCRYPT$/) {
         return bcrypt($plaintext, %params);
-    } elsif ($algorithm =~ /$NTLM/) {
+    } elsif ($algorithm =~ /^$NTLM$/) {
         return '{ntlm}'.nthash($plaintext);
+    } elsif ($algorithm =~ /^$BCRYPT_CT$/) {
+        return '{bcrypt_ct}'.$plaintext;
     } else {
         $logger->error("Unsupported hash algorithm " . $params{"algorithm"});
     }
@@ -466,6 +472,9 @@ sub _check_bcrypt {
     # where '$2a$' is the bcrypt prefix, 05 is the work factor, and the rest (after the final $)
     # is the bcrypt base64 encoded salt (first 22 char) followed by the bcrypt base64 encoded hash value.
     my $prefix_len        = 12;
+    if ($hash_string =~ /$BCRYPT_CT/) {
+        $prefix_len = $prefix_len + 3;
+    }
     my $cost_len          = 2;
     my $salt_len          = 22;
     my $before_salt       = $prefix_len + $cost_len + 1;    # +1 for the trailing $
@@ -475,6 +484,9 @@ sub _check_bcrypt {
     $hash_value = substr( $hash_string, $before_hash_value );    # substr to the end of the string
 
     $hashed_plaintext = _hash_password( $plaintext, algorithm => $BCRYPT, salt => $salt, cost => $cost );
+
+    $hashed_plaintext =~ s/^\{bcrypt\}//;
+    $hash_string =~ s/^\{bcrypt_ct\}//;
 
     if ( $hashed_plaintext eq $hash_string ) {
         return $TRUE;
