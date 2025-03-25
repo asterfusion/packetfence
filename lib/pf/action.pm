@@ -417,6 +417,7 @@ sub action_notify_by_rest {
             username  => $node_info->{pid},
             mac   => $mac,
             device_type => $node_info->{device_type},
+            device_manufacturer => $node_info->{device_manufacturer},
             date  => $time_str,
             location   => $location,
             ip  => $ip,
