@@ -293,6 +293,13 @@ has_field 'external_command' =>
    element_class => ['input-large'],
    messages => { required => 'Please specify the command you want to execute.' },
   );
+has_field 'rest_url' =>
+  (
+   type => 'Text',
+   label => 'REST Notify URL',
+   element_class => ['input-large'],
+   messages => { required => 'Please specify the url you want to notify' },
+  );
 has_field 'access_duration' =>
   (
    type => 'Select',

@@ -41,6 +41,8 @@ our %TRIGGER_TYPE_TO_CONDITION_TYPE = (
     'dhcp6_enterprise'            => {type => 'equals',                       key  => 'dhcp6_enterprise_id'},
     'internal'                    => {type => 'equals',                       key  => 'last_internal_id',        event => $TRUE},
     'custom'                      => {type => 'equals',                       key  => 'last_custom_id',          event => $TRUE},
+    'max_online_limit'            => {type => 'equals',                       key  => 'max_online_num',          event => $TRUE},
+    'device_online'               => {type => 'equals',                       key  => 'roaming_latency',         event => $TRUE},
     'mac'                         => {type => 'regex',                        key  => 'mac'},
     'mac_vendor'                  => {type => 'equals',                       key  => 'mac_vendor_id'},
     'nessus'                      => {type => 'equals',                       key  => 'last_nessus_id',          event => $TRUE},

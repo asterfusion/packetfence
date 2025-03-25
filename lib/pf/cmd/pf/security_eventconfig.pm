@@ -28,7 +28,7 @@ our @FIELDS = qw(
   vclose target_category priority whitelisted_roles
   trigger auto_enable max_enable grace
   window_dynamic window delay_by template
-  button_text vlan redirect_url external_command
+  button_text vlan redirect_url external_command rest_url
 );
 
 our %VALID_FIELDS = map { $_ => 1  } @FIELDS;

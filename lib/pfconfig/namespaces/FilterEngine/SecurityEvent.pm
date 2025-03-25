@@ -30,7 +30,7 @@ use base 'pfconfig::namespaces::resource';
 
 sub init {
     my ($self) = @_;
-    $self->{child_resources} = [ 'resource::accounting_triggers', 'resource::bandwidth_expired_security_events' ];
+    $self->{child_resources} = [ 'resource::accounting_triggers', 'resource::bandwidth_expired_security_events', 'resource::device_online_triggers', 'resource::max_online_limit_triggers' ];
 }
 
 sub build {
@@ -38,6 +38,8 @@ sub build {
     my $config_security_events = pfconfig::namespaces::config::SecurityEvents->new( $self->{cache} );
     my %SecurityEvents_Config = %{ $config_security_events->build };
     $self->{accounting_triggers} = [];
+    $self->{device_online_triggers} = [];
+    $self->{max_online_limit_triggers} = [];
     $self->{bandwidth_expired_security_events} = [];
     $self->{invalid_triggers} = {};
 
@@ -62,6 +64,18 @@ sub build {
 
             while ($trigger =~ /(accounting::.*?)([,)&]{1}|$)/gi) {
                 push @{$self->{accounting_triggers}}, {
+                    trigger   => (split('::', $1))[1],
+                    security_event => $security_event
+                  };
+            }
+            while ($trigger =~ /(max_online_limit::.*?)([,)&]{1}|$)/gi) {
+                push @{$self->{max_online_limit_triggers}}, {
+                    trigger   => (split('::', $1))[1],
+                    security_event => $security_event
+                  };
+            }
+            while ($trigger =~ /(device_online::.*?)([,)&]{1}|$)/gi) {
+                push @{$self->{device_online_triggers}}, {
                     trigger   => (split('::', $1))[1],
                     security_event => $security_event
                   };

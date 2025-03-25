@@ -1,36 +1,33 @@
-package pf::config::security_event;
+package pfconfig::namespaces::resource::max_online_limit_triggers;
 
 =head1 NAME
 
-pf::config::security_event -
+pfconfig::namespaces::resource::max_online_limit_triggers
 
 =cut
 
 =head1 DESCRIPTION
 
-pf::config::security_event
+pfconfig::namespaces::resource::max_online_limit_triggers
 
 =cut
 
 use strict;
 use warnings;
-use pfconfig::cached_array;
+use pfconfig::namespaces::FilterEngine::SecurityEvent;
 
-tie our @BANDWIDTH_EXPIRED_SECURITY_EVENTS, 'pfconfig::cached_array' => 'resource::bandwidth_expired_security_events';
-tie our @ACCOUNTING_TRIGGERS, 'pfconfig::cached_array' => 'resource::accounting_triggers';
-tie our @DEVICE_ONLINE_TRIGGERS, 'pfconfig::cached_array' => 'resource::device_online_triggers';
-tie our @MAX_ONLINE_LIMIT_TRIGGERS, 'pfconfig::cached_array' => 'resource::max_online_limit_triggers';
+use base 'pfconfig::namespaces::resource';
 
-BEGIN {
-    use Exporter ();
-    our ( @ISA, @EXPORT );
-    @ISA = qw(Exporter);
-    @EXPORT = qw(
-        @BANDWIDTH_EXPIRED_SECURITY_EVENTS
-        @ACCOUNTING_TRIGGERS
-        @DEVICE_ONLINE_TRIGGERS
-        @MAX_ONLINE_LIMIT_TRIGGERS
-    );
+sub init {
+    my ($self) = @_;
+    $self->{_engine} = pfconfig::namespaces::FilterEngine::SecurityEvent->new;
+    $self->{_engine}->build();
+}
+
+sub build {
+    my ($self) = @_;
+
+    return $self->{_engine}->{max_online_limit_triggers};
 }
 
 
@@ -62,3 +59,7 @@ USA.
 =cut
 
 1;
+
+# vim: set shiftwidth=4:
+# vim: set expandtab:
+# vim: set backspace=indent,eol,start:
