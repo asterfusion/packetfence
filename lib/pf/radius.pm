@@ -52,7 +52,7 @@ use pf::config qw(
 use pf::client;
 use pf::locationlog;
 use pf::node;
-use pf::node_current_session;
+use pf::dal::node_current_session;
 use pf::Switch;
 use pf::SwitchFactory;
 use pf::util;
@@ -121,7 +121,7 @@ sub authorize {
     my $logger = $self->logger;
     my ($do_auto_reg, %autoreg_node_defaults, $action);
 
-    my($switch_mac, $switch_ip,$source_ip,$stripped_user_name,$realm) = $self->_parseRequest($radius_request);
+    my($switch_mac, $switch_ip,$source_ip,$stripped_user_name,$realm,$device_type,$device_manufacturer) = $self->_parseRequest($radius_request);
     
     my $RAD_REPLY_REF;
 
@@ -230,6 +230,15 @@ sub authorize {
         $node_obj->sessionid($session_id);
     }
 
+    my %node_device_info;
+    if ($device_type && $node_obj->{'device_type'} ne $device_type) {
+        $node_device_info{'device_type'} = $device_type;
+    }
+    if ($device_manufacturer && $node_obj->{'device_manufacturer'} ne $device_manufacturer) {
+        $node_device_info{'device_manufacturer'} = $device_manufacturer;
+    }
+    # get_logger->debug(sub { use Data::Dumper; "node_device_info ".Dumper(\%node_device_info)});
+    $node_obj->merge(\%node_device_info);
     my $switch_id =  $switch->{_id};
 
     # verify if switch supports this connection type
@@ -473,7 +482,7 @@ sub accounting {
     my ($self, $radius_request, $headers) = @_;
     my $logger = $self->logger;
 
-    my ( $switch_mac, $switch_ip, $source_ip, $stripped_user_name, $realm ) = $self->_parseRequest($radius_request);
+    my ( $switch_mac, $switch_ip, $source_ip, $stripped_user_name, $realm ,$device_type, $device_manufacturer) = $self->_parseRequest($radius_request);
 
     $logger->debug("instantiating switch");
     my $switch = pf::SwitchFactory->instantiate( { switch_mac => $switch_mac, switch_ip => $switch_ip, controllerIp => $switch_ip }, {radius_request => $radius_request} );
@@ -567,7 +576,7 @@ sub update_locationlog_accounting {
     my ($self, $radius_request) = @_;
     my $logger = $self->logger;
 
-    my ( $switch_mac, $switch_ip, $source_ip, $stripped_user_name, $realm ) = $self->_parseRequest($radius_request);
+    my ( $switch_mac, $switch_ip, $source_ip, $stripped_user_name, $realm ,$device_type, $device_manufacturer) = $self->_parseRequest($radius_request);
 
     $logger->debug("instantiating switch");
     my $switch = pf::SwitchFactory->instantiate( { switch_mac => $switch_mac, switch_ip => $switch_ip, controllerIp => $switch_ip }, {radius_request => $radius_request} );
@@ -631,7 +640,17 @@ sub _parseRequest {
             $realm = $radius_request->{'Realm'};
         }
     }
-    return ($ap_mac, $networkdevice_ip, $source_ip, $stripped_user_name, $realm);
+
+    my $device_type;
+    if (defined($radius_request->{'Aster-Terminal-Vendor'})) {
+        $device_type = $radius_request->{'Aster-Terminal-Vendor'};
+    }
+    my $device_manufacturer;
+    if (defined($radius_request->{'Aster-Terminal-Type'})) {
+        $device_manufacturer = $radius_request->{'Aster-Terminal-Type'};
+    }
+
+    return ($ap_mac, $networkdevice_ip, $source_ip, $stripped_user_name, $realm, $device_type, $device_manufacturer);
 }
 
 sub extractApMacFromRadiusRequest {
@@ -864,7 +883,7 @@ sub switch_access {
     my ($self, $radius_request) = @_;
     my $logger = $self->logger;
     my $timer = pf::StatsD::Timer->new();
-    my($switch_mac, $switch_ip,$source_ip,$stripped_user_name,$realm) = $self->_parseRequest($radius_request);
+    my($switch_mac, $switch_ip,$source_ip,$stripped_user_name,$realm,$device_type,$device_manufacturer) = $self->_parseRequest($radius_request);
     $logger->debug("instantiating switch");
     my $switch = pf::SwitchFactory->instantiate({ switch_mac => $switch_mac, switch_ip => $switch_ip, controllerIp => $switch_ip}, {radius_request => $radius_request});
     # is switch object correct?
@@ -1356,7 +1375,7 @@ sub radius_filter {
     my ($self, $scope, $radius_request) = @_;
     my $logger = $self->logger;
     my ($do_auto_reg, %autoreg_node_defaults);
-    my($switch_mac, $switch_ip,$source_ip,$stripped_user_name,$realm) = $self->_parseRequest($radius_request);
+    my($switch_mac, $switch_ip,$source_ip,$stripped_user_name,$realm,$device_type,$device_manufacturer) = $self->_parseRequest($radius_request);
     my %RAD_REPLY_REF;
 
     $logger->debug("instantiating switch");
