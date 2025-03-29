@@ -486,7 +486,12 @@ sub _check_bcrypt {
     $hashed_plaintext = _hash_password( $plaintext, algorithm => $BCRYPT, salt => $salt, cost => $cost );
 
     $hashed_plaintext =~ s/^\{bcrypt\}//;
-    $hash_string =~ s/^\{bcrypt_ct\}//;
+    if ($hash_string =~ /$BCRYPT_CT/) {
+        $hash_string =~ s/^\{bcrypt_ct\}//;
+    }
+    else {
+        $hash_string =~ s/^\{bcrypt\}//;
+    }
 
     if ( $hashed_plaintext eq $hash_string ) {
         return $TRUE;
