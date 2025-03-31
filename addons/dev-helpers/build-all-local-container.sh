@@ -49,7 +49,7 @@ for img in ${CONTAINERS_IMAGES}; do
   echo "Building image $img_name"
 
   sub_splitter
-  if docker images --quiet --filter "reference=$img_name";then
+  if [[ -n $(docker images --quiet --filter "reference=$img_name") ]];then
 	  echo "$img_name exists"
   else
   	if [ "$img" == "fingerbank-db" ];then 
