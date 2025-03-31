@@ -2,11 +2,12 @@
 set -o nounset -o pipefail -o errexit
 
 #Debian Live CD
-ISO_IN=${ISO_IN:-debian-live-12.9.0-amd64-gnome.iso}
+ISO_IN=${ISO_IN:-debian-live-12.10.0-amd64-gnome.iso}
 ISO_OUT=${ISO_OUT:-asterfusion-packetfence-installer-R001.iso}
 CHROOT_PATH=/usr/local/pf/pf-iso
 PF_PATH=/usr/local/pf
 FREE_RADIUS_VERSION=3.2.2
+APT_PROXY=http://192.168.0.76:3142
 
 cleanup() {
   umount -l $CHROOT_PATH/chroot/sys/fs/cgroup/devices
@@ -33,7 +34,7 @@ rm -fr $CHROOT_PATH
 mkdir -p $CHROOT_PATH/iso
 
 # 解压原始 ISO
-xorriso -osirrox on -indev debian-live-12.9.0-amd64-gnome.iso -extract / $CHROOT_PATH/iso
+xorriso -osirrox on -indev $ISO_IN -extract / $CHROOT_PATH/iso
 
 # 解压 SquashFS 文件系统（适用于 Live CD）
 unsquashfs -d $CHROOT_PATH/chroot $CHROOT_PATH/iso/live/filesystem.squashfs
@@ -42,6 +43,8 @@ echo "asterfusion-debian-packetfence" | tee $CHROOT_PATH/chroot/etc/hostname
 cp /etc/resolv.conf $CHROOT_PATH/chroot/etc/resolv.conf
 chroot $CHROOT_PATH/chroot/ /etc/init.d/networking restart
 echo "deb http://deb.debian.org/debian bookworm main" | tee $CHROOT_PATH/chroot/etc/apt/sources.list
+touch $CHROOT_PATH/chroot/etc/apt/apt.conf.d/00aptproxy
+echo "Acquire::http::Proxy \"$APT_PROXY\";" | tee $CHROOT_PATH/chroot/etc/apt/apt.conf.d/00aptproxy
 chroot $CHROOT_PATH/chroot apt-get update
 chroot $CHROOT_PATH/chroot apt-get install -y --no-install-recommends vim net-tools apt-transport-https ca-certificates curl gnupg ssh
 
