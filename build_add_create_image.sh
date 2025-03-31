@@ -107,7 +107,11 @@ chroot $CHROOT_PATH/chroot/ apt-get install -y  --no-install-recommends \
 				libykclient3 \
 				libhiredis0.14 \
 				libyubikey0 \
-				libcollectdclient1
+				libcollectdclient1 \
+				lsb-release \
+				wget \
+				gnupg2 \
+				mariadb-backup
 
 echo "installing freeradius-*"
 chroot $CHROOT_PATH/chroot/ bash -c "dpkg -i /home/result/debian/bookworm/libfreeradius3_$FREE_RADIUS_VERSION+git-2_amd64.deb"
