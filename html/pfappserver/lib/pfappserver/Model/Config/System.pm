@@ -31,13 +31,11 @@ extends 'Catalyst::Model';
 sub check_mysqld_status {
     my ( $self ) = @_;
     my $logger = get_logger();
-    my $cmd = "systemctl show -p MainPID $DB_SERVICE_NAME";
-    # -x: this causes the program to also return process id's of shells running the named scripts.
-    my $mainpid;
-    chomp($mainpid = `$cmd`);
+    my $mainpid = safe_pf_run(qw(systemctl show -p MainPID), $DB_SERVICE_NAME);
+    chomp($mainpid);
     my (undef,$pid) = split('=', $mainpid);
     $pid = 0 if ( !$pid );
-    $logger->info("$cmd returned $pid");
+    $logger->info("systemctl show -p MainPID $DB_SERVICE_NAME returned $pid");
 
     return ($pid);
 }
@@ -101,7 +99,7 @@ sub setDefaultRoute {
 
     my $cmd = "sudo ip route replace to default via $gateway 2>&1";
     $logger->debug("Replace default gateway: $cmd");
-    $status = safe_pf_run(qw(sudo ip route replace to default via), $gateway , {accepted_exit_status => [ $_EXIT_CODE_EXISTS ]});
+    $status = safe_pf_run(qw(sudo ip route replace to default via), $gateway , {accepted_exit_status => [ $_EXIT_CODE_EXISTS ], redirect_stderr_to_stdout => 1});
 
     # Everything goes as expected
     if (defined($status)) {
