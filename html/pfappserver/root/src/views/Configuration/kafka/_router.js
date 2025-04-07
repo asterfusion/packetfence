@@ -10,16 +10,11 @@ export const beforeEnter = (to, from, next = () => {}) => {
   next()
 }
 
-const can = () => !store.getters['system/isSaas']
-
 export default [
   {
     path: 'kafka',
     name: 'kafka',
     component: TheView,
-    meta: {
-      can
-    },
     beforeEnter
   }
 ]
