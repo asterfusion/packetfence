@@ -716,6 +716,10 @@ func (rs *RadiusStatements) updateNodeOnlineOfflineOnline(status rfc2866.AcctSta
 	default:
 		err = errors.New("Invalid status")
 	case rfc2866.AcctStatusType_Value_Start, rfc2866.AcctStatusType_Value_InterimUpdate:
+		isUnreg, _ := rs.IsUnreg(mac.String())
+		if isUnreg {
+			return err
+		}
 		_, err = tryExecute(
 			3,
 			10*time.Millisecond,
