@@ -2,3 +2,9 @@
 dpkg-buildpackage -us -uc - b
 
 #if you want to build it on other system, please change the dependence version on debian/control.
+
+#How to use it.
+0.copy the udp-reflector_*.deb to remote dhcp server
+1.sudo dokg -i udp-reflector_*.deb
+2.sudo vim /lib/systemd/system/udp-reflector.service, change the pcap0 and 192.168.18.50 with the real pcap num or packetfence IP.
+3.sudo systemctl daemon-relaod & sudo systemctl start udp-reflector & sudo systemctl enable udp-reflector
