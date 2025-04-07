@@ -1,0 +1,14 @@
+[Unit]
+Description=UDP Reflector Service
+After=network.target
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=1
+User=root
+ExecStart=/usr/bin/udp_reflector -s pcap0:67 -d 192.168.18.50:767 -b 25000
+
+[Install]
+WantedBy=multi-user.target

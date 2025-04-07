@@ -1,0 +1,12 @@
+Source: udp-reflector
+Section: main
+Priority: optional
+Maintainer: Asterfusion PAC Team <wanglin@asterfusion.com>
+Build-Depends: debhelper-compat (= 13), libpcap-dev
+
+
+Package: udp-reflector
+Architecture: any
+Depends: ${misc:Depends}, ${shlibs:Depends}, libpcap0.8
+Description: UDP reflector service for network packet reflection
+
