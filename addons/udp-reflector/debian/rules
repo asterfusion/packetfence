@@ -1,0 +1,20 @@
+#!/usr/bin/make -f
+
+%:
+	dh $@
+
+override_dh_auto_build:
+	$(MAKE)
+
+override_dh_auto_install:
+	$(MAKE) install DESTDIR=$(CURDIR)/debian/udp-reflector
+
+override_dh_installinit:
+	dh_installinit --name=udp-reflector
+
+override_dh_installsystemd:
+	dh_installsystemd --name=udp-reflector --no-enable --no-start
+
+override_dh_clean:
+	$(MAKE) clean
+	dh_clean

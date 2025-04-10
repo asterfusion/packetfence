@@ -1,0 +1,16 @@
+This file from:
+wget http://inverse.ca/downloads/PacketFence/udp-reflector/udp_reflector.cpp
+
+You can built it by:
+g++ udp_reflector.cpp -o udp_reflector -lpcap
+
+How to use it:
+1. Copy udp_reflectot to your DHCP server
+cp udp_reflector /usr/local/bin/
+
+2. Find the pacp num which bind to your DHCP server ip addr, say that the pcap1 binds to the server ip.
+udp_reflector -l
+
+3. Run command like below, you should only change the "pcap1" and "192.168.18.188" 
+udp_reflector -s pcap1:67 -d 192.168.18.188:767 -b 25000 &
+which means udp_reflector listening on port 67 of pcap1, sending messages to 192.168.18.188 with dport 767 sport 25000, "&" mean it runs in the background. 
