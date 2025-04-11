@@ -7548,6 +7548,7 @@ our $RADIUS_DICTIONARY = bless(
             "Zyxel-Callback-Option"                      => "Zyxel",
             "Zyxel-Callback-Phone-Source"                => "Zyxel",
             "Zyxel-Privilege-AVPair"                     => "Zyxel",
+            "Aster-Disconnect-Cause"                     => "Aster",
         },
         rattr => {
             1    => [ "User-Name",                              "string" ],
@@ -15539,6 +15540,9 @@ our $RADIUS_DICTIONARY = bless(
                 1 => [ "Nile-Redirect-URL", "string" ],
                 2 => [ "Nile-Netseg",       "string" ],
                 3 => [ "Nile-AVPair",       "string" ],
+            },
+	    56928 => {
+                3 => [ "Aster-Disconnect-Cause",       "string" ],
             },
         },
         rvsaval => {
@@ -24082,6 +24086,7 @@ our $RADIUS_DICTIONARY = bless(
             "Zeus"                          => 7146,
             "ZTE"                           => 3902,
             "Zyxel"                         => 890,
+            "Aster"                         => 56928,
         },
         vsattr => {
             4 => {
@@ -30985,6 +30990,9 @@ our $RADIUS_DICTIONARY = bless(
                 "Nile-AVPair"       => [ 3, "string" ],
                 "Nile-Netseg"       => [ 2, "string" ],
                 "Nile-Redirect-URL" => [ 1, "string" ],
+            },
+            56928 => {
+                "Aster-Disconnect-Cause"       => [ 3, "string" ],
             },
         },
         vsaval => {

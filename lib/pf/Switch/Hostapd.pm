@@ -34,6 +34,7 @@ sub description { 'Hostapd' }
 use pf::Switch::constants;
 use pf::util;
 use pf::util::radius qw(perform_disconnect);
+use pf::node    qw(node_attributes);
 
 =head1 SUBROUTINES
 
@@ -116,6 +117,8 @@ Uses L<pf::util::radius> for the low-level RADIUS stuff.
 sub radiusDisconnect {
     my ($self, $mac, $add_attributes_ref) = @_;
     my $logger = $self->logger;
+    my $node_info = node_attributes($mac);
+    my @vsas;
 
     # initialize
     $add_attributes_ref = {} if (!defined($add_attributes_ref));
@@ -141,6 +144,13 @@ sub radiusDisconnect {
     $send_disconnect_to = $add_attributes_ref->{'NAS-IP-Address'}
         if (defined($add_attributes_ref->{'NAS-IP-Address'}));
 
+    if ($node_info->{status} eq 'reg') {
+        push @vsas, {vendor => "Aster", attribute => "Aster-Disconnect-Cause", value => "Portal-Disconnect" };
+        $logger->debug("Portal-Disconnect $mac.");
+    } else {
+        push @vsas, {vendor => "Aster", attribute => "Aster-Disconnect-Cause", value => "Admin-Disconnect" };
+        $logger->debug("Admin-Disconnect $mac.");
+    }
     my $response;
     try {
         my $connection_info = $self->radius_deauth_connection_info($send_disconnect_to);
@@ -157,7 +167,7 @@ sub radiusDisconnect {
         # merging additional attributes provided by caller to the standard attributes
         $attributes_ref = { %$attributes_ref, %$add_attributes_ref };
 
-        $response = perform_disconnect($connection_info, $attributes_ref);
+        $response = perform_disconnect($connection_info, $attributes_ref, \@vsas);
     } catch {
         chomp;
         $logger->warn("Unable to perform RADIUS Disconnect-Request: $_");

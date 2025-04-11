@@ -3,4 +3,5 @@ VENDOR          Aster          56928
 BEGIN-VENDOR    Aster
 ATTRIBUTE       Aster-Terminal-Vendor         1   string
 ATTRIBUTE       Aster-Terminal-Type           2   string
+ATTRIBUTE       Aster-Disconnect-Cause        3   string
 END-VENDOR      Aster
