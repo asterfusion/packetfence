@@ -99,6 +99,23 @@ sub _initialize {
 
     $self->{'_cgi'} = $cgi;
 
+    my $param_mac = $cgi->param('mac');
+    my $param_ip = $cgi->param('ip');
+
+    if (defined($param_mac) && defined($param_ip) &&
+        $param_mac ne '' && $param_ip ne '' &&
+        $param_mac ne $DUMMY_MAC) {
+        require pf::ip4log;
+        require pf::util;
+
+        if (pf::util::valid_mac($param_mac) && pf::util::valid_ip($param_ip)) {
+            pf::ip4log::open($param_ip, $param_mac);
+            $logger->info("Successfully recorded MAC-IP mapping to ip4log - MAC: $param_mac, IP: $param_ip ");
+        } else {
+            $logger->warn("Invalid MAC or IP format from CGI params: MAC=$param_mac, IP=$param_ip");
+        }
+    }
+
     my $md5_mac = defined($mac) ? md5_hex($mac) : undef;
     my $sid;
     if (defined($session_id)) {
