@@ -2,7 +2,8 @@
 
 /usr/local/pf/logs/*log {
     daily
-    rotate 90
+    size 100M
+    rotate 30
     missingok
     compress
     copytruncate
@@ -19,6 +20,7 @@
 
 /usr/local/pf/logs/httpd.apache {
     daily
+    size 100M
     rotate 7
     missingok
     compress
@@ -38,6 +40,7 @@
 # an upgrade to v12.0.0
 /usr/local/pf/logs/httpd.*.access /usr/local/pf/logs/httpd.*.error /usr/local/pf/logs/httpd.*.catalyst {
     daily
+    size 100M
     rotate 7
     missingok
     compress
