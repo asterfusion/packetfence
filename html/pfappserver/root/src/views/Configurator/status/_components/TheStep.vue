@@ -76,16 +76,19 @@ const setup = (props, context) => {
           waitForPfPerlApiStartup().then(() => {
             progressFeedback.value = i18n.t('Restarting Haproxy Admin')
             return $store.dispatch('cluster/restartService', { id: 'haproxy-admin' }).then(() => {
-              progressFeedback.value = i18n.t('Starting PacketFence')
-              return $store.dispatch('cluster/startService', { id: 'pf' }).then(() => {
-                progressFeedback.value = i18n.t('Disabling Configurator')
-                return advancedPromise.then(data => {
-                  data.configurator = 'disabled'
-                  return $store.dispatch('$_bases/updateAdvanced', data).then(() => {
-                    progressFeedback.value = i18n.t('Redirecting to login page')
-                    setTimeout(() => {
-                      window.location.href = '/'
-                    }, 2000)
+              progressFeedback.value = i18n.t('Restarting Queue Backend')
+              return $store.dispatch('cluster/restartService', { id: 'pfqueue-backend' }).then(() => {
+                progressFeedback.value = i18n.t('Starting PacketFence')
+                return $store.dispatch('cluster/startService', { id: 'pf' }).then(() => {
+                  progressFeedback.value = i18n.t('Disabling Configurator')
+                  return advancedPromise.then(data => {
+                    data.configurator = 'disabled'
+                    return $store.dispatch('$_bases/updateAdvanced', data).then(() => {
+                      progressFeedback.value = i18n.t('Redirecting to login page')
+                      setTimeout(() => {
+                        window.location.href = '/'
+                      }, 2000)
+                    })
                   })
                 })
               })
