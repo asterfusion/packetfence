@@ -29,4 +29,5 @@ WORKDIR /usr/local/pf/
 COPY --from=0 /usr/local/pf/html /usr/local/pf/html
 COPY --from=0 /usr/local/pf/go/pfhttpd /usr/local/pf/sbin/pfhttpd
 COPY --from=0 /usr/local/pf/go/httpdispatcher /usr/local/pf/sbin/httpdispatcher
+COPY ./html/common/styles.css /usr/local/pf/html/common/
 ENTRYPOINT /usr/local/pf/sbin/pfhttpd run --adapter caddyfile -c /usr/local/pf/conf/caddy-services/httpdispatcher.conf
