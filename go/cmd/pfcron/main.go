@@ -81,13 +81,13 @@ func wrapJob(logger log.PfLogger, j string, l bool) cron.Job {
 
 		select {
 		case v := <-ch:
+			defer func() { ch <- v }()
 			if job := maint.GetJob(j, maint.GetMaintenanceConfig(context.Background())); job != nil {
 				logger.Info("Running " + j)
 				job.Run()
 			} else {
 				logger.Error("Cannot create job " + j)
 			}
-			ch <- v
 		default:
 			logger.Info(" Skipped " + j)
 		}
