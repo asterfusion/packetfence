@@ -33,8 +33,10 @@ use pf::UnifiedApi::Controller;
 use pf::UnifiedApi::Controller::Config::Switches;
 use pf::I18N::pfappserver;
 use pfconfig::refresh_last_touch_cache;
+use pf::log;
 our $MAX_REQUEST_HANDLED = 2000;
 our $REQUEST_HANDLED_JITTER = 500;
+our $MAX_CHILD_CACHE = 2 * 1024 * 1024;  # 2GB in KB
 
 has commands => sub {
   my $commands = Mojolicious::Commands->new(app => shift);
@@ -146,7 +148,28 @@ sub after_dispatch_cb {
 
     my $app = $c->app;
     my $max = $app->{max_requests_handled} //= add_jitter( $MAX_REQUEST_HANDLED, $REQUEST_HANDLED_JITTER );
-    if (++$app->{requests_handled} >= $max) {
+    my $status_file  = "/proc/$$/status";
+    my $vm_rss;
+    my $cache_exceed = 0;
+
+    if (open my $fh, '<', $status_file) {
+        while (<$fh>) {
+            if (/^VmRSS:\s+(\d+)\s+kB/) {
+                $vm_rss = $1;
+                last;
+            }
+        }
+        close $fh;
+        get_logger->debug("vm_rss $vm_rss, max $MAX_CHILD_CACHE.");
+        if (defined $vm_rss) {
+            if ($vm_rss > $MAX_CHILD_CACHE) {
+                $cache_exceed = 1;
+            }
+        }
+    }
+    get_logger->debug("Worker $$ handled $app->{requests_handled} requests,max $max, cache_exceed=$cache_exceed.");
+    if (++$app->{requests_handled} >= $max || $cache_exceed) {
+        get_logger->debug("Worker $$ handled $max requests, exiting.");
         kill 'QUIT', $$;
     }
 
