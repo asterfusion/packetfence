@@ -376,7 +376,12 @@ sub validate_password {
     if ( _check_password( $password, $temppass_record->{'password'}) ) {
         # password is valid but not yet valid
         # valid_from is in unix timestamp format so an int comparison is enough
-        my $valid_from = Time::Piece->strptime($temppass_record->{'valid_from'}, "%Y-%m-%d %H:%M:%S")->epoch;
+        my $valid_from_str = $temppass_record->{'valid_from'};
+        my $valid_from = 0;
+
+        if (defined $valid_from_str && $valid_from_str ne '0000-00-00 00:00:00') {
+            $valid_from = Time::Piece->strptime($valid_from_str, "%Y-%m-%d %H:%M:%S")->epoch;
+        }
         my $expiration_time = Time::Piece->strptime($temppass_record->{'expiration'}, "%Y-%m-%d %H:%M:%S")->epoch;
         $logger->debug("valid_from:$valid_from, expiration_time:$expiration_time");
         if ( defined $valid_from && $valid_from > time ) {
