@@ -43,6 +43,7 @@ use pf::nodecategory;
 use pf::Authentication::constants;
 use Crypt::Eksblowfish::Bcrypt qw(bcrypt_hash en_base64 de_base64 );
 use Bytes::Random::Secure;
+use Time::Piece;
 
 
 # Authenticatation return codes
@@ -359,7 +360,7 @@ sub validate_password {
             'password.pid' => $pid,
             'person.potd' => $allow_potd ? 'yes' : ['no', undef],
         },
-        -columns => [qw(password.pid|pid password.password|password), 'IFNULL(UNIX_TIMESTAMP(valid_from),0)|valid_from', 'IFNULL(UNIX_TIMESTAMP(expiration),0)|expiration', qw(password.access_duration|access_duration password.category|category person.potd|potd)],
+        -columns => [qw(password.pid|pid password.password|password), 'valid_from', 'expiration', qw(password.access_duration|access_duration password.category|category person.potd|potd)],
         #To avoid a join
         -limit => 1,
     );
@@ -374,7 +375,14 @@ sub validate_password {
     if ( _check_password( $password, $temppass_record->{'password'}) ) {
         # password is valid but not yet valid
         # valid_from is in unix timestamp format so an int comparison is enough
-        my $valid_from = $temppass_record->{'valid_from'};
+        my $valid_from_str = $temppass_record->{'valid_from'};
+        my $valid_from = 0;
+
+        if (defined $valid_from_str && $valid_from_str ne '0000-00-00 00:00:00') {
+            $valid_from = Time::Piece->strptime($valid_from_str, "%Y-%m-%d %H:%M:%S")->epoch;
+        }
+        my $expiration_time = Time::Piece->strptime($temppass_record->{'expiration'}, "%Y-%m-%d %H:%M:%S")->epoch;
+        $logger->debug("valid_from:$valid_from, expiration_time:$expiration_time");
         if ( defined $valid_from && $valid_from > time ) {
             $logger->info("Password validation failed for $pid: password not yet valid, please verify the Registration Window");
             return $AUTH_FAILED_NOT_YET_VALID;
@@ -382,7 +390,7 @@ sub validate_password {
 
         # password is valid but expired
         # expiration is in unix timestamp format so an int comparison is enough
-        if ( $temppass_record->{'expiration'} < time ) {
+        if ( defined $expiration_time && $expiration_time < time ) {
             $logger->info("Password validation failed for $pid: password has expired");
             return $AUTH_FAILED_EXPIRED;
         }
