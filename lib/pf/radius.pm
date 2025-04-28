@@ -382,10 +382,12 @@ sub authorize {
                 {
                     my $online_count = 0;
                     foreach my $node_item ( @$items ) {
-                        my ($status_code, $node_current_session_info) = pf::dal::node_current_session->find_or_create({"mac" => $node_item->{'mac'}});
-                        if (is_success($status_code)) {
-                            if ($node_current_session_info->{'is_online'} == 1) {
-                                $online_count++;
+                        if ($node_item->{'mac'} ne $mac) {
+                            my ($status_code, $node_current_session_info) = pf::dal::node_current_session->find_or_create({"mac" => $node_item->{'mac'}});
+                            if (is_success($status_code)) {
+                                if ($node_current_session_info->{'is_online'} == 1) {
+                                    $online_count++;
+                                }
                             }
                         }
                     }
@@ -415,7 +417,8 @@ sub authorize {
                 if (is_success($status_code)) {
                     my $now = localtime;
                     my $target_time = Time::Piece->strptime($node_current_session_info->{'updated'}, "%Y-%m-%d %H:%M:%S");
-                    $diff = abs($now->epoch - $target_time->epoch);
+                    my $now_time = Time::Piece->strptime($now, "%a %b %d %H:%M:%S %Y");
+                    $diff = abs($now_time->epoch - $target_time->epoch);
                 }
                 if ($diff > $roaming_latency)
                 {

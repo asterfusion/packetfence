@@ -42,7 +42,7 @@ BEGIN {
     %DEFAULTS = (
         mac => '',
         last_session_id => '0',
-        is_online => '1',
+        is_online => '0',
     );
 
     @INSERTABLE_FIELDS = qw(
