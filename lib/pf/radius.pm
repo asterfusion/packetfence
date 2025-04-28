@@ -382,13 +382,15 @@ sub authorize {
                 {
                     my $online_count = 0;
                     foreach my $node_item ( @$items ) {
-                        my ($status_code, $node_current_session_info) = pf::dal::node_current_session->find_or_create({"mac" => $node_item->{'mac'}});
-                        if (is_success($status_code)) {
-                            if ($node_current_session_info->{'is_online'} == 1) {
-                                $online_count++;
+                        if ($node_item->{'mac'} ne $mac) {
+                            my ($status_code, $node_current_session_info) = pf::dal::node_current_session->find_or_create({"mac" => $node_item->{'mac'}});
+                            if (is_success($status_code)) {
+                                if ($node_current_session_info->{'is_online'} == 1) {
+                                    $online_count++;
+                                }
                             }
                         }
-                    }
+        		    }
                     if ($online_count >= $max_online_num) {
                         # exceed max online notify
                         my $apiclient = pf::client::getClient;
@@ -413,10 +415,10 @@ sub authorize {
                 my ($status_code, $node_current_session_info) = pf::dal::node_current_session->find_or_create({"mac" => $mac});
                 my $diff = 0;
                 if (is_success($status_code)) {
-                    my $now = localtime;
+		            my $now = localtime;
                     my $target_time = Time::Piece->strptime($node_current_session_info->{'updated'}, "%Y-%m-%d %H:%M:%S");
-                    $diff = abs($now->epoch - $target_time->epoch);
-                }
+                                        $diff = abs($now->epoch - $target_time->epoch);
+		}
                 if ($diff > $roaming_latency)
                 {
                 # online notify
