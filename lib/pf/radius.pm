@@ -390,7 +390,7 @@ sub authorize {
                                 }
                             }
                         }
-        		    }
+                    }
                     if ($online_count >= $max_online_num) {
                         # exceed max online notify
                         my $apiclient = pf::client::getClient;
@@ -415,11 +415,11 @@ sub authorize {
                 my ($status_code, $node_current_session_info) = pf::dal::node_current_session->find_or_create({"mac" => $mac});
                 my $diff = 0;
                 if (is_success($status_code)) {
-		            my $now = localtime;
+                    my $now = localtime;
                     my $target_time = Time::Piece->strptime($node_current_session_info->{'updated'}, "%Y-%m-%d %H:%M:%S");
                     my $now_time = Time::Piece->strptime($now, "%a %b %d %H:%M:%S %Y");
                     $diff = abs($now_time->epoch - $target_time->epoch);
-		}
+                }
                 if ($diff > $roaming_latency)
                 {
                 # online notify
