@@ -417,7 +417,8 @@ sub authorize {
                 if (is_success($status_code)) {
 		            my $now = localtime;
                     my $target_time = Time::Piece->strptime($node_current_session_info->{'updated'}, "%Y-%m-%d %H:%M:%S");
-                                        $diff = abs($now->epoch - $target_time->epoch);
+                    my $now_time = Time::Piece->strptime($now, "%a %b %d %H:%M:%S %Y");
+                    $diff = abs($now_time->epoch - $target_time->epoch);
 		}
                 if ($diff > $roaming_latency)
                 {
