@@ -393,16 +393,15 @@ sub authorize {
                     }
                     if ($online_count >= $max_online_num) {
                         # exceed max online notify
-                        my $apiclient = pf::client::getClient;
+                        my $apiclient = pf::api::queue->new(queue => 'priority');
                         my %security_event = (
                             'mac'   => $mac,
                             'tid'   => $max_online_num,
                             'type'  => $TRIGGER_TYPE_MAX_ONLINE,
                         );
                         $apiclient->notify('trigger_security_event', %security_event);
-
-                        $RAD_REPLY_REF = [ $RADIUS::RLM_MODULE_FAIL, ('Reply-Message' => "Exceeded the maximum number of online sessions allowed per user. The maximum allowed is $max_online_num.") ];
-                        goto AUDIT;
+                        node_deregister($mac);
+                        $vlan = 0;
                     }
                 }
             }
@@ -423,7 +422,7 @@ sub authorize {
                 if ($diff > $roaming_latency)
                 {
                 # online notify
-                    my $apiclient = pf::client::getClient;
+                    my $apiclient = pf::api::queue->new(queue => 'priority');
                     my %security_event = (
                         'mac'   => $mac,
                         'tid'   => $roaming_latency,
