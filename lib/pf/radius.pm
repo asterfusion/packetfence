@@ -591,9 +591,10 @@ sub update_locationlog_accounting {
         return [ $RADIUS::RLM_MODULE_FAIL, ( 'Reply-Message' => "Switch is not managed by PacketFence" ) ];
     }
 
-    if ($switch->supportsRoamingAccounting()) {
-        my ($nas_port_type, $eap_type, $mac, $port, $user_name, $nas_port_id, $session_id, $ifDesc) = $switch->parseRequest($radius_request);
-        my $locationlog_mac = locationlog_last_entry_mac($mac);
+    my ($nas_port_type, $eap_type, $mac, $port, $user_name, $nas_port_id, $session_id, $ifDesc) = $switch->parseRequest($radius_request);
+    my $locationlog_mac = locationlog_last_entry_mac($mac);
+
+    if ($switch->supportsRoamingAccounting() && $locationlog_mac && $locationlog_mac->{switch_ip} ne $switch_ip) {
         if (defined($locationlog_mac) && ref($locationlog_mac) eq 'HASH') {
             my $connection_type = str_to_connection_type($locationlog_mac->{connection_type});
             my $connection_sub_type = $locationlog_mac->{connection_sub_type};
@@ -606,6 +607,36 @@ sub update_locationlog_accounting {
             $vlan = $radius_request->{'Tunnel-Private-Group-ID'} if ( (defined( $radius_request->{'Tunnel-Type'}) && $radius_request->{'Tunnel-Type'} eq '13') && (defined($radius_request->{'Tunnel-Medium-Type'}) && $radius_request->{'Tunnel-Medium-Type'} eq '6') );
             $port = $switch->getIfIndexByNasPortId($nas_port_id) || $self->_translateNasPortToIfIndex($connection_type, $switch, $port);
             $switch->synchronize_locationlog($port, $vlan, $mac, undef, $connection_type, $connection_sub_type, $user_name, $ssid, $stripped_user_name, $realm, $locationlog_mac->{role}, $ifDesc);
+
+            my $node_info = node_attributes($mac);
+            if ($node_info->{status} eq "unreg") {
+                $logger->debug("desAssociate_in_queue $mac in $switch_ip");
+                my $locationlog_entry = locationlog_last_entry_non_inline_mac($mac);
+                my $args = {
+                    switch => $switch,
+                    switch_mac => $switch_mac,
+                    switch_ip => $switch_ip,
+                    stripped_user_name => $stripped_user_name,
+                    realm => $realm,
+                    mac => $mac,
+                    ifIndex => $port,
+                    ifDesc => $ifDesc,
+                    user_name => $user_name,
+                    session_id => $session_id,
+                    connection_type => $connection_type,
+                    connection_sub_type => $connection_sub_type,
+                    ssid => $locationlog_entry->{'ssid'},
+                    role => $locationlog_entry->{'role'},
+                    vlan => $locationlog_entry->{'vlan'},
+                    node_info => pf::node::node_attributes($mac),
+                    profile => pf::Connection::ProfileFactory->instantiate($mac),
+                };
+                $args->{switch} = $args->{'switch'}{_id};
+
+                my $client = pf::api::queue->new(queue => 'priority');
+                $client->notify( 'desAssociate_in_queue', $args );
+            }
+
             return [ $RADIUS::RLM_MODULE_OK, ('Reply-Message' => "Update locationlog from accounting ok") ];
         }
     }
