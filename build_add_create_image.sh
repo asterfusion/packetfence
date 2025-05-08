@@ -365,6 +365,8 @@ chroot $CHROOT_PATH/chroot/ bash -c "dpkg -i /home/result/debian/bookworm/packet
 cp $PF_PATH/result/debian/bookworm/packetfence_*+bookworm1_all.deb $CHROOT_PATH/chroot/usr/local/pf
 cp $PF_PATH/install_packetfence.sh $CHROOT_PATH/chroot/usr/sbin/
 chroot $CHROOT_PATH/chroot/ chmod +x /usr/sbin/install_packetfence.sh
+cp $PF_PATH/asterfusion_pf_upgrade.sh $CHROOT_PATH/chroot/usr/local/pf
+chroot $CHROOT_PATH/chroot/ chmod +x /usr/local/pf/asterfusion_pf_upgrade.sh
 
 chroot $CHROOT_PATH/chroot systemctl set-default multi-user.target
 
