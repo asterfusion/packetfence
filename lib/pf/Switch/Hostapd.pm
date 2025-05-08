@@ -47,6 +47,7 @@ use pf::node    qw(node_attributes);
 use pf::SwitchSupports qw(
     WirelessDot1x
     WirelessMacAuth
+    RoamingAccounting
 );
 # inline capabilities
 sub inlineCapabilities { return ($MAC,$SSID); }

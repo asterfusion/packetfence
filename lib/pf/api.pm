@@ -1497,7 +1497,7 @@ sub handle_accounting_metadata : Public {
     my $return = [ $RADIUS::RLM_MODULE_OK, ('Reply-Message' => "Accounting OK") ];
     my $mac = pf::util::clean_mac($RAD_REQUEST->{'Calling-Station-Id'});
     my $acct_status_type = $RAD_REQUEST->{'Acct-Status-Type'};
-    if ($acct_status_type == $ACCOUNTING::START) {
+    if ($acct_status_type != $ACCOUNTING::STOP) {
         #
         # Updating location log in on initial ('Start') accounting run.
         #
