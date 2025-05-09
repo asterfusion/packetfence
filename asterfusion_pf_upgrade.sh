@@ -30,11 +30,12 @@ export_db(){
     mysql -u root -e "GRANT RELOAD, PROCESS ON *.* TO 'pf'@'localhost'; FLUSH PRIVILEGES;"
 
     /usr/local/pf/addons/backup-and-maintenance.sh > /dev/null
-    gzip -dk /root/backup/packetfence-db-dump-innobackup-*.xbstream.gz > /dev/null
+    latest_db=$(ls -1t /root/backup/packetfence-db-dump-innobackup-*.xbstream.gz | head -n 1)
+    gzip -dk $latest_db > /dev/null
     mkdir -p /root/backup/restore/
-    
+
     pushd /root/backup/restore/
-    
+
     mv /root/backup/packetfence-db-dump-innobackup-*.xbstream /root/backup/restore/
     mbstream -x < packetfence-db-dump-innobackup-*.xbstream > /dev/null
     rm packetfence-db-dump-innobackup-*.xbstream
