@@ -406,6 +406,8 @@ sub authorize {
                 }
             }
         }
+    }
+    if ($vlan) {
         # notify for online device
         foreach my $info (@DEVICE_ONLINE_TRIGGERS) {
             # $logger->debug(sub { use Data::Dumper; "search DEVICE_ONLINE_TRIGGERS ".Dumper($info)});
