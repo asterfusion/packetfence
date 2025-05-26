@@ -33,6 +33,7 @@ use pf::config qw(
     $SELFREG_MODE_GITHUB
     $SELFREG_MODE_GOOGLE
     $SELFREG_MODE_FACEBOOK
+    $SELFREG_MODE_FEISHU
     $INLINE
     $management_network
     @internal_nets
@@ -118,9 +119,10 @@ sub iptables_generate {
     my $google_enabled = $guest_self_registration{$SELFREG_MODE_GOOGLE};
     my $facebook_enabled = $guest_self_registration{$SELFREG_MODE_FACEBOOK};
     my $github_enabled = $guest_self_registration{$SELFREG_MODE_GITHUB};
+    my $feishu_enabled = $guest_self_registration{$SELFREG_MODE_FEISHU};
     my $passthrough_enabled = (isenabled($Config{'fencing'}{'passthrough'}) || isenabled($Config{'fencing'}{'isolation_passthrough'}));
 
-    if ($google_enabled || $facebook_enabled || $github_enabled || $passthrough_enabled) {
+    if ($google_enabled || $facebook_enabled || $github_enabled || $feishu_enabled || $passthrough_enabled) {
         my @lines  = safe_pf_run(qw(sudo ipset --create pfsession_passthrough),  'hash:ip,port');
         @lines  = safe_pf_run(qw(sudo ipset --create pfsession_isol_passthrough), 'hash:ip,port');
     }

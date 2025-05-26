@@ -49,7 +49,7 @@ sub _set_guest_self_registration {
         $pf::constants::config::SELFREG_MODE_SPONSOR,  $pf::constants::config::SELFREG_MODE_GOOGLE,
         $pf::constants::config::SELFREG_MODE_FACEBOOK, $pf::constants::config::SELFREG_MODE_GITHUB,
         $pf::constants::config::SELFREG_MODE_LINKEDIN, $pf::constants::config::SELFREG_MODE_WIN_LIVE,
-        $pf::constants::config::SELFREG_MODE_TWITTER,
+        $pf::constants::config::SELFREG_MODE_TWITTER,  $pf::constants::config::SELFREG_MODE_FEISHU,
         )
     {
         $self->{guest_self_registration}{$mode} = $TRUE
