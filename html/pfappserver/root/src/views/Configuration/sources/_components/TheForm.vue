@@ -33,6 +33,7 @@ import FormTypeEmail from './FormTypeEmail'
 import FormTypeFacebook from './FormTypeFacebook'
 import FormTypeGithub from './FormTypeGithub'
 import FormTypeGoogle from './FormTypeGoogle'
+import FormTypeFeishu from './FormTypeFeishu'
 import FormTypeHtpasswd from './FormTypeHtpasswd'
 import FormTypeHttp from './FormTypeHttp'
 import FormTypeKerberos from './FormTypeKerberos'
@@ -66,6 +67,7 @@ const components = {
   FormTypeFacebook,
   FormTypeGithub,
   FormTypeGoogle,
+  FormTypeFeishu,
   FormTypeHtpasswd,
   FormTypeHttp,
   FormTypeKerberos,
@@ -107,6 +109,7 @@ export const setup = (props) => {
       case 'Facebook':            return FormTypeFacebook //break
       case 'Github':              return FormTypeGithub //break
       case 'Google':              return FormTypeGoogle //break
+      case 'Feishu':              return FormTypeFeishu //break
       case 'GoogleWorkspaceLDAP': return FormTypeLdap //break
       case 'Htpasswd':            return FormTypeHtpasswd //break
       case 'HTTP':                return FormTypeHttp //break

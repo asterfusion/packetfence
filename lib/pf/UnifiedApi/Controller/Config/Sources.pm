@@ -37,6 +37,7 @@ use pfappserver::Form::Config::Source::Email;
 use pfappserver::Form::Config::Source::Facebook;
 use pfappserver::Form::Config::Source::Github;
 use pfappserver::Form::Config::Source::Google;
+use pfappserver::Form::Config::Source::Feishu;
 use pfappserver::Form::Config::Source::GoogleWorkspaceLDAP;
 use pfappserver::Form::Config::Source::Htpasswd;
 use pfappserver::Form::Config::Source::HTTP;
@@ -72,6 +73,7 @@ our %TYPES_TO_FORMS = (
       Facebook
       Github
       Google
+      Feishu
       GoogleWorkspaceLDAP
       Htpasswd
       HTTP

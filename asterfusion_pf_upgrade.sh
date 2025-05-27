@@ -64,6 +64,7 @@ import_db(){
     mysql_upgrade
     
     systemctl restart packetfence-mariadb 
+    mysql -u root -e "USE pf; TRUNCATE TABLE node_current_session;"
 }
 
 tar_config(){

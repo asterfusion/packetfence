@@ -83,6 +83,7 @@ export const moduleTypes = () => {
         { type: 'Authentication::OAuth::Facebook', name: 'Facebook' },
         { type: 'Authentication::OAuth::Github', name: 'Github' },
         { type: 'Authentication::OAuth::Google', name: 'Google' },
+        { type: 'Authentication::OAuth::Feishu', name: 'Feishu' },
         { type: 'Authentication::OAuth::LinkedIn', name: 'LinkedIn' },
         { type: 'Authentication::OAuth::OpenID', name: 'OpenID' },
         { type: 'Authentication::OAuth::WindowsLive', name: 'WindowsLive' },

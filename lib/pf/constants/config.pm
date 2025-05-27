@@ -49,6 +49,7 @@ our @EXPORT_OK = qw(
   $SELFREG_MODE_NULL
   $SELFREG_MODE_KICKBOX
   $SELFREG_MODE_BLACKHOLE
+  $SELFREG_MODE_FEISHU
   %NET_INLINE_TYPES
 
   $DEFAULT_SMTP_PORT
@@ -129,6 +130,7 @@ Readonly our $SELFREG_MODE_TWITTER   => 'twitter';
 Readonly our $SELFREG_MODE_NULL   => 'null';
 Readonly our $SELFREG_MODE_KICKBOX   => 'kickbox';
 Readonly our $SELFREG_MODE_BLACKHOLE => 'blackhole';
+Readonly our $SELFREG_MODE_FEISHU => 'feishu';
 
 Readonly our %NET_INLINE_TYPES =>  (
     $NET_TYPE_INLINE    => undef,

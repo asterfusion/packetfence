@@ -2,7 +2,7 @@
 set -o nounset -o pipefail -o errexit
 
 #Debian Live CD
-ISO_IN=${ISO_IN:-debian-live-12.10.0-amd64-gnome.iso}
+ISO_IN=${ISO_IN:-debian-live-12.11.0-amd64-gnome.iso}
 ISO_OUT=${ISO_OUT:-asterfusion-packetfence-installer-R001.iso}
 CHROOT_PATH=/usr/local/pf/pf-iso
 PF_PATH=/usr/local/pf
@@ -187,6 +187,16 @@ chroot $CHROOT_PATH/chroot/ apt-get install -y --no-install-recommends \
 				libcgi-session-perl  \
 				libcgi-session-driver-chi-perl  \
 				libconfig-inifiles-perl \
+				libdatetime-perl \
+				libdatetime-format-builder-perl \
+				libdatetime-format-natural-perl \
+				libdatetime-format-strptime-perl \
+				libdatetime-locale-perl \
+				librose-object-perl \
+				libdatetime-format-mysql-perl \
+				libdatetime-format-oracle-perl \
+				libdatetime-format-pg-perl \
+				librose-datetime-perl \
 				libdatetime-format-dateparse-perl  \
 				libdatetime-format-rfc3339-perl  \
 				libdbi-perl \

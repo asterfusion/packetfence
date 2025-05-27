@@ -31,6 +31,7 @@ use pfappserver::Form::Config::PortalModule::Authentication::OAuth::Google;
 use pfappserver::Form::Config::PortalModule::Authentication::OAuth::LinkedIn;
 use pfappserver::Form::Config::PortalModule::Authentication::OAuth::OpenID;
 use pfappserver::Form::Config::PortalModule::Authentication::OAuth::WindowsLive;
+use pfappserver::Form::Config::PortalModule::Authentication::OAuth::Feishu;
 use pfappserver::Form::Config::PortalModule::Authentication::Billing;
 use pfappserver::Form::Config::PortalModule::Authentication::Blackhole;
 use pfappserver::Form::Config::PortalModule::Authentication::Choice;
@@ -65,6 +66,7 @@ our %TYPES_TO_FORMS = (
         Authentication::OAuth::LinkedIn
         Authentication::OAuth::OpenID
         Authentication::OAuth::WindowsLive
+        Authentication::OAuth::Feishu
         Authentication::Billing
         Authentication::Blackhole
         Authentication::Choice
