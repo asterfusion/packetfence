@@ -72,6 +72,7 @@ func (qw *QueueWorkers) runSingleWorkerQueue(q string, r *atomic.Bool) {
 		}
 
 		if errors.Is(err, redis.Nil) {
+			time.Sleep(time.Millisecond * 100)
 			continue
 		}
 
@@ -109,6 +110,7 @@ func (qw *QueueWorkers) runMultiWorkerQueue(r *atomic.Bool) {
 		}
 
 		if errors.Is(err, redis.Nil) {
+			time.Sleep(time.Millisecond * 100)
 			continue
 		}
 
