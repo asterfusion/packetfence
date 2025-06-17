@@ -727,12 +727,12 @@ mysql-probe=enabled
 # services.pfconnector-client
 #
 # Should pfconnector-client be managed by PacketFence?
-pfconnector-client=enabled
+pfconnector-client=disabled
 
 # services.pfconnector-server
 #
 # Should pfconnector-server be managed by PacketFence?
-pfconnector-server=enabled
+pfconnector-server=disabled
 #
 # services.proxysql
 #
@@ -1477,7 +1477,7 @@ enable=disabled
 # fingerbank_device_change.trigger_on_device_class_change
 #
 # Whether or not internal::fingerbank_device_change should be triggered when we detect a device class change in Fingerbank
-trigger_on_device_class_change=enabled
+trigger_on_device_class_change=disabled
 
 #
 # fingerbank_device_change.device_class_whitelist
