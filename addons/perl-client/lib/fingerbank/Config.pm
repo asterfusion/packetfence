@@ -36,6 +36,7 @@ Read content of flat file into the config hash
 
 sub read_config {
     my $logger = fingerbank::Log::get_logger;
+    my $reload_needed = 1;
 
     if ( ! -e $CONFIG_DEFAULTS_FILE ) {
         $logger->error("Fingerbank default configuration file '$CONFIG_DEFAULTS_FILE' has not been found. Cannot continue");
@@ -51,47 +52,39 @@ sub read_config {
 
         if($cached_at > $conf_timestamp && $cached_at > $conf_defaults_timestamp) {
             $logger->trace("Cache hit for fingerbank config");
-            tie %Config, 'fingerbank::ConfigRestore', $config_cached;
-            return;
-        }
-        else {
-            $logger->info("Fingerbank configuration has been changed on disk... Reloading");
-        }
-    }
-
-    # If a configuration file exists, load the defaults and override using the existing configuration file
-    # We allow empty file in the case a 'fingerbank.conf' file is modified to reflect all the defaults parameters (which will lead to an empty 'fingerbank.conf' file) and that file is not being deleted.
-    if ( (-e $CONFIG_DEFAULTS_FILE) && (-e $CONF_FILE) ) {
-        $logger->debug("Existing Fingerbank configuration file. Loading it with defaults");
-        tie %Config, 'Config::IniFiles', (
-            -file       => $CONF_FILE,
-            -import     => Config::IniFiles->new( -file => $CONFIG_DEFAULTS_FILE ),
-            -allowempty => 1,
-        ) or $logger->error("Invalid Fingerbank configuration file: $!");
-
-        if ( !%Config ) {
-            $logger->error("Error while reading Fingerbank configuration file. Cannot continue");
+            $reload_needed = 0;
+            %Config = %{$config_cached};
             return;
         }
     }
 
-    # No configuration file found. Loading the defaults
-    # SetFileName allow the saving of the tied hash later with the accurate file name
-    else {
-        $logger->debug("No existing Fingerbank configuration file. Loading defaults");
-        tie %Config, 'Config::IniFiles', ( 
-            -import => Config::IniFiles->new( -file => $CONFIG_DEFAULTS_FILE )
-        ) or $logger->error("Invalid Fingerbank default configuration file: $!");
+    if ($reload_needed) {
+        $logger->info("Fingerbank configuration has been changed on disk... Reloading");
 
-        if ( !%Config ) {
-            $logger->error("Error while reading Fingerbank default configuration file. Cannot continue");
+        my $defaults = Config::IniFiles->new(-file => $CONFIG_DEFAULTS_FILE);
+        my $config;
+        if (-e $CONF_FILE) {
+            $config = Config::IniFiles->new(
+                -file       => $CONF_FILE,
+                -import     => $defaults,
+                -allowempty => 1,
+            );
+        } else {
+            $config = $defaults;
+            $config->SetFileName($CONF_FILE);
+        }
+
+        unless ($config) {
+            $logger->error("Failed to load configuration");
             return;
         }
 
-        tied(%Config)->SetFileName($CONF_FILE);
+        %Config = ();
+        %Config = %{ $config };
+
+        $CACHE->set('fingerbank::Config::read_config', { %Config });
+        $CACHE->set('fingerbank::Config::read_config-cached_at', time);
     }
-    $CACHE->set('fingerbank::Config::read_config', tied(%Config));
-    $CACHE->set('fingerbank::Config::read_config-cached_at', time);
 }
 
 =head2 read_defaults
