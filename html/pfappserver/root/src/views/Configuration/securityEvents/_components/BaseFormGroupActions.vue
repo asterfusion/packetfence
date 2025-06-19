@@ -152,6 +152,21 @@
 
     <b-row no-gutters class="border-bottom">
       <b-col cols="3" class="action-col">
+        <base-input-switch :onChange="restUrlOnChange" :isLocked="isLocked"
+                           :value="restUrl"/>
+        <base-label>Notify by rest</base-label>
+      </b-col>
+      <b-collapse :visible="restUrl" class="col-sm-9 mt-3">
+
+        <form-group-rest-url namespace="rest_url"
+                                      :column-label="$t('REST URL')"
+        />
+
+      </b-collapse>
+    </b-row>
+
+    <b-row no-gutters class="border-bottom">
+      <b-col cols="3" class="action-col">
         <base-input-switch :onChange="closeOnChange" :isLocked="isLocked"
                            :value="close"/>
         <base-label>Close another security event</base-label>
@@ -190,6 +205,7 @@ import {
   BaseFormGroupInput as FormGroupRecipientTemplateMessage,
   BaseFormGroupChosenOne as FormGroupVClose,
   BaseFormGroupChosenOne as FormGroupVlan, BaseLabel,
+  BaseFormGroupInput as FormGroupRestUrl,
 } from '@/components/new'
 
 const components = {
@@ -209,6 +225,7 @@ const components = {
   FormGroupVlan,
   BaseInputSwitch,
   BaseLabel,
+  FormGroupRestUrl,
 }
 
 import {computed, customRef, inject, ref, unref, watch} from '@vue/composition-api'
@@ -253,6 +270,7 @@ const setup = () => {
   const emailUserKey = 'email_user'
   const emailRecipientKey = 'email_recipient'
   const externalKey = 'external'
+  const restUrlKey = 'notify_by_rest'
   const closeKey = 'close'
   const enforceProvisioningKey = 'enforce_provisioning'
 
@@ -327,6 +345,15 @@ const setup = () => {
       remove(externalKey)
   }
 
+  const restUrl = computed(() => unref(actionsValue).includes(restUrlKey))
+
+  const restUrlOnChange = (newValue) => {
+    if (newValue)
+      add(restUrlKey)
+    else
+      remove(restUrlKey)
+  }
+
   const close = computed(() => unref(actionsValue).includes(closeKey))
 
   const closeOnChange = (newValue) => {
@@ -372,6 +399,8 @@ const setup = () => {
     emailRecipientOnChange,
     externalAccess,
     externalAccessOnChange,
+    restUrl,
+    restUrlOnChange,
     close,
     closeOnChange,
     enforceProvisioning,
