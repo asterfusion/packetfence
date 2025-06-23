@@ -26,6 +26,16 @@ export const triggerFields = {
     category: triggerCategories.EVENT,
     types: [fieldType.SUBSTRING]
   },
+  device_online: {
+    text: i18n.t('Device Online'),
+    category: triggerCategories.EVENT,
+    types: [fieldType.SUBSTRING]
+  },
+  max_online_limit: {
+    text: i18n.t('Max Online Limit'),
+    category: triggerCategories.EVENT,
+    types: [fieldType.SUBSTRING]
+  },
   detect: {
     text: i18n.t('Detect'),
     category: triggerCategories.EVENT,
