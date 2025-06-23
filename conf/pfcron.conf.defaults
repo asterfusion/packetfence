@@ -141,7 +141,7 @@ type=fingerbank_data_update
 # status
 #
 # If the task is enabled
-status=enabled
+status=disabled
 #
 # description
 #

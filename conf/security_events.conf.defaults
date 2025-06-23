@@ -285,7 +285,7 @@ priority=1
 trigger=internal::fingerbank_device_change
 window=
 desc=Fingerbank device class change
-enabled=Y
+enabled=N
 access_duration=12h
 template=invalid_device_transition
 auto_enable=N
@@ -294,13 +294,13 @@ auto_enable=N
 trigger=internal::fingerbank_diff_score_too_low
 actions=email_admin
 desc=Fingerbank profile anomaly
-enabled=Y
+enabled=N
 
 [1300008]
 trigger=internal::fingerbank_blacklisted_ips_threshold_too_high,internal::fingerbank_blacklisted_ports
 actions=email_admin
 desc=Fingerbank detected blacklisted communication
-enabled=Y
+enabled=N
 
 #
 # 1400000 - 1499999 Reserved for local security events
